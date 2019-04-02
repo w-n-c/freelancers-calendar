@@ -5,27 +5,21 @@ const props = {
 	year: 2019,
 	month: {
 		title: 'April',
-		number: '4'
-	}
+		number: '4',
+	},
 }
 
 export const Header = () => (
 	<header>
 		<button>Hamburger</button>
 		<button>
-			<a href={`/${props.today}`}>
-				Today
-			</a>
+			<a href={`/${props.today}`}>Today</a>
 		</button>
 		<button>
-			<a href="last_month">
-				&lt;
-			</a>
+			<a href="last_month">&lt;</a>
 		</button>
 		<button>
-			<a href="next_month">
-				&gt;
-			</a>
+			<a href="next_month">&gt;</a>
 		</button>
 		<h2>
 			{props.month.title} {props.year}

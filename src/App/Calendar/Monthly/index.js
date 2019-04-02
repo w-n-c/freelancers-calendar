@@ -1,5 +1,3 @@
 import React from 'react'
 
-export default () => (
-	<div>monthly</div>
-)
+export default () => <div>monthly</div>
