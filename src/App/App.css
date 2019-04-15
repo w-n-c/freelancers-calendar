@@ -31,3 +31,16 @@
 		transform: rotate(360deg);
 	}
 }
+
+h2 {
+	font-size: 1em;
+}
+
+table {
+	width: 100%;
+}
+
+td {
+	width: 14.28%;
+	width: calc(100% / 7);
+}
