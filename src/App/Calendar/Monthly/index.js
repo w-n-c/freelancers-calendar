@@ -1,4 +1,6 @@
 import React from 'react'
+import Days from './Days'
+import { chunk } from './utils'
 
 // TODO: move date information into a react context and pass in as props
 export const days = (() => {
@@ -19,29 +21,12 @@ export const days = (() => {
 })()
 
 export default () => {
+	// split the days into week long arrays to add necessary table row elements
+	const weeks = chunk(days, 7)
 
-	// TODO: move generic helper to util file
-	const chunk = (arr, len) => {
-		const chunks = []
-		for (let i = 0; i < arr.length; i += len) {
-			chunks.push(arr.slice(i, i + len))
-		}
-		return chunks
-	}
-
-	// TODO: refactor to separate component
-	const renderDays = () => {
-		return days.map((day, i) => {
-			return (
-				<td key={i}>
-					<h3>{day}</h3>
-					<div>list</div>
-				</td>
-			)
-		})
-	}
-
-	// chunk the days into week long arrays to add necessary table row elements
-	const weeks = chunk(renderDays(), 7)
-	return weeks.map(week => <tr>{[...week]}</tr>)
+	return weeks.map((week, i) =>
+		<tr key={i}>
+			<Days days={week} />
+		</tr>
+	)
 }
