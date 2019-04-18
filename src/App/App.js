@@ -1,15 +1,19 @@
-import React, {Component} from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
 import './App.css'
 import Header from './Header'
 import Calendar from './Calendar'
 
-export class App extends Component {
+export class App extends React.Component {
 	render() {
 		return (
-			<div className="App">
-				<Header />
-				<Calendar />
-			</div>
+			<Router>
+				<div className="App">
+					<Header />
+					<Route exact path="/" render={() => <Redirect to="/monthly" />}/>
+					<Route path="/:view" component={Calendar} />
+				</div>
+			</Router>
 		)
 	}
 }

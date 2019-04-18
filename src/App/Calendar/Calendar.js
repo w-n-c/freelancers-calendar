@@ -3,14 +3,11 @@ import Monthly from './Monthly'
 import Weekly from './Weekly'
 import Daily from './Daily'
 
-const props = {
-	view: 'monthly',
-}
-
-export const Calendar = () => (
+export const Calendar = ({match: {params: {view}}}) => (
 	<table>
 		<thead>
 			<tr>
+				{view === 'weekly' ? <td></td> : null}
 				<th>S</th>
 				<th>M</th>
 				<th>Ty</th>
@@ -21,9 +18,9 @@ export const Calendar = () => (
 			</tr>
 		</thead>
 		<tbody>
-			{props.view === 'monthly' ? (
+			{view === 'monthly' ? (
 				<Monthly />
-			) : props.view === 'weekly' ? (
+			) : view === 'weekly' ? (
 				<Weekly />
 			) : (
 				<Daily />
