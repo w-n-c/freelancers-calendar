@@ -3,8 +3,8 @@ import Monthly from './Monthly'
 import Weekly from './Weekly'
 import Daily from './Daily'
 
-export const Calendar = ({match}) => {
-	const view = match.params.view
+export const Calendar = (props) => {
+	const view = props.view
 	return <table>
 		<thead>
 			<tr>
@@ -20,7 +20,7 @@ export const Calendar = ({match}) => {
 		</thead>
 		<tbody>
 			{view === 'monthly' ? (
-				<Monthly {...match.params}/>
+				<Monthly {...props}/>
 			) : view === 'weekly' ? (
 				<Weekly />
 			) : (

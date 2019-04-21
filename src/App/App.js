@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import { Router } from '@reach/router'
 import './App.css'
 import Header from './Header'
 import Calendar from './Calendar'
@@ -8,34 +8,27 @@ import { FAKE_TODOS } from './api'
 
 export class App extends React.Component {
 	state = {
-		events: FAKE_TODOS
+		events: FAKE_TODOS,
+		today: this.getTodaysDate()
 	}
 
-	todaysDateURL() {
+	getTodaysDate() {
 		const today = new Date()
 		return `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`
 	}
 
 	render() {
 		return (
-			<Router>
-				<div className="App">
-					<Route
-						path="/"
-						render={(props) => <Header {...props}/>}
-					/>
-					<Route
-						exact path="/"
-						render={() => <Redirect to={`/monthly/${this.todaysDateURL()}`}/>}
-					/>
-					<EventContext.Provider value={this.state.events}>
-						<Route
-							path="/:view/:year/:month/:day"
-							render={(props) => <Calendar {...props}/>}
-						/>
-					</EventContext.Provider>
-				</div>
-			</Router>
+			<div className="App">
+				<Router>
+					<Header today={this.state.today} path="/:view/:year/:month/:day" />
+				</Router>
+				<EventContext.Provider value={this.state.events}>
+					<Router>
+						<Calendar events={this.state.events} path="/:view/:year/:month/:day"/>
+					</Router>
+				</EventContext.Provider>
+			</div>
 		)
 	}
 }
