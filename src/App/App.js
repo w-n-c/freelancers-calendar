@@ -1,7 +1,6 @@
 import React from 'react'
-import { Router } from '@reach/router'
+import { Router, Redirect } from '@reach/router'
 import './App.css'
-import Header from './Header'
 import Calendar from './Calendar'
 import EventContext from './EventContext'
 import { FAKE_TODOS } from './api'
@@ -9,6 +8,7 @@ import { FAKE_TODOS } from './api'
 export class App extends React.Component {
 	state = {
 		events: FAKE_TODOS,
+		// TODO: today's date should regularly update
 		today: this.getTodaysDate()
 	}
 
@@ -20,12 +20,10 @@ export class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<Router>
-					<Header today={this.state.today} path="/:view/:year/:month/:day" />
-				</Router>
 				<EventContext.Provider value={this.state.events}>
 					<Router>
-						<Calendar events={this.state.events} path="/:view/:year/:month/:day"/>
+						<Redirect from="/" to={`monthly/${this.state.today}`} />
+						<Calendar today={this.state.today} path="/:view/:year/:month/:day"/>
 					</Router>
 				</EventContext.Provider>
 			</div>

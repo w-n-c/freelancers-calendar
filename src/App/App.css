@@ -23,6 +23,7 @@
 	color: #61dafb;
 }
 
+
 @keyframes App-logo-spin {
 	from {
 		transform: rotate(0deg);
@@ -43,4 +44,91 @@ table {
 td {
 	width: 14.28%;
 	width: calc(100% / 7);
+}
+
+button {
+	box-sizing: border-box;
+	border: 0px;
+	background: inherit;
+	cursor: pointer;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+}
+
+header svg {
+	height: 20px;
+	width: 30px;
+}
+
+nav, nav > ul {
+	display: flex;
+	align-items: baseline;
+}
+nav li {
+	padding: 8px;
+}
+
+/* left float menu button with centered nav */
+header button {
+	margin-right: auto;
+}
+
+header span {
+	/* width === (+ widthMenuBtn (- widthTodayLink widthViewBtn ))*/
+	width: 39px;
+	margin-left: auto;
+	visibility: hidden;
+}
+
+li {
+	display: block;
+	float: left;
+	padding: 1rem;
+	position: relative;
+	text-decoration: none;
+	transition-duration: 0.5s;
+}
+
+li:hover {
+	cursor: pointer;
+}
+
+ul li ul {
+	visibility: hidden;
+	min-width: 5rem;
+	position: absolute;
+	opacity: 0;
+	transition: all 0.5s ease;
+	margin-top: 1rem;
+	left: 0;
+	display: none;
+}
+
+ul li:hover > ul,
+ul li:focus-within > ul {
+	visibility: visible;
+	opacity: 1;
+	display: block;
+}
+
+ul li ul li {
+	background: white;
+	border: 1px solid black;
+	box-sizing: border-box;
+	clear: both;
+	width: 100%;
 }
