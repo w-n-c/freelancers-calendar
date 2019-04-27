@@ -21,7 +21,7 @@ export const Calendar = (props) => {
 					<th scope="col">Say</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody className={view}>
 				{view === 'monthly' ? (
 					<Monthly {...props}/>
 				) : view === 'weekly' ? (

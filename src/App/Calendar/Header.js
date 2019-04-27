@@ -32,33 +32,35 @@ export default (props) => {
 			<nav role="navigation" aria-labelledby="calendar-date">
 				<ul>
 					<li>
-						<Link to={`/${view}/${today}`}>Today</Link>
+						<Link title="Return to Today" to={`/${view}/${today}`}>Today</Link>
 					</li>
-					{/* TODO: need to properly implement month switching*/}
 					<li>
 						{props.view === 'monthly' &&
-							<Link to={getPrevMonthUrl()}>&lt;</Link>
+							<Link title="Previous Month" to={getPrevMonthUrl()}>&lt;</Link>
 						}{props.view === 'weekly' &&
-							<Link to={getPrevWeekUrl()}>&lt;</Link>
+							<Link title="Previous Week" to={getPrevWeekUrl()}>&lt;</Link>
 						}
 					</li>
 					<h2 id="calendar-date">{getMonthName(month)} {year}</h2>
 					<li>
 						{props.view === 'monthly' &&
-							<Link to={getNextMonthUrl()}>&gt;</Link>
+							<Link title="Next Month" to={getNextMonthUrl()}>&gt;</Link>
 						}{props.view === 'weekly' &&
-							<Link to={getNextWeekUrl()}>&gt;</Link>
+							<Link title="Next Week" to={getNextWeekUrl()}>&gt;</Link>
 						}
 					</li>
 					<li>
-						{/* TODO: style this button to match header */}
-						<button aria-haspopup="true">View</button>
+						<button classNamearia-haspopup="true">View</button>
 						<ul className="dropdown" aria-label="submenu">
 							<li>
-								<Link to={`/weekly/${year}/${month}/${day}`}>Weekly</Link>
+								<Link title="Weekly View" to={`/weekly/${year}/${month}/${day}`}>
+									Weekly
+								</Link>
 							</li>
 							<li>
-								<Link to={`/monthly/${year}/${month}/${day}`}>Monthly</Link>
+								<Link title="Monthly View" to={`/monthly/${year}/${month}/${day}`}>
+									Monthly
+								</Link>
 							</li>
 							{/*TODO: daily link*/}
 						</ul>

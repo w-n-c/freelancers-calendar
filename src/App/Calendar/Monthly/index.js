@@ -2,7 +2,6 @@ import React from 'react'
 import Days from './Days'
 import { chunk } from './utils'
 
-// TODO: move date information into a react context and pass in as props
 export const getDaysOfMonth = (year, month, day) => {
 	const date = new Date(`${year}/${month}/${day}`)
 	// sets date to the first sunday that should appear on the calendar
