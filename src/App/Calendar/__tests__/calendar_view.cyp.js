@@ -26,16 +26,27 @@ describe('Calendar component renders', function() {
 	it('should allow you to change view in the header', function() {
 		cy
 			.visit('/monthly/2019/4/26')
-			.get('nav')
-			.contains('View')
-			.trigger('mouseover')
-			.get('.dropdown')
 			.contains('Weekly')
-			.click()
-			.url().should('eq','/weekly/2019/4/26')
+			.click({force: true})
+			.url().should('eq','http://localhost:3000/weekly/2019/4/26')
+			.get('header')
+			.contains('Monthly')
+			.click({force: true})
+			.url().should('eq','http://localhost:3000/monthly/2019/4/26')
 	})
 
-	it.skip('should navigate between weeks and months depending on view', function() {
+	it('should navigate between weeks and months depending on view', function() {
+		cy
+			.visit('/monthly/2019/4/26')
+			.contains('>').click()
+			.url().should('eq', 'http://localhost:3000/monthly/2019/5/26')
+			.get('header').contains('<').click()
+			.url().should('eq', 'http://localhost:3000/monthly/2019/4/26')
+			.visit('/weekly/2019/4/26')
+			.contains('>').click()
+			.url().should('eq', 'http://localhost:3000/weekly/2019/5/3')
+			.get('header').contains('<').click()
+			.url().should('eq', 'http://localhost:3000/weekly/2019/4/26')
 	})
 
 	it.skip('should roll over to the next month and year on date change', function() {
