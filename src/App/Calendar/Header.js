@@ -50,7 +50,7 @@ export default (props) => {
 						}
 					</li>
 					<li>
-						<button classNamearia-haspopup="true">View</button>
+						<button aria-haspopup="true">View</button>
 						<ul className="dropdown" aria-label="submenu">
 							<li>
 								<Link title="Weekly View" to={`/weekly/${year}/${month}/${day}`}>
