@@ -22,23 +22,21 @@ export const changeMonth = (year, month, day, dir) => {
 	}
 }
 
+const dateToString = (d) => `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`
+
 export const incWeek = (year, month, day) => {
-	const d = new Date(year, month-1, parseInt(day)+7)
-	return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`
+	return dateToString(new Date(year, month-1, parseInt(day)+7))
 }
 
 export const decWeek = (year, month, day) => {
-	const d = new Date(year, month-1, day-7)
-	return `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`
+	return dateToString(new Date(year, month-1, day-7))
 }
 
 export const incMonth = (year, month, day) => {
-	const d = changeMonth(year, month, day, 'inc')
-	return `${d.getFullYear()}/${d.getMonth()+1}`
+	return dateToString(changeMonth(year, month, day, 'inc'))
 }
 export const decMonth = (year, month, day) => {
-	const d = changeMonth(year, month, day, 'dec')
-	return `${d.getFullYear()}/${d.getMonth()+1}`
+	return dateToString(changeMonth(year, month, day, 'dec'))
 }
 
 export const getMonthName = (month) => {

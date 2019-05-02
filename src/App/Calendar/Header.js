@@ -6,12 +6,11 @@ export default (props) => {
 	const { year, month, day, view, today } = props
 
 	// TODO: write ALL the tests (including util fns)
-	// TODO: refactor to handle varying lengths of month
 	const getNextMonthUrl = () => {
-		return `/${view}/${incMonth(year, month)}/${day}`
+		return `/${view}/${incMonth(year, month, day)}`
 	}
 	const getPrevMonthUrl = () => {
-		return `/${view}/${decMonth(year, month)}/${day}`
+		return `/${view}/${decMonth(year, month, day)}`
 	}
 	const getNextWeekUrl = () => {
 		return `/${view}/${incWeek(year, month, day)}`

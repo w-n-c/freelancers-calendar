@@ -49,13 +49,27 @@ describe('Calendar component renders', function() {
 			.url().should('eq', 'http://localhost:3000/weekly/2019/4/26')
 	})
 
-	it.skip('should roll over to the next month and year on date change', function() {
+	it('should roll over to the next month and year on date change', function() {
+		cy
+			.visit('/monthly/2019/12/27')
+			.contains('>').click()
+			.url().should('eq', 'http://localhost:3000/monthly/2020/1/27')
+			.get('header').contains('<').click()
+			.url().should('eq', 'http://localhost:3000/monthly/2019/12/27')
+			.visit('/weekly/2019/12/27')
+			.contains('>').click()
+			.url().should('eq', 'http://localhost:3000/weekly/2020/1/3')
+			.get('header').contains('<').click()
+			.url().should('eq', 'http://localhost:3000/weekly/2019/12/27')
 	})
 
-	it.skip('should link you back to today with your current view', function() {
+	it('should link you back to today with your current view', function() {
+		cy
+			.clock()
+			.visit('/monthly/2019/12/27')
+			.contains('Today').click()
+			.url().should('eq', 'http://localhost:3000/monthly/1969/12/31')
+		// TODO: check if this a bug with their clock, or maybe I'm mis-testing something
+		// (unix epoch is jan 1 1970)
 	})
-
-	it.skip('', function() {
-	})
-
 })
