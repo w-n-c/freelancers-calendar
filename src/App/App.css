@@ -1,9 +1,11 @@
-.App {
-	text-align: center;
-}
 
 h2 {
 	font-size: 1em;
+}
+
+h3 {
+	font-size: .9em;
+	text-align: center;
 }
 
 table {
@@ -13,6 +15,9 @@ table {
 td {
 	width: 14.28%;
 	width: calc(100% / 7);
+	vertical-align: top;
+	border: 1px solid grey;
+	border-collapse: collapse;
 }
 
 button {
@@ -54,6 +59,8 @@ nav li {
 /* left float menu button with centered nav */
 header button {
 	margin-right: auto;
+	color: blue;
+	font-size: inherit;
 }
 
 header span {

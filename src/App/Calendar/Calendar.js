@@ -12,13 +12,13 @@ export const Calendar = (props) => {
 			<thead>
 				<tr>
 					{view === 'weekly' && <td></td>}
-					<th scope="col">S</th>
-					<th scope="col">M</th>
-					<th scope="col">Ty</th>
-					<th scope="col">Wday</th>
-					<th scope="col">Tay</th>
-					<th scope="col">F</th>
-					<th scope="col">Say</th>
+					<th scope="col">Su</th>
+					<th scope="col">Mo</th>
+					<th scope="col">Tu</th>
+					<th scope="col">We</th>
+					<th scope="col">Th</th>
+					<th scope="col">Fr</th>
+					<th scope="col">Sa</th>
 				</tr>
 			</thead>
 			<tbody className={view}>
