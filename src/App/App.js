@@ -38,12 +38,10 @@ export class App extends React.Component {
 	render() {
 		return (
 			<EventProvider>
-				<div className="App">
-						<Router>
-							<Redirect noThrow from="/" to={`monthly/${this.state.today}`} />
-							<Calendar today={this.state.today} path="/:view/:year/:month/:day"/>
-						</Router>
-				</div>
+				<Router>
+					<Redirect noThrow from="/" to={`monthly/${this.state.today}`} />
+					<Calendar today={this.state.today} path="/:view/:year/:month/:day"/>
+				</Router>
 			</EventProvider>
 		)
 	}

@@ -12,7 +12,6 @@ class EventProvider extends React.Component {
 
 	componentDidMount() {
 		this.setState({ loading: true, error: '' })
-		console.log('this mounts')
 		fetchEvents()
 			.then(events => this.setState({ loading: false, events }))
 			.catch(error => this.setState({ loading: false, error}))

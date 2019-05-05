@@ -3,7 +3,7 @@ import { EventConsumer } from '../../EventContext'
 import Days from './Days'
 import { chunk } from './utils'
 
-// TODO: test bracket then refactor
+// TODO: test getDaysOfMonth
 export const getDaysOfMonth = (year, month, day) => {
 	const date = new Date(`${year}/${month}/${day}`)
 	// sets date to the first sunday that should appear on the calendar
@@ -23,6 +23,7 @@ export const getDaysOfMonth = (year, month, day) => {
 	})
 }
 
+// TODO: test bracket for refactor
 export default ({year, month, day}) =>
 	<EventConsumer>{({ events }) => {
 		// add day's events to the date object
