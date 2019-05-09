@@ -1,24 +1,55 @@
+html, body, #root, #root > div, table {
+	height: 99.8%;
+}
+#root > div, table, tbody {
+	display: flex;
+	flex-flow: column;
+}
 
 h2 {
-	font-size: 1em;
+	font-size: 1rem;
 }
 
 h3 {
-	font-size: .9em;
+	font-size: .9rem;
 	text-align: center;
+	margin: 5px;
 }
 
-table {
-	width: 100%;
+/* TODO: real mobile layout */
+html {
+	font-size: 1.8vw;
+}
+
+tr {
+	display: flex;
+}
+
+table, tbody{
+}
+
+tbody td {
+	width: calc(100% / 7);
+}
+
+tbody tr {
+	height: calc(100% / 5);
+}
+
+table thead tr {
+	justify-content: space-around;
 }
 
 td {
-	width: 14.28%;
-	width: calc(100% / 7);
-	vertical-align: top;
 	border: 1px solid grey;
 	border-collapse: collapse;
 }
+tbody td {
+	overflow: scroll;
+	scrollbar-width: none;
+}
+tbody td::-webkit-scrollbar { width: 0 !important }
+
 
 button {
 	box-sizing: border-box;

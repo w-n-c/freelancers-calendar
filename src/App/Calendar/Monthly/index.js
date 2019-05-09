@@ -40,7 +40,7 @@ export default ({year, month, day}) =>
 		// split the days into week long arrays to add necessary table row elements
 		const weeks = chunk(days, 7)
 		return weeks.map((week, i) =>
-			<tr key={i}>
+			<tr role="row" key={i}>
 				<Days days={week} />
 			</tr>
 		)
