@@ -11,17 +11,15 @@ export const fetchEvents = async () => {
 	const fakeEvents = []
 	let eventNumber = 1
 	for (let day = 1; day <= 30; day++) {
-		let moreEvents
-		do {
+		let moreEvents = day % 3
+		for(let i = 0; i <= moreEvents; i++) {
 			const event = {}
 			event.id = await uuid()
 			event.start = new Date(year, month, day, randInt(24), randInt(60))
 			event.end = new Date(event.start.getTime() + 1000*60*60) // 1 hr long events
 			event.title = `event no: ${eventNumber++}`
 			fakeEvents.push(event)
-
-			moreEvents = Math.random()
-		} while (moreEvents < 0.3)
+		}
 	}
 	return fakeEvents
 }
