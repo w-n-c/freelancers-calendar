@@ -17,6 +17,15 @@ class EventProvider extends React.Component {
 			.catch(error => this.setState({ loading: false, error}))
 	}
 
+	filterTodaysEvents = (year, month, day) => {
+		const startDate = new Date(`${year}/${month}/${day}`)
+		const endDate = new Date(startDate); endDate.setHours(24)
+		const daysEvents = this.state.events.filter(event => {
+			return event.start >= startDate && event.start < endDate
+		})
+		return daysEvents
+	}
+
 	// 'delete' > 'destroy' because its the same number of characters as
 	// 'create' and 'update' (ocd much?) for this use it means the same thing
 	handleCreateEvent(){}
@@ -27,6 +36,7 @@ class EventProvider extends React.Component {
 		return (
 			<Provider value={{
 				...this.state,
+				filterTodaysEvents: this.filterTodaysEvents,
 				onCreateEvent: this.handleCreateEvent,
 				onUpdateEvent: this.handleUpdateEvent,
 				onDeleteEvent: this.handleDeleteEvent,

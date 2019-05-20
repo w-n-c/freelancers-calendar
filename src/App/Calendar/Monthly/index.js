@@ -17,28 +17,23 @@ export const getDaysOfMonth = (year, month, day) => {
 	const days = Array(7 * 5).fill()
 	return days.map(() => {
 		// later code assumes this date is set to midnight
-		const today = new Date(date)
-		date.setDate(date.getDate() + 1)
-		return today 
+		const today = date.getDate()
+		date.setDate(today + 1)
+		return { date: today } 
 	})
 }
 
 // TODO: test bracket for refactor
 export default ({year, month, day}) =>
-	<EventConsumer>{({ events }) => {
+	<EventConsumer>{({ filterTodaysEvents }) => {
 		// add day's events to the date object
-		const days = getDaysOfMonth(year, month, day)
-			.map(day => {
-				const endOfDay = new Date(day); endOfDay.setHours(24)
-				const daysEvents = events.filter(event => {
-					return event.start >= day && event.start < endOfDay
-				})
-				daysEvents.date = day.getDate()
-				return daysEvents
+		const daysOfMonth = getDaysOfMonth(year, month, day)
+			.map(dayInMonth => {
+				dayInMonth.events = filterTodaysEvents(year, month, dayInMonth.date)
+				return dayInMonth
 			})
-
 		// split the days into week long arrays to add necessary table row elements
-		const weeks = chunk(days, 7)
+		const weeks = chunk(daysOfMonth, 7)
 		return weeks.map((week, i) =>
 			<tr role="row" key={i}>
 				<Days days={week} />
