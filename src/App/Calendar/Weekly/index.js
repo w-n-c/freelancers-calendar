@@ -1,8 +1,8 @@
 import React from 'react'
 import { EventConsumer } from '../../EventContext'
-import Day from './Day'
+import Hour from './Hour'
 
-export const toTime = (num) => {
+export const toTimeString = (num) => {
 	switch (num.toString().length) {
 		case 1:
 			return `0${num}:00`
@@ -26,18 +26,35 @@ export const getWeek = (year, month, day) => {
 	return week
 }
 
-export const hours = new Array(24).fill().map((_, i) => toTime(i))
+/* TODO: Rename and Rearrange Refactor
+ * A lot of days/hours/years show up in various parts of code
+ * Daily filter is in EventContext but Hourly is local here
+ * Filter runs in O(n) time which *may* not be a problem
+ *   but need to check for slower devices
+ */
+export const filterByHour = (hour, events) =>
+	events.filter(event =>
+		event.start >= hour && event.start < hour.setHours(hour.getHours() + 1)
+	)
 
+export const hours = new Array(24).fill().map((_, i) => i)
+
+// TODO: should receive a callback from Calendar to add
+// the days of the week to table column headers
 export default ({year, month, day}) => {
 	const days = getWeek(year, month, day)
 	return hours.map((hour, i) =>
 		<tr role="row" key={i}>
-			<th role="rowheader" scope="row">{hour}</th>
-				<EventConsumer>{({ filterTodaysEvents }) =>
-					days.map((day, i) =>
-						<Day key={i} events={filterTodaysEvents(year, month, day)} />
-					)}
-				</EventConsumer>
+			<th role="rowheader" scope="row">{toTimeString(hour)}</th>
+			<EventConsumer>{({ filterTodaysEvents }) =>
+				days.map((day, i) => {
+					const daysEvents = filterTodaysEvents(year, month, day)
+					const startHour = new Date(`${year}/${month}/${day}`)
+					startHour.setHours(hour)
+					const events = filterByHour(startHour, daysEvents)
+					return <Hour key={i} events={events} />
+				})
+			}</EventConsumer>
 		</tr>
 	)
 }
