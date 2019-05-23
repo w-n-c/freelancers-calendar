@@ -1,6 +1,7 @@
-html, body, #root, #root > div, table {
-	height: 99.8%;
+html, body, #root, #root > div, table, .monthly {
+	height: 99.9%;
 }
+
 #root > div, table, tbody {
 	display: flex;
 	flex-flow: column;
@@ -25,14 +26,19 @@ tr {
 	display: flex;
 }
 
-table, tbody{
-}
-
 tbody td {
 	width: calc(100% / 7);
 }
 
-tbody tr {
+.weekly tr {
+	align-items: center;
+}
+
+.weekly td {
+	height: 4.2vw;
+}
+
+.monthly tr {
 	height: calc(100% / 5);
 }
 
@@ -40,16 +46,29 @@ table thead tr {
 	justify-content: space-around;
 }
 
+.weekly thead tr td:first-child {
+	display: none;
+}
+
+/* dynamic resizing text effects the width of the first column */
+/* which this margin needs to be sized on */
+/* TODO: refactor to read row header width and assign this property in react */
+
+.weekly thead tr {
+	margin-left: 50px;
+}
+
 td {
 	border: 1px solid grey;
 	border-collapse: collapse;
 }
+
 tbody td {
 	overflow: scroll;
 	scrollbar-width: none;
 }
-tbody td::-webkit-scrollbar { width: 0 !important }
 
+tbody td::-webkit-scrollbar { width: 0 !important }
 
 button {
 	box-sizing: border-box;
@@ -96,7 +115,7 @@ header button {
 
 header span {
 	/* width === (+ widthMenuBtn (- widthTodayLink widthViewBtn ))*/
-	width: 39px;
+	width: 0px;
 	margin-left: auto;
 	visibility: hidden;
 }

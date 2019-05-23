@@ -14,7 +14,7 @@ export const Calendar = (props) => {
 	// so we reapply those roles to various elements
 	return [
 		<Header key="1" {...props} />,
-		<table role="table" key="2">
+		<table role="table" key="2" className={view}>
 			<thead>
 				<tr role="row">
 					{view === 'weekly' && <td></td>}
@@ -27,7 +27,7 @@ export const Calendar = (props) => {
 					<th role="columnheader" scope="col">Sa</th>
 				</tr>
 			</thead>
-			<tbody className={view}>
+			<tbody>
 				{view === 'monthly' ? (
 					<Monthly {...props}/>
 				) : view === 'weekly' ? (
