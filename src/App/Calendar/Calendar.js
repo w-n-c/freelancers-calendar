@@ -3,6 +3,7 @@ import Header from './Header'
 import Monthly from './Monthly'
 import Weekly from './Weekly'
 import Daily from './Daily'
+import Event from './Event'
 
 // TODO: callback to weekly to add date info to each th
 // TODO: toggle between weekday abbreviations and full name base on window width
@@ -38,6 +39,7 @@ export const Calendar = (props) => {
 					<Daily />
 				)}
 			</tbody>
-		</table>
+		</table>,
+		<Event key="3"/>
 	]
 }
