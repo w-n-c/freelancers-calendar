@@ -7,7 +7,7 @@ function randInt(max) {
 // will come from server eventually, making async now so that everything is pre-promised
 export const fetchEvents = async () => {
 	const year = 2019
-	const month = 4
+	const month = 5
 	const fakeEvents = []
 	let eventNumber = 1
 	for (let day = 1; day <= 30; day++) {

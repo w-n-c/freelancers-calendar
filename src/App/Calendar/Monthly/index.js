@@ -14,7 +14,7 @@ export const getDaysOfMonth = (year, month, day) => {
 	// Monthly view contains 7 days x 5 weeks,
 	// so create an array of objects containing each date.
 	// Later code uses the date to filter which events to add to the object
-	const days = Array(7 * 5).fill()
+	const days = Array(7 * 6).fill()
 	return days.map(() => {
 		// later code assumes this date is set to midnight
 		const today = date.getDate()
