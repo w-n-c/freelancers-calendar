@@ -5,7 +5,7 @@ import { chunk, getDaysOfMonth } from './utils'
 
 
 // TODO: test bracket for refactor
-export default ({year, month, day}) =>
+export default ({year, month, day, handleClick}) =>
 	<EventConsumer>{({ filterTodaysEvents }) => {
 		// add day's events to the date object
 		const daysOfMonth = getDaysOfMonth(year, month, day)
@@ -17,7 +17,7 @@ export default ({year, month, day}) =>
 		const weeks = chunk(daysOfMonth, 7)
 		return weeks.map((week, i) =>
 			<tr role="row" key={i}>
-				<Days days={week} />
+				<Days days={week} handleClick={handleClick} />
 			</tr>
 		)
 	}}</EventConsumer>
