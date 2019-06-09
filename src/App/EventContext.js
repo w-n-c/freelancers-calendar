@@ -20,10 +20,11 @@ class EventProvider extends React.Component {
 	filterTodaysEvents = (year, month, day) => {
 		const startDate = new Date(`${year}/${month}/${day}`)
 		const endDate = new Date(startDate); endDate.setHours(24)
-		const daysEvents = this.state.events.filter(event => {
-			return event.start >= startDate && event.start < endDate
+
+		return this.state.events.filter(event => {
+			const eventStart = new Date(event.start)
+			return eventStart >= startDate && eventStart < endDate
 		})
-		return daysEvents
 	}
 
 	// 'delete' > 'destroy' because its the same number of characters as
