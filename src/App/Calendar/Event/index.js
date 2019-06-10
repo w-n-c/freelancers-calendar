@@ -3,18 +3,17 @@ import EventForm from './EventForm'
 import { EventConsumer } from '../../EventContext'
 import { toDateString, toTimeString } from '../utils'
 
-export const putEvent = (event, date) => {}
-
-export const moveEvent = (event, date) => {}
-export const updateEvent = (event, date) => {}
-export const newEvent = (event, date) => {}
-
-// calling with an event opens a menu to update the event
-// calling with a date opens a menu to create a new event at that date
-// calling with both moves the start time of the event to the new date
 
 export default (props) =>
-	<EventConsumer>{({handleCreateEvent, handleUpdateEvent}) => {
+	<EventConsumer>{({handleCreateEvent, handleUpdateEvent, handleDeleteEvent}) => {
+		const handleSubmit = (event) => {
+			// TODO: handlers should return promises
+			const success = event.id
+				? handleUpdateEvent(event)
+				:	handleCreateEvent(event)
+			props.handleFormSubmission(success)
+		}
+
 		const event = props.event || {}
 		const date = props.date || {}
 
@@ -35,5 +34,5 @@ export default (props) =>
 			description: event.description
 		}
 
-		return <EventForm {...formInput} />
+		return <EventForm {...formInput} handleSubmit={handleSubmit} />
 	}}</EventConsumer>
