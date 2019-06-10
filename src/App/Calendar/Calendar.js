@@ -21,8 +21,20 @@ export class Calendar extends React.Component {
 		})
 	}
 
+	// eventually Event will process a promise and return
+	// a different result depending on submission success
+	handleFormSubmission = (success) => {
+		this.setState({
+			formRendered: !success,
+			selectedEvent: {}
+		})
+	}
+
 	renderForm() {
-		return <Event event={this.state.selectedEvent} />
+		return <Event
+			event={this.state.selectedEvent}
+			handleFormSubmission={this.handleFormSubmission}
+		/>
 	}
 
 	render() {
