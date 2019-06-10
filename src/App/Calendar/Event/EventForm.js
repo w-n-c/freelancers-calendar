@@ -8,11 +8,11 @@ export default class EventForm extends React.Component {
 	*/
 	state = {
 		eventTitle: this.props.eventTitle || "",
+		description: this.props.description || "",
 		startDate: this.props.startDate || "",
 		startTime: this.props.startTime || "",
 		endTime: this.props.endTime || "",
-		endDate: this.props.endDate || "",
-		description: this.props.description || ""
+		endDate: this.props.endDate || ""
 	}
 
 	handleChange = (event) => {
@@ -21,9 +21,26 @@ export default class EventForm extends React.Component {
 		this.setState({[name]: value})
 	}
 
-	handleSubmit = (event) => {
-		event.preventDefault()
-		this.props.submitEvent(this.state)
+	handleSubmit = (e) => {
+		e.preventDefault()
+		this.props.handleSubmit(this.createEvent())
+	}
+
+	createEvent = () => {
+		const event = {}
+		event.title = this.state.eventTitle
+		event.description = this.state.description
+		event.start = this.parseDateInput(this.state.startDate, this.state.startTime)
+		event.end = this.parseDateInput(this.state.endDate, this.state.endTime)
+		return event
+	}
+
+	parseDateInput(inputDate, inputTime) {
+		const date = new Date(inputDate)
+		const time = inputTime.split(':')
+		date.setHours(time[0])
+		date.setMinutes(time[1])
+		return date.toISOString()
 	}
 
 	render() {
