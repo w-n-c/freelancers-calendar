@@ -18,6 +18,7 @@ export const fetchEvents = async () => {
 			event.start = new Date(year, month, day, randInt(24), randInt(60)).toISOString()
 			event.end = new Date(new Date(event.start).getTime() + 1000*60*60).toISOString()
 			event.title = `event no: ${eventNumber++}`
+			event.description = 'description'
 			fakeEvents.push(event)
 		}
 	}
