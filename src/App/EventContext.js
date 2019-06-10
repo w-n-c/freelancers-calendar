@@ -1,5 +1,6 @@
 import React from 'react'
 import { fetchEvents } from './api'
+const uuid = require('nanoid/async')
 
 const { Provider, Consumer } = React.createContext()
 
@@ -27,20 +28,44 @@ class EventProvider extends React.Component {
 		})
 	}
 
-	// 'delete' > 'destroy' because its the same number of characters as
-	// 'create' and 'update' (ocd much?) for this use it means the same thing
-	handleCreateEvent(){}
-	handleUpdateEvent(){}
-	handleDeleteEvent(){}
+	// TODO: handlers should return promises
+	createEvent = (event) => {
+		event.id = uuid()
+		// POST event to server
+		// on success:
+		const events = [...this.state.events, event]
+		this.setState({ events })
+		return true
+	}
+
+	updateEvent = (update) => {
+		const events = [...this.state.events]
+		const eventIndex = events.findIndex(
+			event => event.id === update.id
+		)
+		events[eventIndex] = update
+		this.setState({ events })
+		return true
+	}
+
+	handleDeleteEvent = (deleted) => {
+		const events = [...this.state.events]
+		const eventIndex = events.findIndex(
+			event => event.id === deleted.id
+		)
+		events.splice(eventIndex, eventIndex+1)
+		this.setState({ events })
+		return true
+	}
 
 	render() {
 		return (
 			<Provider value={{
 				...this.state,
 				filterTodaysEvents: this.filterTodaysEvents,
-				onCreateEvent: this.handleCreateEvent,
-				onUpdateEvent: this.handleUpdateEvent,
-				onDeleteEvent: this.handleDeleteEvent,
+				handleCreateEvent: this.createEvent,
+				handleUpdateEvent: this.updateEvent,
+				handleDeleteEvent: this.deleteEvent,
 			}}>{this.props.children}</Provider>
 		)
 	}
