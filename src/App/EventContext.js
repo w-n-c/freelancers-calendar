@@ -1,6 +1,6 @@
 import React from 'react'
 import { fetchEvents } from './api'
-const uuid = require('nanoid/async')
+const uuid = require('nanoid')
 
 const { Provider, Consumer } = React.createContext()
 
