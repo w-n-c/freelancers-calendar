@@ -15,6 +15,10 @@ export const getDaysOfMonth = (year, month, day) => {
 	return days.map(() => {
 		const today = date.getDate()
 		date.setDate(today + 1)
-		return { date: today }
+		return {
+			year,
+			month,
+			date: today
+		}
 	})
 }

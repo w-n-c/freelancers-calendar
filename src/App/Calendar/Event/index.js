@@ -14,15 +14,13 @@ export default (props) =>
 			props.handleFormSubmission(success)
 		}
 
-		const event = props.event || {}
-		const date = props.date || {}
-
+		const event = props.event
 		const start = new Date(event.start)
-		const startDate = toDateString(start) || toDateString(date)
-		const startTime = toTimeString(start) || toTimeString(date)
+		const startDate = toDateString(start)
+		const startTime = toTimeString(start)
 
 		const end = new Date(event.end)
-		const endDate = toDateString(end) || toDateString(date)
+		const endDate = toDateString(end)
 		const endTime = toTimeString(end)
 
 		const formInput = {
