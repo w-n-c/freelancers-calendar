@@ -14,7 +14,7 @@ export const toTimeString = (num) => {
 	}
 }
 
-export const getWeek = (year, month, day) => {
+export const getWeek = ({year, month, day}) => {
 	// set date to the Sunday (first day) of given week
 	const date = new Date(`${year}/${month}/${day}`)
 	date.setDate(date.getDate() - date.getDay())
@@ -33,28 +33,37 @@ export const getWeek = (year, month, day) => {
  *   but need to check for slower devices
  */
 export const filterByHour = (hour, events) =>
-	events.filter(event =>
-		event.start >= hour && event.start < hour.setHours(hour.getHours() + 1)
-	)
+	events.filter(event => {
+		const eventDate = new Date(event.start)
+		const nextHour = new Date(hour)
+		nextHour.setHours(hour.getHours() + 1)
+		return eventDate >= hour && eventDate < nextHour
+	})
+
+export const getHoursEvents = ({year, month, day, hour}, filterTodaysEvents) => {
+	const daysEvents = filterTodaysEvents(year, month, day)
+
+	const startHour = new Date(`${year}/${month}/${day}`)
+	startHour.setHours(hour)
+
+	return filterByHour(startHour, daysEvents)
+}
 
 export const hours = new Array(24).fill().map((_, i) => i)
 
 // TODO: should receive a callback from Calendar to add
 // the days of the week to table column headers
-export default ({year, month, day}) => {
-	const days = getWeek(year, month, day)
-	return hours.map((hour, i) =>
+export default (date) =>
+	hours.map((hour, i) =>
 		<tr role="row" key={i}>
 			<th role="rowheader" scope="row">{toTimeString(hour)}</th>
-			<EventConsumer>{({ filterTodaysEvents }) =>
-				days.map((day, i) => {
-					const daysEvents = filterTodaysEvents(year, month, day)
-					const startHour = new Date(`${year}/${month}/${day}`)
-					startHour.setHours(hour)
-					const events = filterByHour(startHour, daysEvents)
+			<EventConsumer>{({ filterTodaysEvents }) => {
+				const days = getWeek(date)
+				return days.map((day, i) => {
+					const now = {year: date.year, month: date.month, day, hour}
+					const events = getHoursEvents(now, filterTodaysEvents)
 					return <Hour key={i} events={events} />
 				})
-			}</EventConsumer>
+			}}</EventConsumer>
 		</tr>
 	)
-}
