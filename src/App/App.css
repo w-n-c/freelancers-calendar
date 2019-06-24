@@ -35,7 +35,7 @@ tbody td {
 }
 
 .weekly td {
-	height: 4.2vw;
+	height: 5vw;
 }
 
 .monthly tr {
@@ -58,14 +58,22 @@ table thead tr {
 	margin-left: 50px;
 }
 
-td {
-	border: 1px solid grey;
-	border-collapse: collapse;
+tbody tr {
+	border: 0.5px solid lightgrey;
 }
 
-tbody td {
+td {
+	border-left: 1px solid lightgrey;
+	box-sizing: border-box;
+}
+
+.monthly tbody td {
 	overflow: scroll;
 	scrollbar-width: none;
+}
+
+.weekly tbody th {
+	align-self: flex-start;
 }
 
 tbody td::-webkit-scrollbar { width: 0 !important }
