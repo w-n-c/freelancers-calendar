@@ -1,5 +1,5 @@
 import React from 'react'
-import { fetchEvents } from './api'
+const events = require('../events.json')
 const uuid = require('nanoid')
 
 const { Provider, Consumer } = React.createContext()
@@ -12,10 +12,10 @@ class EventProvider extends React.Component {
 	}
 
 	componentDidMount() {
-		this.setState({ loading: true, error: '' })
-		fetchEvents()
-			.then(events => this.setState({ loading: false, events }))
-			.catch(error => this.setState({ loading: false, error}))
+		this.setState({ loading: false, events })
+		//fetchEvents()
+		//	.then(events => this.setState({ loading: false, events }))
+		//	.catch(error => this.setState({ loading: false, error}))
 	}
 
 	filterTodaysEvents = (year, month, day) => {
