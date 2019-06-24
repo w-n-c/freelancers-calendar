@@ -29,6 +29,11 @@ export const toTimeString = (d) => {
 	return time.slice(0, secondsPosition)
 }
 
+export const isoDateToCalStrings = (isoDate) => {
+	const date = new Date(isoDate)
+	return [toDateString(date), toTimeString(date)]
+}
+
 export const incWeek = (year, month, day) => {
 	return toDateString(new Date(year, month-1, parseInt(day)+7))
 }

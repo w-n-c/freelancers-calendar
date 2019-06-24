@@ -1,7 +1,7 @@
 import React from 'react'
 import EventForm from './EventForm'
 import { EventConsumer } from '../../EventContext'
-import { toDateString, toTimeString } from '../utils'
+import { isoDateToCalStrings } from '../utils'
 
 
 export default (props) =>
@@ -15,13 +15,8 @@ export default (props) =>
 		}
 
 		const event = props.event
-		const start = new Date(event.start)
-		const startDate = toDateString(start)
-		const startTime = toTimeString(start)
-
-		const end = new Date(event.end)
-		const endDate = toDateString(end)
-		const endTime = toTimeString(end)
+		const [startDate, startTime] = isoDateToCalStrings(event.start)
+		const [endDate, endTime] = isoDateToCalStrings(event.end)
 
 		const formInput = {
 			eventTitle: event.title,
