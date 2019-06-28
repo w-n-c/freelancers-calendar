@@ -1,8 +1,8 @@
-
-export const isoDateToTimeString = (isoDate) => {
-	const date = new Date(isoDate)
-	return toTimeString(`${date.getHours()}${date.getMinutes()}`)
-}
+export const lengthInHours = (t1, t2) =>
+	Math.abs(
+		(new Date(t1) - new Date(t2))
+		/ 3600000
+	)
 
 export const toTimeString = (num) => {
 	let c = ''
@@ -21,4 +21,9 @@ export const toTimeString = (num) => {
 			console.log(`Err: incorrect time format, expected 1-2 digit number, got: ${num}`)
 			return ``
 	}
+}
+
+export const isoDateToTimeString = (isoDate) => {
+	const date = new Date(isoDate)
+	return toTimeString(`${date.getHours()}${date.getMinutes()}`)
 }

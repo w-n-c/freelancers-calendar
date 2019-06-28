@@ -22,7 +22,20 @@ export const changeMonth = (year, month, day, dir) => {
 	}
 }
 
+export const getWeek = ({year, month, day}) => {
+	// set date to the Sunday (first day) of given week
+	const date = new Date(`${year}/${month}/${day}`)
+	date.setDate(date.getDate() - date.getDay())
+	const week = []
+	while (week.length < 7) {
+		week.push(date.getDate())
+		date.setDate(date.getDate() + 1)
+	}
+	return week
+}
+
 export const toDateString = (d) => `${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()}`
+
 export const toTimeString = (d) => {
 	const time = d.toLocaleTimeString('en-us', { hour12: false })
 	const secondsPosition = time.lastIndexOf(':')

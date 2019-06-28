@@ -1,11 +1,5 @@
 import React from 'react'
-import { isoDateToTimeString } from './utils'
-
-const lengthInHours = (t1, t2) =>
-	Math.abs(
-		(new Date(t1) - new Date(t2))
-		/ 3600000
-	)
+import { isoDateToTimeString, lengthInHours } from './utils'
 
 export default ({events}) => {
 	const style = {

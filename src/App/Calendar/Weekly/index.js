@@ -2,19 +2,9 @@ import React from 'react'
 import { EventConsumer } from '../../EventContext'
 import Hour from './Hour'
 import { toTimeString } from './utils'
+import { getWeek } from '../utils'
 
 
-export const getWeek = ({year, month, day}) => {
-	// set date to the Sunday (first day) of given week
-	const date = new Date(`${year}/${month}/${day}`)
-	date.setDate(date.getDate() - date.getDay())
-	const week = []
-	while (week.length < 7) {
-		week.push(date.getDate())
-		date.setDate(date.getDate() + 1)
-	}
-	return week
-}
 
 /* TODO: Rename and Rearrange Refactor
  * A lot of days/hours/years show up in various parts of code
