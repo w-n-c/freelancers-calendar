@@ -37,23 +37,21 @@ export class Calendar extends React.Component {
 		/>
 	}
 
+
 	render() {
 		// changing CSS display on table elements wipes their ARIA role
 		// so we reapply those roles to various elements
 		const view = this.props.view
+		const weekdayNames = ['Su','Mo','Tu','We','Th','Fr','Sa']
 		return <div>
 			<Header key="1" {...this.props} />
 			<table role="table" key="2" className={view}>
 				<thead>
 					<tr role="row">
 						{view === 'weekly' && <td></td>}
-						<th role="columnheader" scope="col">Su</th>
-						<th role="columnheader" scope="col">Mo</th>
-						<th role="columnheader" scope="col">Tu</th>
-						<th role="columnheader" scope="col">We</th>
-						<th role="columnheader" scope="col">Th</th>
-						<th role="columnheader" scope="col">Fr</th>
-						<th role="columnheader" scope="col">Sa</th>
+						{weekdayNames.map((name, i) =>
+							<th key={i} role="columnheader" scope="col">{name}</th>
+						)}
 					</tr>
 				</thead>
 				<tbody>
