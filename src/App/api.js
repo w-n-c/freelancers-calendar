@@ -5,10 +5,14 @@ function randInt(max) {
 	return Math.floor(Math.random() * Math.floor(max))
 }
 
-// will come from server eventually, making async now so that everything is pre-promised
+// Originally ran every time the app started,
+// but random events made testing difficult
+// now call "node api.js" if events.json doesn't
+// exist to create a new static list of events
+
 const createEvents = () => {
 	const year = 2019
-	const month = 5
+	const month = 6
 	const fakeEvents = []
 	let eventNumber = 1
 	for (let day = 1; day <= 30; day++) {
