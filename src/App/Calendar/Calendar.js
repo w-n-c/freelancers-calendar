@@ -8,6 +8,7 @@ import Event from './Event'
 // TODO: callback to weekly to add date info to each th
 // TODO: toggle between weekday abbreviations and full name base on window width
 
+export const weekdayNames = ['Su','Mo','Tu','We','Th','Fr','Sa']
 export class Calendar extends React.Component {
 	state = {
 		formRendered: false,
@@ -42,7 +43,6 @@ export class Calendar extends React.Component {
 		// changing CSS display on table elements wipes their ARIA role
 		// so we reapply those roles to various elements
 		const view = this.props.view
-		const weekdayNames = ['Su','Mo','Tu','We','Th','Fr','Sa']
 		return <div>
 			<Header key="1" {...this.props} />
 			<table role="table" key="2" className={view}>
