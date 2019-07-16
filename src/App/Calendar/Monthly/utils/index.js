@@ -1,6 +1,11 @@
-export { chunk } from './chunk'
+export const chunk = (arr, len) => {
+	const chunks = []
+	for (let i = 0; i < arr.length; i += len) {
+		chunks.push(arr.slice(i, i + len))
+	}
+	return chunks
+}
 
-// TODO: test getDaysOfMonth
 export const getDaysOfMonth = (year, month, day) => {
 	const date = new Date(`${year}/${month}/${day}`)
 	// sets date to the first sunday that should appear on the calendar

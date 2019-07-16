@@ -1,11 +1,11 @@
 import { getMonthName, incMonth, decMonth, incWeek, decWeek, changeMonth } from '../'
 context('unit tests for utility functions', function() {
 	specify('getMonthName returns a month name from a 1 indexed month number', function() {
-		expect(getMonthName(0)).to.equal('')
+		expect(getMonthName(0)).to.equal('December')
 		expect(getMonthName(1)).to.equal('January')
 		expect(getMonthName(5)).to.equal('May')
 		expect(getMonthName(12)).to.equal('December')
-		expect(getMonthName(13)).to.equal('')
+		expect(getMonthName(13)).to.equal('January')
 	})
 
 	specify('changeMonth return a new date object moved 1 month', function() {

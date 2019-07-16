@@ -1,5 +1,6 @@
 import React from 'react'
-import { isoDateToTimeString, lengthInHours } from './utils'
+import { isoDateToTimeString } from '../utils'
+import { lengthInHours } from './utils'
 
 export default ({events}) => {
 	const style = {

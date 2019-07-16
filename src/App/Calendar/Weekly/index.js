@@ -1,10 +1,8 @@
 import React from 'react'
 import { EventConsumer } from '../../EventContext'
 import Hour from './Hour'
-import { toTimeString } from './utils'
-import { getWeek } from '../utils'
-
-
+import { intToTimeString } from '../utils'
+import { getWeek } from './utils'
 
 /* TODO: Rename and Rearrange Refactor
  * A lot of days/hours/years show up in various parts of code
@@ -36,7 +34,7 @@ export const hours = new Array(24).fill().map((_, i) => i)
 export default (date) =>
 	hours.map((hour, i) =>
 		<tr role="row" key={i}>
-			<th role="rowheader" scope="row">{toTimeString(hour)}</th>
+			<th role="rowheader" scope="row">{intToTimeString(hour)}</th>
 			<EventConsumer>{({ filterTodaysEvents }) => {
 				const days = getWeek(date)
 				return days.map((day, i) => {

@@ -69,7 +69,5 @@ describe('Calendar component renders', function() {
 			.visit('/monthly/2019/12/27')
 			.contains('Today').click()
 			.url().should('eq', 'http://localhost:3000/monthly/1969/12/31')
-		// TODO: check if this a bug with their clock, or maybe I'm mis-testing something
-		// (unix epoch is jan 1 1970)
 	})
 })
