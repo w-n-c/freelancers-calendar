@@ -19,6 +19,9 @@ export const intToTimeString = (num) => {
 	}
 }
 
+export const isoDateToDateString = (isoDate) =>
+	toDateString(new Date(isoDate))
+
 export const isoDateToTimeString = (isoDate) => {
 	// we create a new Date to adjust time to local timezone
 	const date = new Date(isoDate)
@@ -29,5 +32,5 @@ export const ymdToIsoDate = (year, month, day) =>
 	new Date(`${year}/${month}/${day}`).toISOString()
 
 export const isoDateToCalStrings = (isoDate) => {
-	return [toDateString(new Date(isoDate)), isoDateToTimeString(isoDate)]
+	return [isoDateToDateString(isoDate), isoDateToTimeString(isoDate)]
 }
