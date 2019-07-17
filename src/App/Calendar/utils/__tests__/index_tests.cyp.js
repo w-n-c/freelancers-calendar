@@ -13,4 +13,10 @@ context('unit tests for utility functions', function() {
 		// numbers longer than 4 digits return an empty string
 		expect(intToTimeString(23403)).to.equal('')
 	})
+
+	specify('isoDateToDateString returns a yyyy/[m]m/[d]d string when given an ISO 8601 string', function() {
+		expect(isoDateToDateString(new Date('1990/8/24').toISOString())).to.equal('1990/8/24')
+		expect(isoDateToDateString(new Date('2018/11/1').toISOString())).to.equal('2018/11/1')
+	})
+
 })
