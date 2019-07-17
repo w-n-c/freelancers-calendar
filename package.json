@@ -3,12 +3,11 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@reach/router": "^1.2.1",
-		"nanoid": "^2.0.1",
-		"preact": "^8.4.2",
-		"react": "^16.8.6",
-		"react-dom": "^16.8.6",
-		"react-scripts": "2.1.8"
+		"@reach/router": "latest",
+		"nanoid": "latest",
+		"react": "latest",
+		"react-dom": "latest",
+		"react-scripts": "latest"
 	},
 	"scripts": {
 		"start": "react-scripts start",
@@ -27,6 +26,6 @@
 		"not op_mini all"
 	],
 	"devDependencies": {
-		"cypress": "^3.2.0"
+		"cypress": "latest"
 	}
 }
