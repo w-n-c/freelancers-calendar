@@ -19,10 +19,12 @@ export const getDaysOfMonth = (year, month, day) => {
 	const days = Array(7 * 6).fill()
 	return days.map(() => {
 		const today = date.getDate()
+		const thisMonth = date.getMonth() + 1
+		const thisYear = date.getFullYear()
 		date.setDate(today + 1)
 		return {
-			year,
-			month,
+			year: thisYear,
+			month: thisMonth,
 			date: today
 		}
 	})
