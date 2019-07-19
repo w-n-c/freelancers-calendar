@@ -21,13 +21,6 @@ export default (props) => {
 
 	return (
 		<header>
-			<button>
-				<svg xmlns="http://www.w3.org/2000/svg">
-					<rect x="0" y="0" width="100%" height="20%" rx="11%" />
-					<rect x="0" y="40%" width="100%" height="20%" rx="11%" />
-					<rect x="0" y="80%" width="100%" height="20%" rx="11%" />
-				</svg>
-			</button>
 			<nav role="navigation" aria-labelledby="calendar-date">
 				<ul>
 					<li>
@@ -66,7 +59,6 @@ export default (props) => {
 					</li>
 				</ul>
 			</nav>
-			<span></span>
 		</header>
 	)
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import Header from './Header'
 import Monthly from './Monthly'
 import Weekly from './Weekly'
-import Daily from './Daily'
 import Event from './Event'
 
 // TODO: callback to weekly to add date info to each th
@@ -43,7 +42,7 @@ export class Calendar extends React.Component {
 		// changing CSS display on table elements wipes their ARIA role
 		// so we reapply those roles to various elements
 		const view = this.props.view
-		return <div>
+		return <main>
 			<Header key="1" {...this.props} />
 			<table role="table" key="2" className={view}>
 				<thead>
@@ -60,13 +59,13 @@ export class Calendar extends React.Component {
 					) : view === 'weekly' ? (
 						<Weekly {...this.props} />
 					) : (
+						'' // DAILY PLACEHOLDER
 						// Will likely be a refactor of Weekly view with a 1 day length
 						// same for any 3 or 4 day views like google cal has
-						<Daily />
 					)}
 				</tbody>
 			</table>
 			{this.state.formRendered ? this.renderForm() : '' }
-		</div>
+		</main>
 	}
 }
