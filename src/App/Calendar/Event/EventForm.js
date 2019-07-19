@@ -7,6 +7,7 @@ export default class EventForm extends React.Component {
 	 * within the lifetime of this component.
 	*/
 	state = {
+		eventId: this.props.eventId || "",
 		eventTitle: this.props.eventTitle || "",
 		description: this.props.description || "",
 		startDate: this.props.startDate || "",
@@ -28,6 +29,7 @@ export default class EventForm extends React.Component {
 
 	createEvent = () => {
 		const event = {}
+		event.id = this.state.eventId
 		event.title = this.state.eventTitle
 		event.description = this.state.description
 		event.start = this.parseDateInput(this.state.startDate, this.state.startTime)

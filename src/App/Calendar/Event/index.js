@@ -6,6 +6,7 @@ import { isoDateToCalStrings } from '../utils'
 
 export default (props) =>
 	<EventConsumer>{({handleCreateEvent, handleUpdateEvent, handleDeleteEvent}) => {
+
 		const handleSubmit = (event) => {
 			// TODO: handlers should return promises
 			const success = event.id
@@ -19,6 +20,7 @@ export default (props) =>
 		const [endDate, endTime] = isoDateToCalStrings(event.end)
 
 		const formInput = {
+			eventId: event.id,
 			eventTitle: event.title,
 			startDate,
 			startTime,
