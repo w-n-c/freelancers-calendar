@@ -3,21 +3,26 @@ import { EventConsumer } from '../../EventContext'
 import Days from './Days'
 import { chunk, getDaysOfMonth } from './utils'
 
+// This could use a refactor, its... messy
 
-// TODO: test bracket for refactor
-export default ({year, month, day, handleClick}) =>
+const makeWeeks = (daysOnCalendar, handleClick) =>
+	// split the days into week long arrays to add necessary table row elements
+	// then map over each week.
+	chunk(daysOnCalendar, 7).map(
+		(daysOfWeek, i) => <tr role="row" key={i}>
+			<Days days={daysOfWeek} handleClick={handleClick} />
+		</tr>
+	)
+
+export default ({year, month, day: date, handleClick}) =>
 	<EventConsumer>{({ filterTodaysEvents }) => {
-		// add day's events to the date object
-		const daysOfMonth = getDaysOfMonth(year, month, day)
-			.map(dayInMonth => {
-				dayInMonth.events = filterTodaysEvents(year, month, dayInMonth.date)
-				return dayInMonth
+		// returns an array of objects with each day's year, month, and date listed
+		// produces 6 weeks worth of days
+		const daysOfMonth = getDaysOfMonth(year, month, date)
+			.map(day => {
+				// add day's events to the date object
+				day.events = filterTodaysEvents(day.year, day.month, day.date)
+				return day
 			})
-		// split the days into week long arrays to add necessary table row elements
-		const weeks = chunk(daysOfMonth, 7)
-		return weeks.map((week, i) =>
-			<tr role="row" key={i}>
-				<Days days={week} handleClick={handleClick} />
-			</tr>
-		)
+		return makeWeeks(daysOfMonth, handleClick)
 	}}</EventConsumer>
