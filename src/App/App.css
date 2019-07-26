@@ -101,31 +101,18 @@ header {
 	align-items: baseline;
 }
 
-header svg {
-	height: 20px;
-	width: 30px;
-}
-
-nav, nav > ul {
+nav > ul {
 	display: flex;
 	align-items: baseline;
 }
+
+/* centers Month/Year between the change week/month links */
+nav li:nth-child(-n+3) {
+	order: -1;
+}
+
 nav li {
 	padding: 8px;
-}
-
-/* menu button on left with centered nav */
-header button {
-	margin-right: auto;
-	color: blue;
-	font-size: inherit;
-}
-
-header span {
-	/* width === (+ widthMenuBtn (- widthTodayLink widthViewBtn ))*/
-	width: 0px;
-	margin-left: auto;
-	visibility: hidden;
 }
 
 li {

@@ -23,6 +23,7 @@ export default (props) => {
 		<header>
 			<nav role="navigation" aria-labelledby="calendar-date">
 				<ul>
+					<h1 id="calendar-date">{getMonthName(month)} {year}</h1>
 					<li>
 						<Link title="Return to Today" to={`/${view}/${today}`}>Today</Link>
 					</li>
@@ -33,7 +34,6 @@ export default (props) => {
 							<Link title="Previous Week" to={getPrevWeekUrl()}>&lt;</Link>
 						}
 					</li>
-					<h2 id="calendar-date">{getMonthName(month)} {year}</h2>
 					<li>
 						{props.view === 'monthly' &&
 							<Link title="Next Month" to={getNextMonthUrl()}>&gt;</Link>
