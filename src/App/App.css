@@ -1,95 +1,18 @@
-html, body, #root, #root > div, main {
-	height: 100%;
-}
-
-main, table, tbody {
-	display: flex;
-	flex-flow: column;
-}
-
-.monthly, tbody {
-	height: 100%;
-	overflow: hidden;
-}
-
-form {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: white;
-}
-
+/*** Display Settings: Fonts and Generic Element Restyling ***/
+/* index.css contains actual font family, will move here when I
+ * change from default */
 h1 {
 	font-size: 1rem;
 }
+
+/* th is <h2> for calendar views, which is probably not semantic
+ * do I wrap the content in <h2> as well? */
 
 h3 {
 	font-size: .9rem;
 	text-align: center;
 	margin: 5px;
 }
-
-/* TODO: real mobile layout */
-html {
-	font-size: 1rem;
-}
-
-tr {
-	display: flex;
-}
-
-tbody td {
-	width: calc(100% / 7);
-}
-
-.weekly tr {
-	align-items: center;
-}
-
-.weekly td {
-	height: 5vw;
-}
-
-.monthly tr {
-	height: calc(100% / 6);
-}
-
-table thead tr {
-	justify-content: space-around;
-}
-
-.weekly thead tr td:first-child {
-	display: none;
-}
-
-/* dynamic resizing text effects the width of the first column */
-/* which this margin needs to be sized on */
-/* TODO: refactor to read row header width and assign this property in react */
-
-.weekly thead tr {
-	margin-left: 50px;
-}
-
-tbody tr {
-	border: 0.5px solid lightgrey;
-}
-
-td {
-	border-left: 1px solid lightgrey;
-	box-sizing: border-box;
-}
-
-.monthly td {
-	overflow: scroll;
-	scrollbar-width: none;
-}
-
-.weekly tbody th {
-	align-self: flex-start;
-}
-
-tbody td::-webkit-scrollbar { width: 0 !important }
 
 button {
 	box-sizing: border-box;
@@ -108,6 +31,59 @@ ul {
 	padding: 0;
 }
 
+li {
+	padding: 0.25rem;
+}
+
+td {
+	border-left: 1px solid lightgrey;
+	box-sizing: border-box;
+}
+
+tbody tr {
+	border: 0.5px solid lightgrey;
+}
+
+/*** Layout: Main Content ***/
+html, body, #root, #root > div, main {
+	height: 100%;
+}
+
+main, table, tbody {
+	display: flex;
+	flex-flow: column;
+}
+
+tr {
+	display: flex;
+}
+
+tbody td {
+	width: calc(100% / 7);
+}
+
+table thead tr {
+	justify-content: space-around;
+}
+
+/*** Display Settings: Header ***/
+
+nav li {
+	padding: 8px;
+}
+
+/* should look the same as the header links */
+header button {
+	color: blue;
+	font-size: inherit;
+}
+
+li:hover {
+	cursor: pointer;
+}
+
+/*** Layout: Header ***/
+
 header {
 	display: flex;
 	justify-content: center;
@@ -124,26 +100,12 @@ nav li:nth-child(-n+3) {
 	order: -1;
 }
 
-nav li {
-	padding: 8px;
-}
-
-header button {
-	color: blue;
-	font-size: inherit;
-}
-
-li {
+header li {
 	display: block;
 	float: left;
-	padding: 0.25rem;
 	position: relative;
 	text-decoration: none;
 	transition-duration: 0.5s;
-}
-
-li:hover {
-	cursor: pointer;
 }
 
 .dropdown {
@@ -174,3 +136,62 @@ ul li ul li {
 	clear: both;
 	width: 100%;
 }
+
+/*** Layout: Event Form ***/
+
+form {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: white;
+}
+
+
+/*** Monthly View ***/
+
+.monthly, tbody {
+	height: 100%;
+	overflow: hidden;
+}
+
+.monthly tr {
+	height: calc(100% / 6);
+}
+
+.monthly td {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.monthly td ul::-webkit-scrollbar { width: 0 !important; }
+.monthly td ul {
+	height: 100%;
+	overflow: scroll;
+	scrollbar-width: none;
+}
+
+/*** Weekly View ***/
+
+.weekly tr {
+	align-items: center;
+}
+
+.weekly thead tr td:first-child {
+	display: none;
+}
+
+.weekly td {
+	height: 3rem;
+}
+
+/* pads column headers by width of row headers */
+.weekly thead tr {
+	margin-left: 40px;
+}
+
+.weekly tbody th {
+	align-self: flex-start;
+}
+

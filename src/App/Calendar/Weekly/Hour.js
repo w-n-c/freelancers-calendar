@@ -13,8 +13,8 @@ export default ({events}) => {
 			const offset = new Date(event.start).getMinutes()/60
 			const length = lengthInHours(event.start, event.end)
 
-			style.top = `calc(${offset}*5vw)`
-			style.height = `calc(${length}*5vw`
+			style.top = `calc(${offset}*3rem)`
+			style.height = `calc(${length}*3rem`
 
 			const startTime = isoDateToTimeString(event.start)
 			const endTime = isoDateToTimeString(event.end)
