@@ -1,13 +1,26 @@
-html, body, #root, #root > div, table, .monthly {
-	height: 99.9%;
+html, body, #root, #root > div, main {
+	height: 100%;
 }
 
-#root > div, table, tbody {
+main, table, tbody {
 	display: flex;
 	flex-flow: column;
 }
 
-h2 {
+.monthly, tbody {
+	height: 100%;
+	overflow: hidden;
+}
+
+form {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: white;
+}
+
+h1 {
 	font-size: 1rem;
 }
 
@@ -19,7 +32,7 @@ h3 {
 
 /* TODO: real mobile layout */
 html {
-	font-size: 1.8vw;
+	font-size: 1rem;
 }
 
 tr {
@@ -39,7 +52,7 @@ tbody td {
 }
 
 .monthly tr {
-	height: calc(100% / 5);
+	height: calc(100% / 6);
 }
 
 table thead tr {
@@ -67,7 +80,7 @@ td {
 	box-sizing: border-box;
 }
 
-.monthly tbody td {
+.monthly td {
 	overflow: scroll;
 	scrollbar-width: none;
 }
@@ -113,6 +126,11 @@ nav li:nth-child(-n+3) {
 
 nav li {
 	padding: 8px;
+}
+
+header button {
+	color: blue;
+	font-size: inherit;
 }
 
 li {
