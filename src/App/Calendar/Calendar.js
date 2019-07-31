@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from './Header'
 import Monthly from './Monthly'
 import Weekly from './Weekly'
@@ -8,64 +8,55 @@ import Event from './Event'
 // TODO: toggle between weekday abbreviations and full name base on window width
 
 export const weekdayNames = ['Su','Mo','Tu','We','Th','Fr','Sa']
-export class Calendar extends React.Component {
-	state = {
-		formRendered: false,
-		selectedEvent: {}
-	}
+export function Calendar(props) {
+	const [formRendered, toggleForm] = useState(false)
+	const [event, updateEvent] = useState({})
 
-	handleClick = (event) => {
-		this.setState({
-			formRendered: true,
-			selectedEvent: event
-		})
+	const handleClick = (event) => {
+		toggleForm(prevFormState => !prevFormState)
+		updateEvent(event)
 	}
 
 	// eventually Event will process a promise and return
 	// a different result depending on submission success
-	handleFormSubmission = (success) => {
-		this.setState({
-			formRendered: !success,
-			selectedEvent: {}
-		})
+	const handleFormSubmission = (success) => {
+		toggleForm(!success)
+		updateEvent({})
 	}
 
-	renderForm() {
-		return <Event
-			event={this.state.selectedEvent}
-			handleFormSubmission={this.handleFormSubmission}
+	const renderForm = () =>
+	 <Event
+			event={event}
+			handleFormSubmission={handleFormSubmission}
 		/>
-	}
 
 
-	render() {
-		// changing CSS display on table elements wipes their ARIA role
-		// so we reapply those roles to various elements
-		const view = this.props.view
-		return <main>
-			<Header key="1" {...this.props} />
-			<table role="table" key="2" className={view}>
-				<thead>
-					<tr role="row">
-						{view === 'weekly' && <td></td>}
-						{weekdayNames.map((name, i) =>
-							<th key={i} role="columnheader" scope="col">{name}</th>
-						)}
-					</tr>
-				</thead>
-				<tbody>
-					{view === 'monthly' ? (
-						<Monthly {...this.props} handleClick={this.handleClick}/>
-					) : view === 'weekly' ? (
-						<Weekly {...this.props} />
-					) : (
-						'' // DAILY PLACEHOLDER
-						// Will likely be a refactor of Weekly view with a 1 day length
-						// same for any 3 or 4 day views like google cal has
+	// changing CSS display on table elements wipes their ARIA role
+	// so we reapply those roles to various elements
+	const view = props.view
+	return <main>
+		<Header key="1" {...props} />
+		<table role="table" key="2" className={view}>
+			<thead>
+				<tr role="row">
+					{view === 'weekly' && <td></td>}
+					{weekdayNames.map((name, i) =>
+						<th key={i} role="columnheader" scope="col">{name}</th>
 					)}
-				</tbody>
-			</table>
-			{this.state.formRendered ? this.renderForm() : '' }
-		</main>
-	}
+				</tr>
+			</thead>
+			<tbody>
+				{view === 'monthly' ? (
+					<Monthly {...props} handleClick={handleClick}/>
+				) : view === 'weekly' ? (
+					<Weekly {...props} />
+				) : (
+					'' // DAILY PLACEHOLDER
+					// Will likely be a refactor of Weekly view with a 1 day length
+					// same for any 3 or 4 day views like google cal has
+				)}
+			</tbody>
+		</table>
+		{formRendered ? renderForm() : '' }
+	</main>
 }
