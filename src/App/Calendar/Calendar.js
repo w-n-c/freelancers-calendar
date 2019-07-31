@@ -49,7 +49,7 @@ export function Calendar(props) {
 				{view === 'monthly' ? (
 					<Monthly {...props} handleClick={handleClick}/>
 				) : view === 'weekly' ? (
-					<Weekly {...props} />
+					<Weekly {...props} handleClick={handleClick}/>
 				) : (
 					'' // DAILY PLACEHOLDER
 					// Will likely be a refactor of Weekly view with a 1 day length

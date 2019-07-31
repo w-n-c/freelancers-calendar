@@ -4,12 +4,7 @@ import Hour from './Hour'
 import { getWeek } from './utils'
 import { formatTime } from '../utils'
 
-/* TODO: Rename and Rearrange Refactor
- * A lot of days/hours/years show up in various parts of code
- * Daily filter is in EventContext but Hourly is local here
- * Filter runs in O(n) time which *may* not be a problem
- *   but need to check for slower devices
- */
+// move to EventContext
 export const filterByHour = (hour, events) =>
 	events.filter(event => {
 		const eventDate = new Date(event.start)
@@ -31,16 +26,17 @@ export const hours = new Array(24).fill().map((_, i) => i)
 
 // TODO: should receive a callback from Calendar to add
 // the days of the week to table column headers
-export default (date) =>
+export default ({year, month, day, handleClick}) =>
 	hours.map((hour, i) =>
 		<tr role="row" key={i}>
 			<th role="rowheader" scope="row">{formatTime(`${hour}:00`)}</th>
 			<EventConsumer>{({ filterTodaysEvents }) => {
+				const date = { year, month, day }
 				const days = getWeek(date)
 				return days.map((day, i) => {
 					const now = {year: date.year, month: date.month, day, hour}
 					const events = getHoursEvents(now, filterTodaysEvents)
-					return <Hour key={i} events={events} />
+					return <Hour key={i} date={now} events={events} handleClick={handleClick}/>
 				})
 			}}</EventConsumer>
 		</tr>
