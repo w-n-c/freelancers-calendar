@@ -29,7 +29,11 @@ export default ({date, events, handleClick}) => {
 			const startTime = isoDateToTimeString(event.start)
 			const endTime = isoDateToTimeString(event.end)
 			return (
-				<section onClick={e => handleClick(event)} style={style} key={i}>
+				<section
+					onClick={e => {e.stopPropagation(); handleClick(event)}}
+					style={style}
+					key={i}
+				>
 					{event.title}
 					<br />
 					{`${startTime} - ${endTime}`}
