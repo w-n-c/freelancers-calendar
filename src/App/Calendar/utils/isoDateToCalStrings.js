@@ -1,4 +1,4 @@
-import { toDateString } from './toDateString'
+import { toDateString } from '../../utils'
 import { formatTime } from './formatTime'
 
 export const isoDateToDateString = (isoDate) => toDateString(new Date(isoDate))
