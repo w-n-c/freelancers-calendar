@@ -30,11 +30,15 @@ export function Calendar(props) {
 			handleFormSubmission={handleFormSubmission}
 		/>
 
+	const handleMouseMove = (e) => {
+		e.preventDefault()
+		props.handleUpdateToday()
+	}
 
 	// changing CSS display on table elements wipes their ARIA role
 	// so we reapply those roles to various elements
 	const view = props.view
-	return <main>
+	return <main onMouseMove={handleMouseMove}>
 		<Header key="1" {...props} />
 		<table role="table" key="2" className={view}>
 			<thead>

@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@reach/router": "latest",
+		"lodash": "^4.17.15",
 		"nanoid": "latest",
 		"react": "latest",
 		"react-dom": "latest",

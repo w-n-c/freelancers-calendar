@@ -1,48 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Router, Redirect } from '@reach/router'
+import { throttle } from 'lodash'
 import './App.css'
 import Calendar from './Calendar'
 import { EventProvider } from './EventContext'
+import { toDateString } from './utils'
 
-export class App extends React.Component {
-	state = {
-		today: this.getTodaysDate()
-	}
+export const App = () => {
+	const [today, setToday] = useState(toDateString(new Date()))
 
-	componentDidMount() {
-		// set a timeout to hit on midnight, updating today's date
-		// at midnight, set an interval for every midnight to update today's date
-		const today = new Date()
-		const tomorrow = new Date(today.getDate()+1).setHours(0,0,0,0)
-		// setHours returns milliseconds so no getTime() needed
-		const timeout = tomorrow - today.getTime()
-		const interval = 60*60*24*1000
-
-		setTimeout(() => {
-			this.setState({today: this.getTodaysDate()})
-			this.intervalId = setInterval(
-				() => this.setState({today: this.getTodaysDate()}),
-				interval)
-		}, timeout)
-	}
-
-	componentWillUnmount() {
-		clearInterval(this.intervalId)
-	}
-
-	getTodaysDate() {
-		const today = new Date()
-		return `${today.getFullYear()}/${today.getMonth()+1}/${today.getDate()}`
-	}
-
-	render() {
-		return (
-			<EventProvider>
-				<Router>
-					<Redirect noThrow from="/" to={`monthly/${this.state.today}`} />
-					<Calendar today={this.state.today} path="/:view/:year/:month/:day"/>
-				</Router>
-			</EventProvider>
-		)
-	}
+	const options = {leading: true, trailing: true}
+	const handleUpdateToday = throttle(
+		() => setToday(toDateString(new Date())),
+		1000,
+		options
+	)
+	
+	return (
+		<EventProvider>
+			<Router>
+				<Redirect noThrow from="/" to={`monthly/${today}`} />
+				<Calendar
+					handleUpdateToday={handleUpdateToday}
+					today={today}
+					path="/:view/:year/:month/:day"
+				/>
+			</Router>
+		</EventProvider>
+	)
 }
