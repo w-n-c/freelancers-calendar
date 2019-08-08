@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Router, Redirect } from '@reach/router'
 import { throttle } from 'lodash'
 import './App.css'
+import Header from './Header'
 import Calendar from './Calendar'
 import { EventProvider } from './EventContext'
 import { toDateString } from './utils'
@@ -20,11 +21,10 @@ export const App = () => {
 		<EventProvider>
 			<Router>
 				<Redirect noThrow from="/" to={`monthly/${today}`} />
-				<Calendar
-					handleUpdateToday={handleUpdateToday}
-					today={today}
-					path="/:view/:year/:month/:day"
-				/>
+				<Header path="/:view/:year/:month/:day" today={today} />
+			</Router>
+			<Router className='calendar'>
+				<Calendar path="/*" handleUpdateToday={handleUpdateToday} />
 			</Router>
 		</EventProvider>
 	)

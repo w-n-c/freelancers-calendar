@@ -1,5 +1,5 @@
 import React from 'react'
-const events = require('../events.json')
+const events = require('./events.json')
 const uuid = require('nanoid')
 
 const { Provider, Consumer } = React.createContext()

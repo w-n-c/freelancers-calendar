@@ -12,7 +12,7 @@ function randInt(max) {
 
 const createEvents = () => {
 	const year = 2019
-	const month = 6
+	const month = 7
 	const fakeEvents = []
 	let eventNumber = 1
 	for (let day = 1; day <= 30; day++) {
