@@ -18,7 +18,7 @@ export default ({date, events, handleClick}) => {
 		background: 'lightblue',
 		color: 'white'
 	}
-	return <td role="cell" onClick={e => handleClick(newEvent(date))}>
+	return <article role="gridcell" onClick={e => handleClick(newEvent(date))}>
 		{events.map((event, i) => {
 			const offset = new Date(event.start).getMinutes()/60
 			const length = lengthInHours(event.start, event.end)
@@ -34,11 +34,11 @@ export default ({date, events, handleClick}) => {
 					style={style}
 					key={i}
 				>
-					{event.title}
+					<h4>{event.title}</h4>
 					<br />
-					{`${startTime} - ${endTime}`}
+					<p>{`${startTime} - ${endTime}`}</p>
 				</section>
 			)
 		})}
-	</td>
+	</article>
 }

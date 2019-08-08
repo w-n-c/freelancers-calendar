@@ -9,8 +9,8 @@ const newEvent = ({year, month, date}) => {
 export default ({days, handleClick}) => {
 		return days.map((day, i) => {
 			return (
-				<td role="cell" key={i} onClick={(e) => handleClick(newEvent(day))}>
-					<h3>{day.date}</h3>
+				<article role="cell" key={i} onClick={(e) => handleClick(newEvent(day))}>
+					<h4>{day.date}</h4>
 					<ul>
 						{day.events.map(event => event.id ?
 							<li
@@ -24,7 +24,7 @@ export default ({days, handleClick}) => {
 							</li>
 						: '')}
 					</ul>
-				</td>
+				</article>
 			)
 		})
 }

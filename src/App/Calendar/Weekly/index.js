@@ -28,8 +28,8 @@ export const hours = new Array(24).fill().map((_, i) => i)
 // the days of the week to table column headers
 export default ({year, month, day, handleClick}) =>
 	hours.map((hour, i) =>
-		<tr role="row" key={i}>
-			<th role="rowheader" scope="row">{formatTime(`${hour}:00`)}</th>
+		<section role="row" key={i}>
+			<h3 role="rowheader">{formatTime(`${hour}:00`)}</h3>
 			<EventConsumer>{({ filterTodaysEvents }) => {
 				const date = { year, month, day }
 				const days = getWeek(date)
@@ -39,5 +39,5 @@ export default ({year, month, day, handleClick}) =>
 					return <Hour key={i} date={now} events={events} handleClick={handleClick}/>
 				})
 			}}</EventConsumer>
-		</tr>
+		</section>
 	)

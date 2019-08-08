@@ -9,9 +9,10 @@ const makeWeeks = (daysOnCalendar, handleClick) =>
 	// split the days into week long arrays to add necessary table row elements
 	// then map over each week.
 	chunk(daysOnCalendar, 7).map(
-		(daysOfWeek, i) => <tr role="row" key={i}>
+		(daysOfWeek, i) => <section role="row" key={i}>
+			<h3 class="aria-only">{''/*'Week of 24-30*/}</h3>
 			<Days days={daysOfWeek} handleClick={handleClick} />
-		</tr>
+		</section>
 	)
 
 export default ({year, month, day: date, handleClick}) =>

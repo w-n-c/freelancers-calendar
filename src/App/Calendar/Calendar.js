@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Header from './Header'
+import { Router } from '@reach/router'
 import Monthly from './Monthly'
 import Weekly from './Weekly'
 import Event from './Event'
@@ -38,29 +38,20 @@ export function Calendar(props) {
 	// changing CSS display on table elements wipes their ARIA role
 	// so we reapply those roles to various elements
 	const view = props.view
-	return <main onMouseMove={handleMouseMove}>
-		<Header key="1" {...props} />
-		<table role="table" key="2" className={view}>
-			<thead>
-				<tr role="row">
-					{view === 'weekly' && <td></td>}
+	return <main onMouseMove={handleMouseMove} role="grid" className={view}>
+			{/*<caption>Month Year</caption>*/}
+			<header role="rowgroup">
+				<div role="row">
+					{view === 'weekly' && <span role="presentation"></span>}
 					{weekdayNames.map((name, i) =>
-						<th key={i} role="columnheader" scope="col">{name}</th>
+						<h2 key={i} role="columnheader" aria-label={""/*aria-label="full-day-name"*/}>{name}</h2>
 					)}
-				</tr>
-			</thead>
-			<tbody>
-				{view === 'monthly' ? (
-					<Monthly {...props} handleClick={handleClick}/>
-				) : view === 'weekly' ? (
-					<Weekly {...props} handleClick={handleClick}/>
-				) : (
-					'' // DAILY PLACEHOLDER
-					// Will likely be a refactor of Weekly view with a 1 day length
-					// same for any 3 or 4 day views like google cal has
-				)}
-			</tbody>
-		</table>
+				</div>
+			</header>
+				<Router role="rowgroup">
+					<Monthly path="monthly/:year/:month/:day" handleClick={handleClick}/>
+					<Weekly path="weekly/:year/:month/:day" handleClick={handleClick}/>
+				</Router>
 		{formRendered ? renderForm() : '' }
 	</main>
 }
