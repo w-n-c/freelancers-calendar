@@ -40,14 +40,14 @@ export function Calendar(props) {
 	const view = props.view
 	return <main onMouseMove={handleMouseMove} role="grid" className={view}>
 			{/*<caption>Month Year</caption>*/}
-			<header role="rowgroup">
-				<div role="row">
+			<div role="rowgroup">
+				<header role="row">
 					{view === 'weekly' && <span role="presentation"></span>}
 					{weekdayNames.map((name, i) =>
 						<h2 key={i} role="columnheader" aria-label={""/*aria-label="full-day-name"*/}>{name}</h2>
 					)}
-				</div>
-			</header>
+				</header>
+			</div>
 				<Router role="rowgroup">
 					<Monthly path="monthly/:year/:month/:day" handleClick={handleClick}/>
 					<Weekly path="weekly/:year/:month/:day" handleClick={handleClick}/>
