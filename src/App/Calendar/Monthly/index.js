@@ -10,7 +10,7 @@ const makeWeeks = (daysOnCalendar, handleClick) =>
 	// then map over each week.
 	chunk(daysOnCalendar, 7).map(
 		(daysOfWeek, i) => <section role="row" key={i}>
-			<h3 class="aria-only">{''/*'Week of 24-30*/}</h3>
+			<h3 className="aria-only">{''/*'Week of 24-30*/}</h3>
 			<Days days={daysOfWeek} handleClick={handleClick} />
 		</section>
 	)

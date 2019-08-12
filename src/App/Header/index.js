@@ -20,7 +20,7 @@ export default (props) => {
 	}
 
 	return (
-		<header>
+		<header className="site-header">
 			<nav role="navigation" aria-labelledby="calendar-date">
 				<ul>
 					<h1 id="calendar-date">{getMonthName(month)} {year}</h1>

@@ -2,11 +2,12 @@
 /* index.css contains actual font family, will move here when I
  * change from default */
 h1 {
-	font-size: 1rem;
+	font-size: 1.3rem;
 }
 
-/* th is <h2> for calendar views, which is probably not semantic
- * do I wrap the content in <h2> as well? */
+h2 {
+	font-size: 1.1rem;
+}
 
 h3 {
 	font-size: .9rem;
@@ -35,17 +36,22 @@ li {
 	padding: 0.25rem;
 }
 
-td {
-	border-left: 1px solid lightgrey;
+	/*border-left: 1px solid lightgrey;
 	box-sizing: border-box;
-}
+	*/
 
-tbody tr {
-	border: 0.5px solid lightgrey;
+.aria-only {
+	clip: rect(1px,1px,1px,1px);
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
 }
 
 /*** Layout: Main Content ***/
-html, body, #root, #root > div, main {
+
+html, body, #root, main {
 	height: 100%;
 }
 
@@ -54,16 +60,21 @@ main, table, tbody {
 	flex-flow: column;
 }
 
-tr {
+main header {
+	display: flex;
+	justify-content: space-around;
+}
+
+section {
+	box-sizing: border-box;
+	border: 1px solid lightgrey;
 	display: flex;
 }
 
-tbody td {
+main article {
+	box-sizing: border-box;
+	border: 1px solid lightgrey;
 	width: calc(100% / 7);
-}
-
-table thead tr {
-	justify-content: space-around;
 }
 
 /*** Display Settings: Header ***/
@@ -73,7 +84,7 @@ nav li {
 }
 
 /* should look the same as the header links */
-header button {
+.site-header button {
 	color: blue;
 	font-size: inherit;
 }
@@ -84,7 +95,7 @@ li:hover {
 
 /*** Layout: Header ***/
 
-header {
+.site-header {
 	display: flex;
 	justify-content: center;
 	align-items: baseline;
