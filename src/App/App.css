@@ -1,6 +1,10 @@
 /*** Display Settings: Fonts and Generic Element Restyling ***/
 /* index.css contains actual font family, will move here when I
  * change from default */
+h1, h2, h3 {
+	margin: 5px;
+}
+
 h1 {
 	font-size: 1.3rem;
 }
@@ -36,10 +40,6 @@ li {
 	padding: 0.25rem;
 }
 
-	/*border-left: 1px solid lightgrey;
-	box-sizing: border-box;
-	*/
-
 .aria-only {
 	clip: rect(1px,1px,1px,1px);
 	height: 1px;
@@ -67,7 +67,7 @@ main header {
 
 section {
 	box-sizing: border-box;
-	border: 1px solid lightgrey;
+	outline: 1px solid lightgrey;
 	display: flex;
 }
 
@@ -111,7 +111,7 @@ nav li:nth-child(-n+3) {
 	order: -1;
 }
 
-header li {
+.site-header li {
 	display: block;
 	float: left;
 	position: relative;
@@ -141,8 +141,7 @@ ul li:focus-within > ul {
 
 ul li ul li {
 	background: white;
-	border: 1px solid black;
-	border-collapse: collapse;
+	outline: 1px solid lightgrey;
 	box-sizing: border-box;
 	clear: both;
 	width: 100%;
