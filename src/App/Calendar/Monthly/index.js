@@ -18,11 +18,11 @@ const makeWeeks = (daysOnCalendar, handleClick) =>
 		</section>
 	)
 
-export default ({year, month, day: date, handleClick}) =>
+export default ({year, month, day, handleClick}) =>
 	<EventConsumer>{({ filterTodaysEvents }) => {
 		// returns an array of objects with each day's year, month, and date listed
 		// produces 6 weeks worth of days
-		const daysOfMonth = getDaysOfMonth(year, month, date)
+		const daysOfMonth = getDaysOfMonth(year, month, day)
 			.map(day => {
 				// add day's events to the date object
 				day.events = filterTodaysEvents(day.year, day.month, day.date)

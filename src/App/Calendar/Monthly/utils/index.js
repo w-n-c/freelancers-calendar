@@ -21,6 +21,7 @@ export const getDaysOfMonth = (year, month, day) => {
 		const today = date.getDate()
 		const thisMonth = date.getMonth() + 1
 		const thisYear = date.getFullYear()
+		// SIDE EFFECT
 		date.setDate(today + 1)
 		return {
 			year: thisYear,
