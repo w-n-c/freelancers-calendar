@@ -1,7 +1,4 @@
 import React, { useState } from 'react'
-import { Router } from '@reach/router'
-import Monthly from './Monthly'
-import Weekly from './Weekly'
 import Event from './Event'
 import ColumnHeader from './ColumnHeader'
 
@@ -11,13 +8,18 @@ import ColumnHeader from './ColumnHeader'
 export const weekdayAbbr = ['Su','Mo','Tu','We','Th','Fr','Sa']
 export const weekdayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
-export function Calendar(props) {
+export function Calendar({handleUpdateToday, view, render, year, month, day}) {
 	const [formRendered, toggleForm] = useState(false)
 	const [event, updateEvent] = useState({})
 
 	const handleClick = (event) => {
 		toggleForm(prevFormState => !prevFormState)
 		updateEvent(event)
+	}
+
+	const handleMouseMove = (e) => {
+		e.preventDefault()
+		handleUpdateToday()
 	}
 
 	// eventually Event will process a promise and return
@@ -33,27 +35,19 @@ export function Calendar(props) {
 			handleFormSubmission={handleFormSubmission}
 		/>
 
-	const handleMouseMove = (e) => {
-		e.preventDefault()
-		props.handleUpdateToday()
-	}
-
-
-	// changing CSS display on table elements wipes their ARIA role
-	// so we reapply those roles to various elements
-	return <main onMouseMove={handleMouseMove} role="grid">
-			{/*<caption>Month Year</caption>*/}
-			<div role="rowgroup">
-				<header role="row">
-					{weekdayNames.map((name, i) => {
-						return <ColumnHeader ariaHeader={name} visualHeader={weekdayAbbr[i]} key={i}/>
-					})}
-				</header>
-			</div>
-				<Router role="rowgroup">
-					<Monthly path="monthly/:year/:month/:day" handleClick={handleClick}/>
-					<Weekly path="weekly/:year/:month/:day" handleClick={handleClick}/>
-				</Router>
-		{formRendered ? renderForm() : '' }
-	</main>
+		return (
+			<main onMouseMove={handleMouseMove} role="grid">
+				<div role="rowgroup">
+					<header role="row">
+						{weekdayNames.map((name, i) => {
+							return <ColumnHeader ariaHeader={name} visualHeader={weekdayAbbr[i]} key={i}/>
+						})}
+					</header>
+				</div>
+				<div className={view} role="rowgroup">
+					{render({year, month, day, handleClick})}
+				</div>
+				{formRendered ? renderForm() : '' }
+			</main>
+		)
 }
