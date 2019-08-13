@@ -3,14 +3,17 @@ import { EventConsumer } from '../../EventContext'
 import Days from './Days'
 import { chunk, getDaysOfMonth } from './utils'
 
-// This could use a refactor, its... messy
+
+// this will read a little awkwardly but should work until we make a tagged template to parse the numbers
+const makeAriaHeader = week => makeWeekRangeString(week[0].date, week[6].date)
+const makeWeekRangeString = (start, end) => `Week of the ${start} to the ${end}`
 
 const makeWeeks = (daysOnCalendar, handleClick) =>
-	// split the days into week long arrays to add necessary table row elements
+	// split the days into week long arrays to divide into week-long sections
 	// then map over each week.
-	chunk(daysOnCalendar, 7).map(
-		(daysOfWeek, i) => <section role="row" key={i}>
-			<h3 role="rowheader" className="aria-only">{''/*'Week of 24-30*/}</h3>
+	chunk(daysOnCalendar, 7).map((daysOfWeek, i) =>
+		<section role="row" key={i}>
+			<h2 role="rowheader" className="aria-only">{makeAriaHeader(daysOfWeek)}</h2>
 			<Days days={daysOfWeek} handleClick={handleClick} />
 		</section>
 	)
