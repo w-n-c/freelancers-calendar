@@ -3,11 +3,14 @@ import { Router } from '@reach/router'
 import Monthly from './Monthly'
 import Weekly from './Weekly'
 import Event from './Event'
+import ColumnHeader from './ColumnHeader'
 
 // TODO: callback to weekly to add date info to each th
 // TODO: toggle between weekday abbreviations and full name base on window width
 
-export const weekdayNames = ['Su','Mo','Tu','We','Th','Fr','Sa']
+export const weekdayAbbr = ['Su','Mo','Tu','We','Th','Fr','Sa']
+export const weekdayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+
 export function Calendar(props) {
 	const [formRendered, toggleForm] = useState(false)
 	const [event, updateEvent] = useState({})
@@ -35,17 +38,16 @@ export function Calendar(props) {
 		props.handleUpdateToday()
 	}
 
+
 	// changing CSS display on table elements wipes their ARIA role
 	// so we reapply those roles to various elements
-	const view = props.view
-	return <main onMouseMove={handleMouseMove} role="grid" className={view}>
+	return <main onMouseMove={handleMouseMove} role="grid">
 			{/*<caption>Month Year</caption>*/}
 			<div role="rowgroup">
 				<header role="row">
-					{view === 'weekly' && <span role="presentation"></span>}
-					{weekdayNames.map((name, i) =>
-						<h2 key={i} role="columnheader" aria-label={""/*aria-label="full-day-name"*/}>{name}</h2>
-					)}
+					{weekdayNames.map((name, i) => {
+						return <ColumnHeader ariaHeader={name} visualHeader={weekdayAbbr[i]} key={i}/>
+					})}
 				</header>
 			</div>
 				<Router role="rowgroup">
