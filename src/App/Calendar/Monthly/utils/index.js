@@ -6,7 +6,7 @@ export const chunk = (arr, len) => {
 	return chunks
 }
 
-export const getDaysOfMonth = (year, month, day) => {
+export const getDaysOfMonth = ({year, month, day}) => {
 	const date = new Date(`${year}/${month}/${day}`)
 	// sets date to the first sunday that should appear on the calendar
 	// will regularly be a day from the previous month

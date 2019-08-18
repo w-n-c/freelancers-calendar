@@ -14,7 +14,7 @@ export const filterByHour = (hour, events) =>
 	})
 
 export const getHoursEvents = ({year, month, day, hour}, filterTodaysEvents) => {
-	const daysEvents = filterTodaysEvents(year, month, day)
+	const daysEvents = filterTodaysEvents({year, month, day})
 
 	const startHour = new Date(`${year}/${month}/${day}`)
 	startHour.setHours(hour)

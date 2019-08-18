@@ -2,7 +2,8 @@ import React from 'react'
 const events = require('./events.json')
 const uuid = require('nanoid')
 
-const { Provider, Consumer } = React.createContext()
+const EventContext = React.createContext()
+const { Provider, Consumer } = EventContext
 
 class EventProvider extends React.Component {
 	state = {
@@ -18,8 +19,8 @@ class EventProvider extends React.Component {
 		//	.catch(error => this.setState({ loading: false, error}))
 	}
 
-	filterTodaysEvents = (year, month, day) => {
-		const startDate = new Date(`${year}/${month}/${day}`)
+	filterTodaysEvents = ({year, month, date}) => {
+		const startDate = new Date(`${year}/${month}/${date}`)
 		const endDate = new Date(startDate); endDate.setHours(24)
 
 		return this.state.events.filter(event => {
@@ -73,3 +74,4 @@ class EventProvider extends React.Component {
 
 
 export { EventProvider, Consumer as EventConsumer }
+export default EventContext
