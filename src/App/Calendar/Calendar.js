@@ -45,7 +45,7 @@ export function Calendar({handleUpdateToday, view, render, year, month, day}) {
 					</header>
 				</div>
 				<div className={view} role="rowgroup">
-					{render({year, month, day, handleClick})}
+					{render({year, month, day}, handleClick)}
 				</div>
 				{formRendered ? renderForm() : '' }
 			</main>
