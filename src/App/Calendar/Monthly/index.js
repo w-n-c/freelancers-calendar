@@ -1,8 +1,8 @@
 import React, { useContext } from 'react'
-import { map, extend } from 'lodash/fp'
+import { map, extend, chunk } from 'lodash/fp'
 import EventContext from '../../EventContext'
 import Days from './Days'
-import { chunk, getDaysOfMonth } from './utils'
+import { getDaysOfMonth } from './utils'
 
 
 // screen reads a little awkwardly but should work until we make
@@ -16,9 +16,10 @@ export default (date, handleClick) => {
 
 	const addEvents = day => extend(day, { events: filterTodaysEvents(day)})
 	const daysOfMonth = map(addEvents, getDaysOfMonth(date))
+	const weeksOfMonth = chunk(7, daysOfMonth)
 
-	const makeWeeks = (daysOnCalendar, handleClick) => {
-		return chunk(daysOnCalendar, 7).map(
+	const makeWeeks = (daysOnCalendar) => {
+		return weeksOfMonth.map(
 			(daysOfWeek, i) =>
 				<section role="row" key={i}>
 					<h2 role="rowheader" className="aria-only">{makeAriaHeader(daysOfWeek)}</h2>
@@ -26,5 +27,6 @@ export default (date, handleClick) => {
 				</section>
 		)
 	}
+
 	return makeWeeks(daysOfMonth, handleClick)
 }
