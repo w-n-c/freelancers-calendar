@@ -1,20 +1,20 @@
-export const getDaysOfMonth = ({year, month, day}) => {
-	const date = new Date(`${year}/${month}/${day}`)
+export const getDaysOfMonth = ({year, month, date}) => {
+	const day = new Date(`${year}/${month}/${date}`)
 	// sets date to the first sunday that should appear on the calendar
 	// will regularly be a day from the previous month
-	date.setDate(1)
-	date.setDate(1 - date.getDay())
+	day.setDate(1)
+	day.setDate(1 - day.getDay())
 
 	// Monthly view contains 7 days x 6 weeks,
 	// so create an array of objects containing each date.
 	// Later code uses the date to filter which events to add to the object
 	const days = Array(7 * 6).fill()
 	return days.map(() => {
-		const today = date.getDate()
-		const thisMonth = date.getMonth() + 1
-		const thisYear = date.getFullYear()
+		const today = day.getDate()
+		const thisMonth = day.getMonth() + 1
+		const thisYear = day.getFullYear()
 		// SIDE EFFECT
-		date.setDate(today + 1)
+		day.setDate(today + 1)
 		return {
 			year: thisYear,
 			month: thisMonth,

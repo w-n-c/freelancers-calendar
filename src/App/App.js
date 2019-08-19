@@ -23,17 +23,17 @@ export const App = () => {
 		<EventProvider>
 			<Router>
 				<Redirect noThrow from="/" to={`monthly/${today}`} />
-				<Header path="/:view/:year/:month/:day" today={today} />
+				<Header path="/:view/:year/:month/:date" today={today} />
 			</Router>
 			<Router className="calendar">
 				<Calendar
-					path="/monthly/:year/:month/:day"
+					path="/monthly/:year/:month/:date"
 					view="monthly"
 					render={Monthly}
 					handleUpdateToday={handleUpdateToday} />
 				<Calendar
 					view="weekly"
-					path="/weekly/:year/:month/:day"
+					path="/weekly/:year/:month/:date"
 					render={Weekly}
 					handleUpdateToday={handleUpdateToday} />
 			</Router>

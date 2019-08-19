@@ -8,7 +8,7 @@ import ColumnHeader from './ColumnHeader'
 export const weekdayAbbr = ['Su','Mo','Tu','We','Th','Fr','Sa']
 export const weekdayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
-export function Calendar({handleUpdateToday, view, render, year, month, day}) {
+export function Calendar({handleUpdateToday, view, render, year, month, date}) {
 	const [formRendered, toggleForm] = useState(false)
 	const [event, updateEvent] = useState({})
 
@@ -45,7 +45,7 @@ export function Calendar({handleUpdateToday, view, render, year, month, day}) {
 					</header>
 				</div>
 				<div className={view} role="rowgroup">
-					{render({year, month, day}, handleClick)}
+					{render({year, month, date}, handleClick)}
 				</div>
 				{formRendered ? renderForm() : '' }
 			</main>

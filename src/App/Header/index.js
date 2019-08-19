@@ -3,20 +3,20 @@ import {Link} from '@reach/router'
 import {incWeek, decWeek, incMonth, decMonth, getMonthName} from './utils'
 
 export default (props) => {
-	const { year, month, day, view, today } = props
+	const { year, month, date, view, today } = props
 
 	// TODO: write ALL the tests (including util fns)
 	const getNextMonthUrl = () => {
-		return `/${view}/${incMonth(year, month, day)}`
+		return `/${view}/${incMonth(year, month, date)}`
 	}
 	const getPrevMonthUrl = () => {
-		return `/${view}/${decMonth(year, month, day)}`
+		return `/${view}/${decMonth(year, month, date)}`
 	}
 	const getNextWeekUrl = () => {
-		return `/${view}/${incWeek(year, month, day)}`
+		return `/${view}/${incWeek(year, month, date)}`
 	}
 	const getPrevWeekUrl = () => {
-		return `/${view}/${decWeek(year, month, day)}`
+		return `/${view}/${decWeek(year, month, date)}`
 	}
 
 	return (
@@ -45,12 +45,12 @@ export default (props) => {
 						<button aria-haspopup="true">View</button>
 						<ul className="dropdown" aria-label="submenu">
 							<li>
-								<Link title="Weekly View" to={`/weekly/${year}/${month}/${day}`}>
+								<Link title="Weekly View" to={`/weekly/${year}/${month}/${date}`}>
 									Weekly
 								</Link>
 							</li>
 							<li>
-								<Link title="Monthly View" to={`/monthly/${year}/${month}/${day}`}>
+								<Link title="Monthly View" to={`/monthly/${year}/${month}/${date}`}>
 									Monthly
 								</Link>
 							</li>

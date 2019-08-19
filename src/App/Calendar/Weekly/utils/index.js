@@ -1,11 +1,11 @@
-export const getWeek = ({year, month, day}) => {
+export const getWeek = ({year, month, date}) => {
 	// set date to the Sunday (first day) of given week
-	const date = new Date(`${year}/${month}/${day}`)
-	date.setDate(date.getDate() - date.getDay())
+	const day = new Date(`${year}/${month}/${date}`)
+	day.setDate(day.getDate() - day.getDay())
 	const week = []
 	while (week.length < 7) {
-		week.push(date.getDate())
-		date.setDate(date.getDate() + 1)
+		week.push(day.getDate())
+		day.setDate(day.getDate() + 1)
 	}
 	return week
 }
