@@ -19,13 +19,15 @@ export default (date, handleClick) => {
 	const weeksOfMonth = chunk(7, daysOfMonth)
 
 	const makeWeeks = (daysOnCalendar) => {
-		return weeksOfMonth.map(
-			(daysOfWeek, i) =>
-				<section role="row" key={i}>
-					<h2 role="rowheader" className="aria-only">{makeAriaHeader(daysOfWeek)}</h2>
-					<Days days={daysOfWeek} handleClick={handleClick} />
-				</section>
-		)
+		return <div className="monthly" role="rowgroup">
+			{weeksOfMonth.map(
+				(daysOfWeek, i) =>
+					<section role="row" key={i}>
+						<h2 role="rowheader" className="aria-only">{makeAriaHeader(daysOfWeek)}</h2>
+						<Days days={daysOfWeek} handleClick={handleClick} />
+					</section>
+			)}
+		</div>
 	}
 
 	return makeWeeks(daysOfMonth, handleClick)
