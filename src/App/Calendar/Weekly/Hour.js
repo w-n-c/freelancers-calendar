@@ -23,8 +23,8 @@ export default ({date, events, handleClick}) => {
 			const offset = new Date(event.start).getMinutes()/60
 			const length = lengthInHours(event.start, event.end)
 
-			style.top = `calc(${offset}*3rem)`
-			style.height = `calc(${length}*3rem`
+			style.top = `calc(${offset}*5rem)`
+			style.height = `calc(${length}*5rem`
 
 			const startTime = isoDateToTimeString(event.start)
 			const endTime = isoDateToTimeString(event.end)
@@ -35,7 +35,6 @@ export default ({date, events, handleClick}) => {
 					key={i}
 				>
 					<h4>{event.title}</h4>
-					<br />
 					<p>{`${startTime} - ${endTime}`}</p>
 				</section>
 			)

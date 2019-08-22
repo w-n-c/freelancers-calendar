@@ -1,7 +1,7 @@
 /*** Display Settings: Fonts and Generic Element Restyling ***/
 /* index.css contains actual font family, will move here when I
  * change from default */
-h1, h2, h3 {
+h1, h2, h3, h4 {
 	margin: 5px;
 }
 
@@ -13,10 +13,16 @@ h2 {
 	font-size: 1.1rem;
 }
 
-h3 {
+h3, h4 {
 	font-size: .9rem;
+}
+
+h3 {
 	text-align: center;
-	margin: 5px;
+}
+
+p {
+	margin: 0px;
 }
 
 button {
@@ -37,8 +43,9 @@ ul {
 }
 
 li {
-	padding: 0.25rem;
+	padding: 0.1vh;
 }
+
 
 .aria-only {
 	clip: rect(1px,1px,1px,1px);
@@ -55,9 +62,18 @@ html, body, #root, main {
 	height: 100%;
 }
 
-main, table, tbody {
+#root, main, .monthly{
 	display: flex;
 	flex-flow: column;
+}
+
+.calendar, .monthly, .monthly section {
+	flex: 1;
+	overflow: hidden;
+}
+
+.weekly {
+	overflow: scroll;
 }
 
 main header {
@@ -66,15 +82,43 @@ main header {
 }
 
 section {
-	box-sizing: border-box;
-	outline: 1px solid lightgrey;
 	display: flex;
 }
 
 main article {
-	box-sizing: border-box;
-	border: 1px solid lightgrey;
+	outline: 1px solid lightgrey;
 	width: calc(100% / 7);
+}
+
+.monthly article {
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+}
+
+.monthly article ul::-webkit-scrollbar { width: 0 !important; }
+.monthly article ul {
+	height: 100%;
+	overflow: scroll;
+	scrollbar-width: none;
+}
+
+.weekly article {
+	height: 4rem;
+}
+
+/*** Display Settings: Main Content Borders ***/
+
+section article:first-child {
+	border-left: 2px solid lightgrey;
+}
+
+.weekly > section:first-child, .monthly > section:first-child {
+	border-top: 2px solid lightgrey;
+}
+
+.weekly > section, .monthly > section {
+	border-top: 1px solid lightgrey;
 }
 
 /*** Display Settings: Header ***/
@@ -158,50 +202,4 @@ form {
 }
 
 
-/*** Monthly View ***/
-
-.monthly, tbody {
-	height: 100%;
-	overflow: hidden;
-}
-
-.monthly tr {
-	height: calc(100% / 6);
-}
-
-.monthly td {
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
-}
-
-.monthly td ul::-webkit-scrollbar { width: 0 !important; }
-.monthly td ul {
-	height: 100%;
-	overflow: scroll;
-	scrollbar-width: none;
-}
-
-/*** Weekly View ***/
-
-.weekly tr {
-	align-items: center;
-}
-
-.weekly thead tr td:first-child {
-	display: none;
-}
-
-.weekly td {
-	height: 3rem;
-}
-
-/* pads column headers by width of row headers */
-.weekly thead tr {
-	margin-left: 40px;
-}
-
-.weekly tbody th {
-	align-self: flex-start;
-}
 
