@@ -1,7 +1,7 @@
 /*** Display Settings: Fonts and Generic Element Restyling ***/
 /* index.css contains actual font family, will move here when I
  * change from default */
-h1, h2, h3, h4 {
+h1, h2, h3, h4, p {
 	margin: 5px;
 }
 
@@ -13,16 +13,12 @@ h2 {
 	font-size: 1.1rem;
 }
 
-h3, h4 {
+h3, h4, p {
 	font-size: .9rem;
 }
 
 h3 {
 	text-align: center;
-}
-
-p {
-	margin: 0px;
 }
 
 button {
@@ -96,6 +92,11 @@ main article {
 	flex-direction: column;
 }
 
+
+.weekly article {
+	height: 4rem;
+}
+
 .monthly article ul::-webkit-scrollbar { width: 0 !important; }
 .monthly article ul {
 	height: 100%;
@@ -103,8 +104,12 @@ main article {
 	scrollbar-width: none;
 }
 
-.weekly article {
-	height: 4rem;
+.weekly article section::-webkit-scrollbar { width: 0 !important; }
+.weekly article section {
+	display: flex;
+	flex-flow: column;
+	overflow: scroll;
+	scrollbar-width: none;
 }
 
 /*** Display Settings: Main Content Borders ***/
@@ -113,11 +118,11 @@ section article:first-child {
 	border-left: 2px solid lightgrey;
 }
 
-.weekly > section:first-child, .monthly > section:first-child {
-	border-top: 2px solid lightgrey;
+.weekly > section, .monthly > section:first-child {
+	border-top: 1px solid lightgrey;
 }
 
-.weekly > section, .monthly > section {
+.monthly > section {
 	border-top: 1px solid lightgrey;
 }
 
@@ -200,6 +205,4 @@ form {
 	right: 0;
 	background: white;
 }
-
-
 
