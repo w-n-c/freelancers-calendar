@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { extend } from 'lodash/fp'
 import EventContext from '../../EventContext'
 import Hour from './Hour'
 import { getWeek } from './utils'
@@ -25,21 +26,20 @@ export const hours = new Array(24).fill().map((_, i) => i)
 
 // TODO: should receive a callback from Calendar to add
 // the days of the week to table column headers
-export default (date, handleClick) => {
+export default (day, handleClick) => {
 	const { filterTodaysEvents } = useContext(EventContext)
+	const days = getWeek(day)
+
 	return <div className="weekly" role="rowgroup">
-		{hours.map((hour, i) => {
-			const days = getWeek(date)
-			return (
-				<section role="row" key={i}>
-					<h3 role="rowheader">{formatTime(`${hour}:00`)}</h3>
-					{days.map((day, i) => {
-						const now = {year: date.year, month: date.month, date: day, hour}
-						const events = getHoursEvents(now, filterTodaysEvents)
-						return <Hour key={i} date={now} events={events} handleClick={handleClick}/>
-					})}
-				</section>
-			)
-		})}
+		{hours.map((hour, i) =>
+			<section role="row" key={i}>
+				<h3 role="rowheader">{formatTime(`${hour}:00`)}</h3>
+				{days.map((date, i) => {
+					const now = extend(day, {date, hour})
+					const events = getHoursEvents(now, filterTodaysEvents)
+					return <Hour key={i} time={now} events={events} handleClick={handleClick}/>
+				})}
+			</section>
+		)}
 	</div>
 }

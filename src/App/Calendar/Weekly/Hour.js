@@ -2,23 +2,23 @@ import React from 'react'
 import { isoDateToTimeString } from '../utils'
 import { lengthInHours } from './utils'
 
-const newEvent = ({year, month, day, hour}) => {
+const newEvent = ({year, month, date, hour}) => {
 	const event = {}
-	const date = new Date(`${year}/${month}/${day}`)
-	date.setHours(hour)
-	event.start = date.toISOString()
-	date.setHours(hour+1)
-	event.end = date.toISOString()
+	const day = new Date(`${year}/${month}/${date}`)
+	day.setHours(hour)
+	event.start = day.toISOString()
+	day.setHours(hour+1)
+	event.end = day.toISOString()
 	return event
 }
 
-export default ({date, events, handleClick}) => {
+export default ({time, events, handleClick}) => {
 	const style = {
 		position: 'relative',
 		background: 'lightblue',
 		color: 'white'
 	}
-	return <article role="gridcell" onClick={e => handleClick(newEvent(date))}>
+	return <article role="gridcell" onClick={e => handleClick(newEvent(time))}>
 		{events.map((event, i) => {
 			const offset = new Date(event.start).getMinutes()/60
 			const length = lengthInHours(event.start, event.end)
