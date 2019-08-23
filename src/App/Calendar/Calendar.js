@@ -40,7 +40,9 @@ export function Calendar({handleUpdateToday, view, render, year, month, date}) {
 				<div role="rowgroup">
 					<header role="row">
 						{weekdayNames.map((name, i) => {
-							return <ColumnHeader ariaHeader={name} visualHeader={weekdayAbbr[i]} key={i}/>
+							return (
+								<ColumnHeader ariaHeader={name} visualHeader={weekdayAbbr[i]} key={i}/>
+							)
 						})}
 					</header>
 				</div>
