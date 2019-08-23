@@ -37,7 +37,7 @@ export default (day, handleClick) => {
 				{days.map((date, i) => {
 					const now = extend(day, {date, hour})
 					const events = getHoursEvents(now, filterTodaysEvents)
-					return <Hour key={i} time={now} events={events} handleClick={handleClick}/>
+					return <Hour role="gridcell" key={i} time={now} events={events} handleClick={handleClick}/>
 				})}
 			</section>
 		)}

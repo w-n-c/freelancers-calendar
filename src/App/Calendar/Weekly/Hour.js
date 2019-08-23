@@ -1,6 +1,6 @@
 import React from 'react'
 import { isoDateToTimeString } from '../utils'
-import { lengthInHours } from './utils'
+import { timeInHours } from './utils'
 
 const newEvent = ({year, month, date, hour}) => {
 	const event = {}
@@ -18,10 +18,10 @@ export default ({time, events, handleClick}) => {
 		background: 'lightblue',
 		color: 'white'
 	}
-	return <article role="gridcell" onClick={e => handleClick(newEvent(time))}>
+	return <article onClick={e => handleClick(newEvent(time))}>
 		{events.map((event, i) => {
 			const offset = new Date(event.start).getMinutes()/60
-			const length = lengthInHours(event.start, event.end)
+			const length = timeInHours(event.start, event.end)
 
 			style.top = `calc(${offset}*5rem)`
 			style.height = `calc(${length}*5rem`
