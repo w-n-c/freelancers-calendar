@@ -1,4 +1,6 @@
 import React from 'react'
+import EventList from './EventList'
+
 const newEvent = ({year, month, date}) => {
 	const event = {}
 	event.start = new Date(`${year}/${month}/${date}`).toISOString()
@@ -11,19 +13,7 @@ export default ({days, handleClick}) => {
 			return (
 				<article role="gridcell" key={i} onClick={(e) => handleClick(newEvent(day))}>
 					<h4>{day.date}</h4>
-					<ul>
-						{day.events.map(event => event.id ?
-							<li
-								key={event.id}
-								onClick={e => {
-									e.stopPropagation()
-									handleClick(event)
-								}}
-							>
-								{event.title}
-							</li>
-						: '')}
-					</ul>
+					<EventList events={day.events} />
 				</article>
 			)
 		})
