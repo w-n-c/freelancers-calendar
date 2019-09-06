@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { assign } from 'lodash'
 const events = require('./events.json')
 const uuid = require('nanoid')
 
@@ -7,13 +6,13 @@ const EventContext = React.createContext()
 const { Provider, Consumer } = EventContext
 
 const EventProvider = (props) => {
-	const [state, newState] = useState({
+	const [state, updateState] = useState({
 		events,
 		loading: false,
 		error: ''
 	})
 
-	const setState = assign(newState)
+	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
 
 	const filterTodaysEvents = ({year, month, date}) => {
 
@@ -32,17 +31,16 @@ const EventProvider = (props) => {
 		return state.events.filter(eventIsToday)
 	}
 
-	// TODO: handlers should return promises
-	const createEvent = (event) => {
+	const handleCreateEvent = (event) => {
 		event.id = uuid()
 		// POST event to server
 		// on success:
 		const events = [...state.events, event]
-		setState({ events: events })
+		setState({ events })
 		return true
 	}
 
-	const updateEvent = (update) => {
+	const handleUpdateEvent = (update) => {
 		const events = [...state.events]
 		const eventIndex = events.findIndex(
 			event => event.id === update.id
@@ -52,7 +50,7 @@ const EventProvider = (props) => {
 		return true
 	}
 
-	const deleteEvent = (deleted) => {
+	const handleDeleteEvent = (deleted) => {
 		const events = [...state.events]
 		const eventIndex = events.findIndex(
 			event => event.id === deleted.id
@@ -65,10 +63,10 @@ const EventProvider = (props) => {
 	return (
 		<Provider value={{
 			...state,
-			filterTodaysEvents: filterTodaysEvents,
-			handleCreateEvent: createEvent,
-			handleUpdateEvent: updateEvent,
-			handleDeleteEvent: deleteEvent,
+			filterTodaysEvents,
+			handleCreateEvent,
+			handleUpdateEvent,
+			handleDeleteEvent,
 		}}>{props.children}</Provider>
 	)
 }
