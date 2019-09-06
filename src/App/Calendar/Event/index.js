@@ -1,33 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import EventForm from './EventForm'
-import { EventConsumer } from '../../EventContext'
+import EventContext from '../../EventContext'
 import { isoDateToCalStrings } from '../utils'
 
+export default (props) => {
+	const {handleCreateEvent, handleUpdateEvent, handleDeleteEvent} = useContext(EventContext)
+	const handleSubmit = (event) => {
+		const success = event.id
+			? handleUpdateEvent(event)
+			: handleCreateEvent(event)
+		props.handleFormSubmission(success)
+	}
 
-export default (props) =>
-	<EventConsumer>{({handleCreateEvent, handleUpdateEvent, handleDeleteEvent}) => {
+	const event = props.event
+	const [startDate, startTime] = isoDateToCalStrings(event.start)
+	const [endDate, endTime] = isoDateToCalStrings(event.end)
 
-		const handleSubmit = (event) => {
-			// TODO: handlers should return promises
-			const success = event.id
-				? handleUpdateEvent(event)
-				:	handleCreateEvent(event)
-			props.handleFormSubmission(success)
-		}
+	const formInput = {
+		eventId: event.id,
+		eventTitle: event.title,
+		startDate,
+		startTime,
+		endDate,
+		endTime,
+		description: event.description
+	}
 
-		const event = props.event
-		const [startDate, startTime] = isoDateToCalStrings(event.start)
-		const [endDate, endTime] = isoDateToCalStrings(event.end)
-
-		const formInput = {
-			eventId: event.id,
-			eventTitle: event.title,
-			startDate,
-			startTime,
-			endDate,
-			endTime,
-			description: event.description
-		}
-
-		return <EventForm {...formInput} handleSubmit={handleSubmit} />
-	}}</EventConsumer>
+	return <EventForm {...formInput} handleSubmit={handleSubmit} />
+}
