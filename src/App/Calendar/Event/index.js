@@ -3,14 +3,14 @@ import EventForm from './EventForm'
 import EventContext from '../../EventContext'
 import { isoDateToCalStrings } from '../utils'
 
-export default ({event}) => {
+export default ({event, handleFormSubmission}) => {
 	const {handleCreateEvent, handleUpdateEvent, handleDeleteEvent} = useContext(EventContext)
 
 	const handleSubmit = (event) => {
 		const success = event.id
 			? handleUpdateEvent(event)
 			: handleCreateEvent(event)
-		props.handleFormSubmission(success)
+		handleFormSubmission(success)
 	}
 
 	const [startDate, startTime] = isoDateToCalStrings(event.start)
