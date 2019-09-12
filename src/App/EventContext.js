@@ -18,7 +18,8 @@ const EventProvider = (props) => {
 
 		const isInDay = day => date => {
 			const dayStart = new Date(day)
-			const dayEnd = new Date(dayStart); dayEnd.setHours(24)
+			const dayEnd = new Date(dayStart)
+			dayEnd.setHours(24)
 			const time = new Date(date)
 
 			return time >= dayStart && time < dayEnd
