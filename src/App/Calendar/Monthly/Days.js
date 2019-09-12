@@ -8,13 +8,10 @@ const newEvent = ({year, month, date}) => {
 	return event
 }
 
-export default ({days, handleClick}) => {
-		return days.map((day, i) => {
-			return (
-				<article role="gridcell" key={i} onClick={(e) => handleClick(newEvent(day))}>
-					<h4>{day.date}</h4>
-					<EventList events={day.events} />
-				</article>
-			)
-		})
-}
+export default ({days, handleClick}) =>
+	days.map((day, i) =>
+		<article role="gridcell" key={i} onClick={(e) => handleClick(newEvent(day))}>
+			<h4>{day.date}</h4>
+			<EventList events={day.events} />
+		</article>
+	)

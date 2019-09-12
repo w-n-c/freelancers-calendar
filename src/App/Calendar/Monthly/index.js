@@ -12,10 +12,8 @@ const makeAriaHeader = week => makeWeekRangeString(week[0].date, week[6].date)
 const makeWeekRangeString = (start, end) => `Week of the ${start} to the ${end}`
 
 export default (date, handleClick) => {
-	const { filterTodaysEvents } = useContext(EventContext)
 
-	//const daysWithEvents = => extend(day, addEvents(day)
-	//const DaysEvents = EventList(daysOfMonth)
+	const { filterTodaysEvents } = useContext(EventContext)
 	const addEvents = day => extend(day, { events: filterTodaysEvents(day)})
 	const daysOfMonth = map(addEvents, getDaysOfMonth(date))
 	const weeksOfMonth = chunk(7, daysOfMonth)
