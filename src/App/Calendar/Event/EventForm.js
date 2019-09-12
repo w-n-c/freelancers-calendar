@@ -1,43 +1,43 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export default class EventForm extends React.Component {
+const EventForm = (props) => {
 	/* Normally an anti-pattern, but in this case I believe it makes
 	 * sense to use props as initialState. This form is used to create/update
 	 * an event, so the event data (passed as props) will not change
 	 * within the lifetime of this component.
 	*/
-	state = {
-		eventId: this.props.eventId || "",
-		eventTitle: this.props.eventTitle || "",
-		description: this.props.description || "",
-		startDate: this.props.startDate || "",
-		startTime: this.props.startTime || "",
-		endTime: this.props.endTime || "",
-		endDate: this.props.endDate || ""
-	}
+	const [state, setState] = useState({
+		eventId: props.eventId || "",
+		eventTitle: props.eventTitle || "",
+		description: props.description || "",
+		startDate: props.startDate || "",
+		startTime: props.startTime || "",
+		endTime: props.endTime || "",
+		endDate: props.endDate || ""
+	})
 
-	handleChange = (event) => {
+	const handleChange = (event) => {
 		const name = event.target.name
 		const value = event.target.value
-		this.setState({[name]: value})
+		setState({[name]: value})
 	}
 
-	handleSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
-		this.props.handleSubmit(this.createEvent())
+		props.handleSubmit(createEvent())
 	}
 
-	createEvent = () => {
+	const createEvent = () => {
 		const event = {}
-		event.id = this.state.eventId
-		event.title = this.state.eventTitle
-		event.description = this.state.description
-		event.start = this.parseDateInput(this.state.startDate, this.state.startTime)
-		event.end = this.parseDateInput(this.state.endDate, this.state.endTime)
+		event.id = state.eventId
+		event.title = state.eventTitle
+		event.description = state.description
+		event.start = parseDateInput(state.startDate, state.startTime)
+		event.end = parseDateInput(state.endDate, state.endTime)
 		return event
 	}
 
-	parseDateInput(inputDate, inputTime) {
+	const parseDateInput = (inputDate, inputTime) => {
 		const date = new Date(inputDate)
 		const time = inputTime.split(':')
 		date.setHours(time[0])
@@ -45,9 +45,8 @@ export default class EventForm extends React.Component {
 		return date.toISOString()
 	}
 
-	render() {
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<form onSubmit={handleSubmit}>
 				<legend>Input Event Information</legend>
 				<div>
 					<label htmlFor="event-title">Event Title</label>
@@ -55,8 +54,8 @@ export default class EventForm extends React.Component {
 						name="eventTitle"
 						type="text"
 						id="event-title"
-						onChange={this.handleChange}
-						value={this.state.eventTitle}
+						onChange={handleChange}
+						value={state.eventTitle}
 					/>
 				</div>
 				<div>
@@ -65,16 +64,16 @@ export default class EventForm extends React.Component {
 						name="startDate"
 						type="text"
 						id="start-date"
-						onChange={this.handleChange}
-						value={this.state.startDate}
+						onChange={handleChange}
+						value={state.startDate}
 					/>
 					<label htmlFor="start-time">Start Time</label>
 					<input
 						name="startTime"
 						type="text"
 						id="start-time"
-						onChange={this.handleChange}
-						value={this.state.startTime}
+						onChange={handleChange}
+						value={state.startTime}
 					/>
 				</div>
 				<div>
@@ -83,16 +82,16 @@ export default class EventForm extends React.Component {
 						name="endDate"
 						type="text"
 						id="end-date"
-						onChange={this.handleChange}
-						value={this.state.endDate}
+						onChange={handleChange}
+						value={state.endDate}
 					/>
 					<label htmlFor="end-time">End Time</label>
 					<input
 						name="endTime"
 						type="text"
 						id="end-time"
-						onChange={this.handleChange}
-						value={this.state.endTime}
+						onChange={handleChange}
+						value={state.endTime}
 					/>
 				</div>
 				<div>
@@ -100,12 +99,13 @@ export default class EventForm extends React.Component {
 					<textarea
 						name="description"
 						id="description"
-						onChange={this.handleChange}
-						value={this.state.description}
+						onChange={handleChange}
+						value={state.description}
 					></textarea>
 				</div>
-				<button type="submit" onClick={this.handleSubmit}>Save</button>
+				<button type="submit" onClick={handleSubmit}>Save</button>
 			</form>
 		)
-	}
 }
+
+export default EventForm
