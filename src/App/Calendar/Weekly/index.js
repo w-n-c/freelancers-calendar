@@ -18,9 +18,7 @@ export default (props) => {
 					const now = extend(day, {date, hour})
 					const events = getHoursEvents(now, filterTodaysEvents)
 					return <Hour
-						role="gridcell"
 						key={i}
-						time={now}
 						events={events}
 						handleClick={handleClick(props.navigate)}
 						/>

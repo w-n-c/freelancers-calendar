@@ -8,8 +8,8 @@ const sharedStyle = {
 	color: 'white'
 }
 
-export default ({time, events, handleClick}) =>
-	<article onClick={(e) => handleClick('new')}>
+export default ({events, handleClick}) =>
+	<article role="gridcell" onClick={(e) => handleClick('new')}>
 		{events.map((event, i) => {
 			const offset = new Date(event.start).getMinutes()/60
 			const length = timeInHours(event.start, event.end)
