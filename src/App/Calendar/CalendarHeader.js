@@ -1,4 +1,5 @@
 import React from 'react'
+import { pick } from 'lodash/fp'
 import SectionHeader from './SectionHeader'
 import { getWeek } from './Weekly/utils'
 
@@ -6,8 +7,10 @@ import { getWeek } from './Weekly/utils'
 export const weekdayAbbr = ['Su','Mo','Tu','We','Th','Fr','Sa']
 export const weekdayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
 
-const CalendarHeader = ({day}) => {
-	const week = day ? getWeek(day) : ''
+const CalendarHeader = (props) => {
+	const day = pick(['year', 'month', 'date'], props)
+	const week = props.route === 'weekly' ? getWeek(day) : ''
+
 	return (
 		<div role="rowgroup">
 			<header role="row">

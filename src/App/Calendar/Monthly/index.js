@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { map, extend, chunk } from 'lodash/fp'
+import { pick, map, extend, chunk } from 'lodash/fp'
 import EventContext from '../../EventContext'
 import SectionHeader from '../SectionHeader'
 import Days from './Days'
@@ -11,11 +11,13 @@ import { getDaysOfMonth } from './utils'
 const makeAriaHeader = week => makeWeekRangeString(week[0].date, week[6].date)
 const makeWeekRangeString = (start, end) => `Week of the ${start} to the ${end}`
 
-export default (date, handleClick) => {
+export default (props) => {
+	const day = pick(['year', 'month', 'date'], props)
+	const { navigate } = props
 
 	const { filterTodaysEvents } = useContext(EventContext)
 	const addEvents = day => extend(day, { events: filterTodaysEvents(day)})
-	const daysOfMonth = map(addEvents, getDaysOfMonth(date))
+	const daysOfMonth = map(addEvents, getDaysOfMonth(day))
 	const weeksOfMonth = chunk(7, daysOfMonth)
 
 	return <div className="monthly" role="rowgroup">
@@ -26,7 +28,7 @@ export default (date, handleClick) => {
 					className="aria-only"
 					ariaHeader={makeAriaHeader(daysOfWeek)}
 				/>
-				<Days days={daysOfWeek} handleClick={handleClick} />
+				<Days days={daysOfWeek} navigate={navigate} />
 			</section>
 		)}
 	</div>

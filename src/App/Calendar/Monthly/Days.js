@@ -1,17 +1,11 @@
 import React from 'react'
 import EventList from './EventList'
+import { handleEventClick as handleClick } from '../utils'
 
-const newEvent = ({year, month, date}) => {
-	const event = {}
-	event.start = new Date(`${year}/${month}/${date}`).toISOString()
-	event.end = event.start
-	return event
-}
-
-export default ({days, handleClick}) =>
+export default ({days, navigate}) =>
 	days.map((day, i) =>
-		<article role="gridcell" key={i} onClick={(e) => handleClick(newEvent(day))}>
+		<article role="gridcell" key={i} onClick={(e) => handleClick(navigate)('new')}>
 			<h4>{day.date}</h4>
-			<EventList events={day.events} />
+			<EventList handleClick={handleClick(navigate)} events={day.events} />
 		</article>
 	)

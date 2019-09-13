@@ -6,7 +6,7 @@ const EventForm = (props) => {
 	 * an event, so the event data (passed as props) will not change
 	 * within the lifetime of this component.
 	*/
-	const [state, setState] = useState({
+	const [state, updateState] = useState({
 		eventId: props.eventId || "",
 		eventTitle: props.eventTitle || "",
 		description: props.description || "",
@@ -15,6 +15,8 @@ const EventForm = (props) => {
 		endTime: props.endTime || "",
 		endDate: props.endDate || ""
 	})
+
+	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
 
 	const handleChange = (event) => {
 		const name = event.target.name

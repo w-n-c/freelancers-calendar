@@ -14,6 +14,8 @@ const EventProvider = (props) => {
 
 	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
 
+	const getEvent = (id) => state.events.find(event => event.id === id)
+
 	const filterTodaysEvents = ({year, month, date}) => {
 
 		const isInDay = day => date => {
@@ -63,7 +65,7 @@ const EventProvider = (props) => {
 
 	return (
 		<Provider value={{
-			...state,
+			getEvent,
 			filterTodaysEvents,
 			handleCreateEvent,
 			handleUpdateEvent,

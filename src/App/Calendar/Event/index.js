@@ -3,14 +3,30 @@ import EventForm from './EventForm'
 import EventContext from '../../EventContext'
 import { isoDateToCalStrings } from '../utils'
 
-export default ({event, handleFormSubmission}) => {
-	const {handleCreateEvent, handleUpdateEvent, handleDeleteEvent} = useContext(EventContext)
+const newEvent = (year, month, date) => ({
+	start: new Date(`${year}/${month}/${date}`).toISOString(),
+	end: new Date().toISOString()
+})
+
+export default (props) => {
+	const {getEvent, handleCreateEvent, handleUpdateEvent, handleDeleteEvent} = useContext(EventContext)
+
 
 	const handleSubmit = (event) => {
 		const success = event.id
 			? handleUpdateEvent(event)
 			: handleCreateEvent(event)
-		handleFormSubmission(success)
+		if (success) {
+			const { route, year, month, date } = props
+			props.navigate(`/${route}/${year}/${month}/${date}`)
+		}
+	}
+
+	let event = {} 
+	if (props.id === 'new') {
+		event = newEvent(props.year, props.month, props.date)
+	} else {
+		event = getEvent(props.id)
 	}
 
 	const [startDate, startTime] = isoDateToCalStrings(event.start)
@@ -26,5 +42,5 @@ export default ({event, handleFormSubmission}) => {
 		description: event.description
 	}
 
-	return <EventForm {...formInput} handleSubmit={handleSubmit} />
+	return <EventForm {...formInput} handleDelete={handleDeleteEvent} handleSubmit={handleSubmit} />
 }

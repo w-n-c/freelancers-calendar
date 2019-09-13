@@ -1,47 +1,31 @@
-import React, { useState } from 'react'
-import { pick } from 'lodash/fp'
+import React from 'react'
+import { Router } from '@reach/router'
 import Event from './Event'
+import Monthly from './Monthly'
+import Weekly from './Weekly'
 import CalendarHeader from './CalendarHeader'
 
-export function Calendar(props) {
-
-	const day = pick(['year', 'month', 'date'], props)
-	const { handleUpdateToday, render } = props
-
-	const [formRendered, toggleForm] = useState(false)
-	const [event, updateEvent] = useState({})
-
-	const handleClick = (event) => {
-		toggleForm(prevFormState => !prevFormState)
-		updateEvent(event)
-	}
+export const Calendar = ({handleUpdateToday}) => {
 
 	const handleMouseMove = (e) => {
 		e.preventDefault()
 		handleUpdateToday()
 	}
 
-	// eventually Event will process a promise and return
-	// a different result depending on submission success
-	const handleFormSubmission = (success) => {
-		toggleForm(!success)
-		updateEvent({})
-	}
-
-	// Only the weekly view adds dates to the Calendar's column header
-	const showDates = (props.view === 'weekly')
-
-	return (
-		<main onMouseMove={handleMouseMove} role="grid">
-			<CalendarHeader day={showDates ? day : undefined} />
-			{render(day, handleClick)}
-			{formRendered ?
-				<Event
-					event={event}
-					handleFormSubmission={handleFormSubmission}
-				/> :
-				null
-			}
-		</main>
-	)
+	return [
+		<main key="1" onMouseMove={handleMouseMove} role="grid">
+			<Router>
+				<CalendarHeader path=":route/:year/:month/:date/*" />
+			</Router>
+			<Router>
+				<Monthly path="monthly/:year/:month/:date/*" />
+				<Weekly path="weekly/:year/:month/:date/*" />
+			</Router>
+		</main>,
+		<section key="2" >
+			<Router>
+				<Event path=":route/:year/:month/:date/events/:id" />
+			</Router>
+		</section>
+	]
 }

@@ -2,37 +2,32 @@ import React from 'react'
 import { isoDateToTimeString } from '../utils'
 import { timeInHours } from './utils'
 
-const newEvent = ({year, month, date, hour}) => {
-	const event = {}
-	const day = new Date(`${year}/${month}/${date}`)
-	day.setHours(hour)
-	event.start = day.toISOString()
-	day.setHours(hour+1)
-	event.end = day.toISOString()
-	return event
+const sharedStyle = {
+	position: 'relative',
+	background: 'lightblue',
+	color: 'white'
 }
 
-export default ({time, events, handleClick}) => {
-	const style = {
-		position: 'relative',
-		background: 'lightblue',
-		color: 'white'
-	}
-	return <article onClick={e => handleClick(newEvent(time))}>
+export default ({time, events, handleClick}) =>
+	<article onClick={(e) => handleClick('new')}>
 		{events.map((event, i) => {
 			const offset = new Date(event.start).getMinutes()/60
 			const length = timeInHours(event.start, event.end)
 
-			style.top = `calc(${offset}*5rem)`
-			style.height = `calc(${length}*5rem`
+			const style = {...sharedStyle}
+			style.top = `calc(${offset}*4rem)`
+			style.height = `calc(${length}*4rem`
 
 			const startTime = isoDateToTimeString(event.start)
 			const endTime = isoDateToTimeString(event.end)
 			return (
 				<section
-					onClick={e => {e.stopPropagation(); handleClick(event)}}
 					style={style}
 					key={i}
+					onClick={(e) => {
+						e.stopPropagation()
+						handleClick(event.id)
+					}}
 				>
 					<h4>{event.title}</h4>
 					<p>{`${startTime} - ${endTime}`}</p>
@@ -40,4 +35,3 @@ export default ({time, events, handleClick}) => {
 			)
 		})}
 	</article>
-}
