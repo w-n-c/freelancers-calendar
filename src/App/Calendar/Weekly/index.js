@@ -16,7 +16,8 @@ export default (props) => {
 				<h3 role="rowheader">{formatTime(`${hour}:00`)}</h3>
 				{days.map((date, i) => {
 					const now = extend(day, {date, hour})
-					const events = getHoursEvents(now, filterTodaysEvents)
+					const todaysEvents = filterTodaysEvents(now)
+					const events = getHoursEvents(now, todaysEvents)
 					return <Hour
 						key={i}
 						events={events}

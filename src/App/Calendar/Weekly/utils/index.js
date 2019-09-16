@@ -18,17 +18,21 @@ export const timeInHours = (t1, t2) =>
 		/ 3600000
 	)
 
-export const filterByHour = (hour, events) =>
-	events.filter(event => {
-		const eventDate = new Date(event.start)
-		const nextHour = new Date(hour)
-		nextHour.setHours(hour.getHours() + 1)
-		return eventDate >= hour && eventDate < nextHour
-	})
+export const isInHour = hourStart => time => {
+	const hourEnd = new Date(hourStart)
+	hourEnd.setHours(hourStart.getHours() + 1)
+	return time >= hourStart && time < hourEnd
+}
 
-export const getHoursEvents = (day, filterTodaysEvents) => {
-	const daysEvents = filterTodaysEvents(day)
-	const startHour = new Date(`${day.year}/${day.month}/${day.date}`)
-	startHour.setHours(day.hour)
-	return filterByHour(startHour, daysEvents)
+export const isEventInHour = hour => event => {
+	const checkHour = isInHour(hour)
+	const eventStart = new Date(event.start)
+	const eventEnd = new Date(event.end)
+	return checkHour(eventStart) || checkHour(eventEnd)
+}
+
+export const getHoursEvents = (day, events) => {
+	const hour = new Date(`${day.year}/${day.month}/${day.date}`)
+	hour.setHours(day.hour)
+	return events.filter(isEventInHour(hour))
 }
