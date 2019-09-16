@@ -17,15 +17,13 @@ export const Calendar = ({handleUpdateToday}) => {
 			<Router>
 				<CalendarHeader path=":route/:year/:month/:date/*" />
 			</Router>
-			<Router>
+			<Router className="calendar">
 				<Monthly path="monthly/:year/:month/:date/*" />
 				<Weekly path="weekly/:year/:month/:date/*" />
 			</Router>
 		</main>,
-		<section key="2" >
-			<Router>
-				<Event path=":route/:year/:month/:date/events/:id" />
-			</Router>
-		</section>
+		<Router key="2">
+			<Event path=":route/:year/:month/:date/events/:id" />
+		</Router>
 	]
 }

@@ -54,16 +54,16 @@ li {
 
 /*** Layout: Main Content ***/
 
-html, body, #root, main {
+html, body, #root, main, .monthly, .weekly {
 	height: 100%;
 }
 
-#root, main, .monthly{
+#root, main, .monthly {
 	display: flex;
 	flex-flow: column;
 }
 
-.calendar, .monthly, .monthly section {
+main, .calendar, .monthly, .monthly section {
 	flex: 1;
 	overflow: hidden;
 }
