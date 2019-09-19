@@ -19,6 +19,7 @@ export default (props) => {
 					const todaysEvents = filterTodaysEvents(now)
 					const events = getHoursEvents(now, todaysEvents)
 					return <Hour
+						now={now}
 						key={i}
 						events={events}
 						handleClick={handleClick(props.navigate)}

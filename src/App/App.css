@@ -95,6 +95,7 @@ main article {
 
 .weekly article {
 	height: 4rem;
+	position: relative;
 }
 
 .monthly article ul::-webkit-scrollbar { width: 0 !important; }
@@ -110,6 +111,7 @@ main article {
 	flex-flow: column;
 	overflow: scroll;
 	scrollbar-width: none;
+	width: 100%;
 }
 
 /*** Display Settings: Main Content Borders ***/
@@ -118,7 +120,7 @@ section article:first-child {
 	border-left: 2px solid lightgrey;
 }
 
-.weekly > section, .monthly > section:first-child {
+.monthly > section:first-child {
 	border-top: 1px solid lightgrey;
 }
 
