@@ -5,7 +5,7 @@ import { isoDateToCalStrings } from '../utils'
 
 const newEvent = (year, month, date) => ({
 	start: new Date(`${year}/${month}/${date}`).toISOString(),
-	end: new Date().toISOString()
+	end: new Date(`${year}/${month}/${date}`).toISOString()
 })
 
 export default (props) => {
@@ -13,9 +13,7 @@ export default (props) => {
 
 
 	const handleSubmit = (event) => {
-		const success = event.id
-			? handleUpdateEvent(event)
-			: handleCreateEvent(event)
+		const success = event.id ? handleUpdateEvent(event) : handleCreateEvent(event)
 		if (success) {
 			const { route, year, month, date } = props
 			props.navigate(`/${route}/${year}/${month}/${date}`)
