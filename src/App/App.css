@@ -200,11 +200,41 @@ ul li ul li {
 
 /*** Layout: Event Form ***/
 
-form {
+.event-menu {
+	border: 1px solid lightgrey;
+	box-shadow: 1px 1px 3px 3px lightgrey;
 	position: fixed;
-	bottom: 0;
-	left: 0;
-	right: 0;
+	bottom: 0px;
+	right: 5px;
 	background: white;
 }
 
+.event-menu form > * {
+	margin: 10px 5px;
+}
+.event-menu form div > * {
+	margin-right: 10px;
+}
+
+.event-menu textarea {
+	resize: none;
+}
+
+.event-menu button {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.event-menu form button {
+	float: right;
+}
+
+.close {
+	display: inline-grid;
+	position: absolute;
+	right: 0px;
+}
+
+.event-description label {
+	display: block;
+}
