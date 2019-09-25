@@ -27,9 +27,14 @@ const EventProvider = (props) => {
 			return time >= dayStart && time < dayEnd
 		}
 
-		const today = new Date(`${year}/${month}/${date}`).toISOString()
+		const isInEvent = day => event =>
+			(new Date(event.start) < day && day < new Date(event.end))
+
+		const today = new Date(`${year}/${month}/${date}`)
 		const isToday = isInDay(today)
-		const eventIsToday = event => isToday(event.start) || isToday(event.end)
+		const todayInEvent = isInEvent(today)
+
+		const eventIsToday = event => isToday(event.start) || isToday(event.end) || todayInEvent(event)
 
 		return state.events.filter(eventIsToday)
 	}

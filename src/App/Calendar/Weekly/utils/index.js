@@ -25,10 +25,17 @@ export const isInHour = hourStart => time => {
 }
 
 export const isEventInHour = hour => event => {
-	const checkHour = isInHour(hour)
+	const nextHour = new Date(hour)
+	nextHour.setHours(nextHour.getHours() + 1)
+
 	const eventStart = new Date(event.start)
 	const eventEnd = new Date(event.end)
-	return checkHour(eventStart) || checkHour(eventEnd)
+
+	const eventStartsInHour = eventStart >= hour && eventStart < nextHour
+	const eventEndsInHour = eventEnd > hour && eventEnd <= nextHour
+	const eventDuringHour = hour >= eventStart && hour < eventEnd
+
+	return eventStartsInHour || eventEndsInHour || eventDuringHour
 }
 
 export const getHoursEvents = (day, events) => {

@@ -69,8 +69,6 @@ export default ({events, now, handleClick}) =>
 			const startTime = isoDateToTimeString(event.start)
 			const endTime = isoDateToTimeString(event.end)
 
-			const hourOf = (date) => date.getHours()
-
 			return (
 				<section
 					style={style}
