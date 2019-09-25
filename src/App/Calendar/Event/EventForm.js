@@ -48,65 +48,72 @@ const EventForm = (props) => {
 	}
 
 		return (
-			<form onSubmit={handleSubmit}>
-				<legend>Input Event Information</legend>
-				<div>
-					<label htmlFor="event-title">Event Title</label>
-					<input
-						name="eventTitle"
-						type="text"
-						id="event-title"
-						onChange={handleChange}
-						value={state.eventTitle}
-					/>
-				</div>
-				<div>
-					<label htmlFor="start-date">Start Date</label>
-					<input
-						name="startDate"
-						type="text"
-						id="start-date"
-						onChange={handleChange}
-						value={state.startDate}
-					/>
-					<label htmlFor="start-time">Start Time</label>
-					<input
-						name="startTime"
-						type="text"
-						id="start-time"
-						onChange={handleChange}
-						value={state.startTime}
-					/>
-				</div>
-				<div>
-					<label htmlFor="end-date">End Date</label>
-					<input
-						name="endDate"
-						type="text"
-						id="end-date"
-						onChange={handleChange}
-						value={state.endDate}
-					/>
-					<label htmlFor="end-time">End Time</label>
-					<input
-						name="endTime"
-						type="text"
-						id="end-time"
-						onChange={handleChange}
-						value={state.endTime}
-					/>
-				</div>
-				<div>
-					<label htmlFor="description">Description</label>
-					<textarea
-						name="description"
-						id="description"
-						onChange={handleChange}
-						value={state.description}
-					></textarea>
-				</div>
-				<button type="submit" onClick={handleSubmit}>Save</button>
-			</form>
+			<section className="event-menu">
+				<form onSubmit={handleSubmit}>
+					<legend>Input Event Information</legend>
+					<div className="event-title">
+						<label htmlFor="event-title">Event Title</label>
+						<input
+							autofocus="true"
+							name="eventTitle"
+							type="text"
+							id="event-title"
+							onChange={handleChange}
+							value={state.eventTitle}
+						/>
+					</div>
+					<div className="event-start">
+						<label htmlFor="start-date">Start Date</label>
+						<input
+							name="startDate"
+							type="text"
+							id="start-date"
+							onChange={handleChange}
+							value={state.startDate}
+						/>
+						<label htmlFor="start-time">Start Time</label>
+						<input
+							name="startTime"
+							type="text"
+							id="start-time"
+							onChange={handleChange}
+							value={state.startTime}
+						/>
+					</div>
+					<div className="event-end">
+						<label htmlFor="end-date">End Date</label>
+						<input
+							name="endDate"
+							type="text"
+							id="end-date"
+							onChange={handleChange}
+							value={state.endDate}
+						/>
+						<label htmlFor="end-time">End Time</label>
+						<input
+							name="endTime"
+							type="text"
+							id="end-time"
+							onChange={handleChange}
+							value={state.endTime}
+						/>
+					</div>
+					<div className="event-description">
+						<label htmlFor="description">Description</label>
+						<textarea
+							name="description"
+							id="description"
+							onChange={handleChange}
+							value={state.description}
+							rows="3"
+							cols="90"
+							spellcheck="true"
+						></textarea>
+					</div>
+					<button type="submit" onClick={handleSubmit}>Save</button>
+				</form>
+				<button className="close" aria-label="close" onClick={props.handleClose}>X</button>
+			</section>
 		)
 }
 

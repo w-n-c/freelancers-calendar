@@ -11,20 +11,23 @@ const newEvent = (year, month, date) => ({
 export default (props) => {
 	const {getEvent, handleCreateEvent, handleUpdateEvent, handleDeleteEvent} = useContext(EventContext)
 
+	const { route, year, month, date, id } = props
 
 	const handleSubmit = (event) => {
 		const success = event.id ? handleUpdateEvent(event) : handleCreateEvent(event)
 		if (success) {
-			const { route, year, month, date } = props
 			props.navigate(`/${route}/${year}/${month}/${date}`)
 		}
 	}
 
+	const handleClose = () => props.navigate(`/${route}/${year}/${month}/${date}`)
+
+
 	let event = {} 
-	if (props.id === 'new') {
-		event = newEvent(props.year, props.month, props.date)
+	if (id === 'new') {
+		event = newEvent(year, month, date)
 	} else {
-		event = getEvent(props.id)
+		event = getEvent(id)
 	}
 
 	const [startDate, startTime] = isoDateToCalStrings(event.start)
@@ -40,5 +43,5 @@ export default (props) => {
 		description: event.description
 	}
 
-	return <EventForm {...formInput} handleDelete={handleDeleteEvent} handleSubmit={handleSubmit} />
+	return <EventForm {...formInput} handleClose={handleClose} handleSubmit={handleSubmit} />
 }
