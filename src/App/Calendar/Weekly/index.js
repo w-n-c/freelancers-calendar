@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { extend, pick } from 'lodash/fp'
 import EventContext from '../../EventContext'
 import Hour from './Hour'
-import { hours, getWeek, getHoursEvents } from './utils'
+import { hours, getWeek, eventsInHour } from './utils'
 import { formatTime, handleEventClick as handleClick } from '../utils'
 
 export default (props) => {
@@ -17,7 +17,7 @@ export default (props) => {
 				{days.map((date, i) => {
 					const now = extend(day, {date, hour})
 					const todaysEvents = filterTodaysEvents(now)
-					const events = getHoursEvents(now, todaysEvents)
+					const events = eventsInHour(now, todaysEvents)
 					return <Hour
 						now={now}
 						key={i}
