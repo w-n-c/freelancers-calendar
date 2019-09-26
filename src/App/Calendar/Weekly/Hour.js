@@ -5,11 +5,11 @@ import { isInHour, timeInHours } from './utils'
 const sharedStyle = {
 	position: 'absolute',
 	background: 'lightblue',
-	color: 'white',
-	overflow: 'visible',
+	color: 'lightblue',
+	overflow: 'hidden',
 	margin: 0,
 	padding: 0,
-	zIndex: 1
+	zIndex: 1,
 }
 
 const dateFromDay = day => {
@@ -20,11 +20,11 @@ const dateFromDay = day => {
 }
 
 // should only be called if event Start occurs in this hour
-const offset = (eventStart) =>
-	1 - (60 - eventStart.getMinutes()) / 60
+const getTop = (start) =>
+	`calc(${offset(new Date(start))} * 100% - 2px)`
 
-const getTop = (eventStart) =>
-	`calc(${offset(eventStart)} * 100% - 2px)`
+const offset = (start) =>
+	1 - (60 - start.getMinutes()) / 60
 
 const calcHeight = (hourStart, eventTime) => {
 	return isInHour(hourStart)(eventTime)
@@ -56,15 +56,22 @@ const getHeight = (hour, eventStart, eventEnd) => {
 export default ({events, now, handleClick}) =>
 	<article role="gridcell" onClick={(e) => handleClick('new')}>
 		{events.map((event, i) => {
-			const thisHour = dateFromDay(now)
-			const eventStart = new Date(event.start)
-			const eventEnd = new Date(event.end)
 
-			const startsInHour = isInHour(thisHour)(eventStart)
+			const thisHour = dateFromDay(now)
+			const inThisHour = isInHour(thisHour)
+			const startsInHour = inThisHour(event.start)
+			const endsInHour = inThisHour(event.end)
 
 			const style = {...sharedStyle}
-			style.top = startsInHour ? getTop(eventStart) : 0
-			style.height = getHeight(thisHour, eventStart, eventEnd)
+			style.top = startsInHour ? getTop(event.start) : 0
+			style.height = getHeight(thisHour, event.start, event.end)
+			if (startsInHour) style.zIndex = 2
+
+			const showText = startsInHour || thisHour.getHours() === 0
+			if (showText) {
+				style.color = 'white'
+				style.overflow = 'visible'
+			}
 
 			const startTime = isoDateToTimeString(event.start)
 			const endTime = isoDateToTimeString(event.end)
