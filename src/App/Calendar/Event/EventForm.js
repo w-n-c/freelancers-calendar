@@ -54,7 +54,7 @@ const EventForm = (props) => {
 					<div className="event-title">
 						<label htmlFor="event-title">Event Title</label>
 						<input
-							autofocus="true"
+							autoFocus={true}
 							name="eventTitle"
 							type="text"
 							id="event-title"
@@ -107,7 +107,7 @@ const EventForm = (props) => {
 							value={state.description}
 							rows="3"
 							cols="90"
-							spellcheck="true"
+							spellCheck="true"
 						></textarea>
 					</div>
 					<button type="submit" onClick={handleSubmit}>Save</button>
