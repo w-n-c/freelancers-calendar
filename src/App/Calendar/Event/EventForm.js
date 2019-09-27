@@ -29,6 +29,11 @@ const EventForm = (props) => {
 		props.handleSubmit(createEvent())
 	}
 
+	const handleDelete = (e) => {
+		e.preventDefault()
+		props.handleDelete(state.eventId)
+	}
+
 	const createEvent = () => {
 		const event = {}
 		event.id = state.eventId
@@ -111,6 +116,7 @@ const EventForm = (props) => {
 						></textarea>
 					</div>
 					<button type="submit" onClick={handleSubmit}>Save</button>
+					<button type="submit" onClick={handleDelete}>Delete</button>
 				</form>
 				<button className="close" aria-label="close" onClick={props.handleClose}>X</button>
 			</section>
