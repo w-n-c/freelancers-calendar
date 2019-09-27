@@ -6,16 +6,16 @@ import { hours, getWeek, eventsInHour } from './utils'
 import { formatTime, handleEventClick as handleClick } from '../utils'
 
 export default (props) => {
-	const day = pick(['year', 'month', 'date'], props)
+	const seedDay = pick(['year', 'month', 'date'], props)
 	const { filterTodaysEvents } = useContext(EventContext)
-	const days = getWeek(day)
+	const days = getWeek(seedDay)
 
 	return <div className="weekly" role="rowgroup">
 		{hours.map((hour, i) =>
 			<section role="row" key={i}>
 				<h3 role="rowheader">{formatTime(`${hour}:00`)}</h3>
-				{days.map((date, i) => {
-					const now = extend(day, {date, hour})
+				{days.map((day, i) => {
+					const now = extend(day, {hour})
 					const todaysEvents = filterTodaysEvents(now)
 					const events = eventsInHour(now, todaysEvents)
 					return <Hour
