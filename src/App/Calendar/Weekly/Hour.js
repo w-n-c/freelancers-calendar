@@ -12,11 +12,11 @@ const sharedStyle = {
 	zIndex: 1,
 }
 
-const dateFromDay = day => {
-	const date = new Date(`${day.year}/${day.month}/${day.date}`)
-	if (day.hour)
-		date.setHours(day.hour)
-	return date
+const dateFromDay = ({year, month, date, hour}) => {
+	const dateObj = new Date(`${year}/${month}/${date}`)
+	if (hour)
+		dateObj.setHours(hour)
+	return dateObj
 }
 
 // should only be called if event Start occurs in this hour
