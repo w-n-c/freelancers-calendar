@@ -58,12 +58,12 @@ const EventProvider = (props) => {
 		return true
 	}
 
-	const handleDeleteEvent = (deleted) => {
+	const handleDeleteEvent = (deletionId) => {
 		const events = [...state.events]
 		const eventIndex = events.findIndex(
-			event => event.id === deleted.id
+			event => event.id === deletionId
 		)
-		events.splice(eventIndex, eventIndex+1)
+		events.splice(eventIndex, 1)
 		setState({ events })
 		return true
 	}
