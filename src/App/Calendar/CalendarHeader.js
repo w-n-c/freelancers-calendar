@@ -9,19 +9,20 @@ export const weekdayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday',
 
 const CalendarHeader = (props) => {
 	const day = pick(['year', 'month', 'date'], props)
-	const week = props.route === 'weekly' ? getWeek(day) : ''
-
+	const week = props.route === 'weekly' ? getWeek(day) : undefined
 	return (
-		<div role="rowgroup">
+		<div className="header-group" role="rowgroup">
+			{week ? <span key="padding only"></span> : null }
 			<header role="row">
 				{weekdayNames.map((name, i) =>
 					<SectionHeader role="columnheader" ariaHeader={name} key={i}>
 						{weekdayAbbr[i]}
 						<br />
-						{week ? week[i] : '' }
+						{week ? week[i].date : '' }
 					</SectionHeader>
 				)}
 			</header>
+			{week ? <span key="padding only"></span> : null }
 		</div>
 	)
 }

@@ -72,11 +72,6 @@ main, .calendar, .monthly, .monthly section {
 	overflow: scroll;
 }
 
-main header {
-	display: flex;
-	justify-content: space-around;
-}
-
 section {
 	display: flex;
 }
@@ -86,16 +81,45 @@ main article {
 	width: calc(100% / 7);
 }
 
+/*** Layout: Main Content Header ***/
+
+main header {
+	display: flex;
+	justify-content: space-around;
+}
+
+.header-group {
+	display: flex;
+}
+
+.header-group span:first-child {
+	/* defined by row header width in calendar
+	 * need to make dynamic eventually */
+	width: 46px;
+}
+
+.header-group span:last-child {
+	/* defined by width of browser scrollbar */
+	width: 17px;
+}
+
+.header-group > header {
+	flex-grow: 1;
+}
+
+.header-group header h2 {
+	margin: 0;
+	flex-grow: 1;
+	text-align: center;
+	flex-basis: 0;
+}
+
+/*** Main Content: Monthly View ***/
+
 .monthly article {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
-}
-
-
-.weekly article {
-	height: 4rem;
-	position: relative;
 }
 
 .monthly article ul::-webkit-scrollbar { width: 0 !important; }
@@ -103,6 +127,11 @@ main article {
 	height: 100%;
 	overflow: scroll;
 	scrollbar-width: none;
+}
+
+.weekly article {
+	height: 4rem;
+	position: relative;
 }
 
 .weekly article section::-webkit-scrollbar { width: 0 !important; }
