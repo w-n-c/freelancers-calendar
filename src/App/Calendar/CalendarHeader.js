@@ -12,7 +12,7 @@ const CalendarHeader = (props) => {
 	const week = props.route === 'weekly' ? getWeek(day) : undefined
 	return (
 		<div className="header-group" role="rowgroup">
-			{week ? <span key="padding only"></span> : null }
+			{week ? <span key="rowheader padding"></span> : null }
 			<header role="row">
 				{weekdayNames.map((name, i) =>
 					<SectionHeader role="columnheader" ariaHeader={name} key={i}>
@@ -22,7 +22,7 @@ const CalendarHeader = (props) => {
 					</SectionHeader>
 				)}
 			</header>
-			{week ? <span key="padding only"></span> : null }
+			{week ? <span key="scrollbar padding"></span> : null }
 		</div>
 	)
 }
