@@ -17,11 +17,18 @@ export const getWeek = ({year, month, date}) => {
 
 export const hours = new Array(24).fill().map((_, i) => i)
 
-export const timeInHours = (t1, t2) =>
+export const lengthInHours = (t1, t2) =>
 	Math.abs(
 		(new Date(t1) - new Date(t2))
 		/ 3600000
 	)
+
+export const dateFromDay = ({year, month, date, hour}) => {
+	const dateObj = new Date(`${year}/${month}/${date}`)
+	if (hour)
+		dateObj.setHours(hour)
+	return dateObj
+}
 
 export const nextHour = date => {
 	const next = new Date(date)

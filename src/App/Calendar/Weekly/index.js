@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { extend, pick } from 'lodash/fp'
 import EventContext from '../../EventContext'
 import Hour from './Hour'
-import { hours, getWeek, eventsInHour } from './utils'
+import { hours, getWeek, eventsInHour, dateFromDay } from './utils'
 import { formatTime, handleEventClick as handleClick } from '../utils'
 
 export default (props) => {
@@ -19,7 +19,7 @@ export default (props) => {
 					const todaysEvents = filterTodaysEvents(now)
 					const events = eventsInHour(now, todaysEvents)
 					return <Hour
-						now={now}
+						now={dateFromDay(now)}
 						key={i}
 						events={events}
 						handleClick={handleClick(props.navigate)}

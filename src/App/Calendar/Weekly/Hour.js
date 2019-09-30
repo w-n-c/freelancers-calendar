@@ -1,6 +1,6 @@
 import React from 'react'
 import { isoDateToTimeString } from '../utils'
-import { isInHour, timeInHours } from './utils'
+import { isInHour, lengthInHours } from './utils'
 
 const sharedStyle = {
 	position: 'absolute',
@@ -12,39 +12,24 @@ const sharedStyle = {
 	zIndex: 1,
 }
 
-const dateFromDay = ({year, month, date, hour}) => {
-	const dateObj = new Date(`${year}/${month}/${date}`)
-	if (hour)
-		dateObj.setHours(hour)
-	return dateObj
-}
-
-// should only be called if event Start occurs in this hour
 const getTop = (start) =>
 	`calc(${offset(new Date(start))} * 100% - 2px)`
 
 const offset = (start) =>
 	1 - (60 - start.getMinutes()) / 60
 
-const calcHeight = (hourStart, eventTime) => {
-	return isInHour(hourStart)(eventTime)
-	? timeInHours(hourStart, eventTime)
-	: 0
+const calcHeight = (hour, event) => {
+	const height = lengthInHours(hour, event)
+	return height >= 0.10 ? height : 0
 }
 
 const getHeight = (hour, eventStart, eventEnd) => {
-	const hasStartHeight = calcHeight(hour, eventStart) 
-	const hasEndHeight = calcHeight(hour, eventEnd) 
+	const startHeight = calcHeight(hour, eventStart)
+	const endHeight = calcHeight(hour, eventEnd)
 
-	let height = 1
-
-	if (hasStartHeight && hasEndHeight) {
-		height -= hasStartHeight + hasEndHeight
-	} else if (hasStartHeight) {
-		height -= hasStartHeight
-	} else if (hasEndHeight) {
-		height -= 1 - hasEndHeight
-	}
+	let height = 0
+	height += isInHour(hour)(eventStart) ? 1 - startHeight : 0
+	height += isInHour(hour)(eventEnd) ? endHeight : 0
 
 	return isInHour(hour, eventStart)
 		? `calc(${height} * 100% + 2px)`
@@ -56,18 +41,15 @@ const getHeight = (hour, eventStart, eventEnd) => {
 export default ({events, now, handleClick}) =>
 	<article role="gridcell" onClick={(e) => handleClick('new')}>
 		{events.map((event, i) => {
-
-			const thisHour = dateFromDay(now)
-			const inThisHour = isInHour(thisHour)
+			const inThisHour = isInHour(now)
 			const startsInHour = inThisHour(event.start)
-			const endsInHour = inThisHour(event.end)
 
 			const style = {...sharedStyle}
-			style.top = startsInHour ? getTop(event.start) : 0
-			style.height = getHeight(thisHour, event.start, event.end)
+			style.top = startsInHour ? getTop(event.start) : '-2px'
+			style.height = getHeight(now, event.start, event.end)
 			if (startsInHour) style.zIndex = 2
 
-			const showText = startsInHour || thisHour.getHours() === 0
+			const showText = startsInHour || now.getHours() === 0
 			if (showText) {
 				style.color = 'white'
 				style.overflow = 'visible'
