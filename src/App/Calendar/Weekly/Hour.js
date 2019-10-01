@@ -13,40 +13,24 @@ const sharedStyle = {
 }
 
 const getTop = (start) =>
-	`calc(${offset(new Date(start))} * 100% - 2px)`
+	`calc(${1 - offset(new Date(start))} * 100% - 2px)`
+
+const getBottom = (end) =>
+	`calc(${offset(new Date(end))} * 100% + 2px)`
 
 const offset = (start) =>
-	1 - (60 - start.getMinutes()) / 60
-
-const calcHeight = (hour, event) => {
-	const height = lengthInHours(hour, event)
-	return height >= 0.10 ? height : 0
-}
-
-const getHeight = (hour, eventStart, eventEnd) => {
-	const startHeight = calcHeight(hour, eventStart)
-	const endHeight = calcHeight(hour, eventEnd)
-
-	let height = 0
-	height += isInHour(hour)(eventStart) ? 1 - startHeight : 0
-	height += isInHour(hour)(eventEnd) ? endHeight : 0
-
-	return isInHour(hour, eventStart)
-		? `calc(${height} * 100% + 2px)`
-		: 0
-}
-
-
+	(60 - start.getMinutes()) / 60
 
 export default ({events, now, handleClick}) =>
 	<article role="gridcell" onClick={(e) => handleClick('new')}>
 		{events.map((event, i) => {
 			const inThisHour = isInHour(now)
 			const startsInHour = inThisHour(event.start)
+			const endsInHour = inThisHour(event.end)
 
 			const style = {...sharedStyle}
 			style.top = startsInHour ? getTop(event.start) : '-2px'
-			style.height = getHeight(now, event.start, event.end)
+			style.bottom = endsInHour ? getBottom(event.end) : '0'
 			if (startsInHour) style.zIndex = 2
 
 			const showText = startsInHour || now.getHours() === 0
