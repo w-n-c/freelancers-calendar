@@ -1,6 +1,6 @@
 import React from 'react'
 import { isoDateToTimeString } from '../utils'
-import { isInHour, lengthInHours } from './utils'
+import { isInHour } from './utils'
 
 const sharedStyle = {
 	position: 'absolute',
