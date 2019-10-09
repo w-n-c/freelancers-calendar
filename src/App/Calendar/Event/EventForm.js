@@ -1,22 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 const EventForm = (props) => {
-	/* Normally an anti-pattern, but in this case I believe it makes
-	 * sense to use props as initialState. This form is used to create/update
-	 * an event, so the event data (passed as props) will not change
-	 * within the lifetime of this component.
-	*/
 	const [state, updateState] = useState({
-		eventId: props.eventId || "",
-		eventTitle: props.eventTitle || "",
-		description: props.description || "",
-		startDate: props.startDate || "",
-		startTime: props.startTime || "",
-		endTime: props.endTime || "",
-		endDate: props.endDate || ""
+		eventId: "",
+		eventTitle: "",
+		description: "",
+		startDate: "",
+		startTime: "",
+		endTime: "",
+		endDate: ""
 	})
 
-	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
+	const stateUpdater = (state) => updateState(oldState => ({...oldState, ...state}))
+	const setState = useCallback(stateUpdater, [])
+	useEffect(() => setState(props), [props, setState])
 
 	const handleChange = (event) => {
 		const name = event.target.name
