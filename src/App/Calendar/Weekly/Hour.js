@@ -21,8 +21,16 @@ const getBottom = (end) =>
 const offset = (start) =>
 	(60 - start.getMinutes()) / 60
 
-export default ({events, now, handleClick}) =>
-	<article role="gridcell" onClick={(e) => handleClick('new')}>
+const newEventUrl = (date) =>
+	`new
+		?year=${date.getFullYear()}
+		&month=${date.getMonth() + 1}
+		&date=${date.getDate()}
+		&hour=${date.getHours()}
+	`
+
+export default ({events, now, navLink}) =>
+	<article role="gridcell" onClick={(e) => navLink(newEventUrl(now))}>
 		{events.map((event, i) => {
 			const inThisHour = isInHour(now)
 			const startsInHour = inThisHour(event.start)
@@ -48,7 +56,7 @@ export default ({events, now, handleClick}) =>
 					key={i}
 					onClick={(e) => {
 						e.stopPropagation()
-						handleClick(event.id)
+						navLink(event.id)
 					}}
 				>
 					<h4>{event.title}</h4>

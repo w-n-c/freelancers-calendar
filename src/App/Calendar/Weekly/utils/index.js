@@ -1,3 +1,5 @@
+import { nextHour } from '../../utils'
+
 export const getWeek = ({year, month, date}) => {
 	// set date to the Sunday (first day) of given week
 	const day = new Date(`${year}/${month}/${date}`)
@@ -22,19 +24,6 @@ export const lengthInHours = (t1, t2) =>
 		(new Date(t1) - new Date(t2))
 		/ 3600000
 	)
-
-export const dateFromDay = ({year, month, date, hour}) => {
-	const dateObj = new Date(`${year}/${month}/${date}`)
-	if (hour)
-		dateObj.setHours(hour)
-	return dateObj
-}
-
-export const nextHour = date => {
-	const next = new Date(date)
-	next.setHours(next.getHours() + 1)
-	return next
-}
 
 export const isInHour = hour => time => {
 	const hourStart = new Date(hour)
