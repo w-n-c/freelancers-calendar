@@ -1,5 +1,5 @@
 import React from 'react'
-import { isoDateToTimeString } from '../utils'
+import { isoDateToTimeString, newEventQuery } from '../utils'
 import { isInHour } from './utils'
 
 const sharedStyle = {
@@ -21,16 +21,8 @@ const getBottom = (end) =>
 const offset = (start) =>
 	(60 - start.getMinutes()) / 60
 
-const newEventUrl = (date) =>
-	`new
-		?year=${date.getFullYear()}
-		&month=${date.getMonth() + 1}
-		&date=${date.getDate()}
-		&hour=${date.getHours()}
-	`
-
 export default ({events, now, navLink}) =>
-	<article role="gridcell" onClick={(e) => navLink(newEventUrl(now))}>
+	<article role="gridcell" onClick={(e) => navLink(newEventQuery(now))}>
 		{events.map((event, i) => {
 			const inThisHour = isInHour(now)
 			const startsInHour = inThisHour(event.start)
