@@ -1,11 +1,18 @@
 import React from 'react'
+import { compose } from 'lodash/fp'
 import EventList from './EventList'
-import { handleEventClick as handleClick } from '../utils'
+import { dateFromDay, newEventQuery } from '../utils'
 
-export default ({days, navigate}) =>
+const eventQuery = (navLink) => compose(navLink, newEventQuery, dateFromDay)
+const handleClick = (navLink, day) => {
+	day.hour = new Date().getHours()
+	return eventQuery(navLink)(day)
+}
+
+export default ({days, navLink}) =>
 	days.map((day, i) =>
-		<article role="gridcell" key={i} onClick={(e) => handleClick(navigate)('new')}>
+		<article role="gridcell" key={i} onClick={(e) => handleClick.call(undefined, navLink, day)}>
 			<h4>{day.date}</h4>
-			<EventList handleClick={handleClick(navigate)} events={day.events} />
+			<EventList handleClick={navLink} events={day.events} />
 		</article>
 	)

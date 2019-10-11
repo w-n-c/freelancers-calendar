@@ -4,6 +4,7 @@ import EventContext from '../../EventContext'
 import SectionHeader from '../SectionHeader'
 import Days from './Days'
 import { getDaysOfMonth } from './utils'
+import { handleEventClick } from '../utils'
 
 
 // screen reads a little awkwardly but should work until we make
@@ -13,7 +14,7 @@ const makeWeekRangeString = (start, end) => `Week of the ${start} to the ${end}`
 
 export default (props) => {
 	const day = pick(['year', 'month', 'date'], props)
-	const { navigate } = props
+	const navLink = handleEventClick(props.navigate)
 
 	const { filterTodaysEvents } = useContext(EventContext)
 	const addEvents = day => extend(day, { events: filterTodaysEvents(day)})
@@ -28,7 +29,7 @@ export default (props) => {
 					className="aria-only"
 					ariaHeader={makeAriaHeader(daysOfWeek)}
 				/>
-				<Days days={daysOfWeek} navigate={navigate} />
+				<Days days={daysOfWeek} navLink={navLink} />
 			</section>
 		)}
 	</div>
