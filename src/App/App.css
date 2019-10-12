@@ -201,6 +201,7 @@ nav li:nth-child(-n+3) {
 
 .dropdown {
 	visibility: hidden;
+	z-index: 4;
 }
 
 ul li ul {
