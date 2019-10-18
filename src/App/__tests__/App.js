@@ -1,8 +1,9 @@
 import React from 'react'
+import { Redirect } from '@reach/router'
+import App from '../'
+import Header from '../Header'
+import { toDateString } from '../utils'
 import ReactDOM from 'react-dom'
-import {App} from '../App'
-import { shallow } from 'enzyme'
-import toJson from 'enzyme-to-json'
 
 describe('<App />', () => {
 	it('renders without crashing', () => {
@@ -10,8 +11,17 @@ describe('<App />', () => {
 		ReactDOM.render(<App />, div)
 		ReactDOM.unmountComponentAtNode(div)
 	})
-	it('matches the snapshot', () => {
-		const tree = shallow(<App />)
-		expect(toJson(tree)).toMatchSnapshot()
+
+	it(`passes date info to redirect and header`, () => {
+		const today = toDateString(new Date())
+		const wrapper = shallow(<App />)
+		expect(wrapper.contains(<Redirect noThrow from="/" to={`monthly/${today}`} />)).toBe(true)
+		expect(wrapper.contains(<Header path="/:view/:year/:month/:date/*" today={today} />)).toBe(true)
 	})
+
+	it(`renders Calendar`, () => {
+		const wrapper = shallow(<App />)
+		expect(wrapper.find('Calendar')).toHaveLength(1)
+	})
+
 })
