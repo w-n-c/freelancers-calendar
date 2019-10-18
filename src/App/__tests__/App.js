@@ -24,4 +24,9 @@ describe('<App />', () => {
 		expect(wrapper.find('Calendar')).toHaveLength(1)
 	})
 
+	it(`adds the EventProvider`, () => {
+		const wrapper = shallow(<App />)
+		expect(wrapper.find('EventProvider')).toHaveLength(1)
+	})
+
 })
