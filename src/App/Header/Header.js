@@ -8,32 +8,48 @@ export const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 export const viewToNoun = (s) => s.charAt(0).toUpperCase() + s.slice(1,-2);
 export const dayToString = ({year, month, date}) => `${year}/${month}/${date}`
 
+// Header creates all the paths for navigation and displays their links along
+// with the month and year of the current calendar view
 export const Header = (props) => {
-	const { view, today, '*': eventPath, location: { search }} = props
+	// today is the current day
+	// day is the time the calendar is currently showing
+	// when in weekly/monthly view, day determines what
+	// month or week is shown on the calendar
+	const { view, today, '*': event, location: { search }} = props
 	const day = pick(['year', 'month', 'date'], props)
 
-	const eventInfo = `${eventPath}${search}`
-	const eventUrl = url(eventInfo)
+	// Generate the urls for the navigation links
 
-	const dayAndEventUrl = eventUrl(dayToString(day))
-	const weeklyPath  = dayAndEventUrl('weekly')
-	const monthlyPath = dayAndEventUrl('monthly')
+	// Event info holds all the information about the currently selected event (if any)
+	// Event info can be added to the path first as the naviagtion links should not close
+	// the user's selected event (meaning it does not change across any link)
 
-	const incEventUrl = eventUrl(incRoute(view)(day))
-	const decEventUrl = eventUrl(decRoute(view)(day))
-	const previousUrl = decEventUrl(view)
-	const nextUrl = incEventUrl(view)
+	const eventInfo = `${event}${search}`
+	const eventPath = url(eventInfo)
 
-	const todaysUrl = eventUrl(today)(view)
+	// Add the date path information to each link
+	const todayPath = eventPath(today)
+	const dayPath = eventPath(dayToString(day))
 
+	// next/prev are navigation to adjacent week/months (respective of view)
+	const nextPath = eventPath(incRoute(view)(day))
+	const prevPath = eventPath(decRoute(view)(day))
+
+	// add the view path information to each link
+	// 'view' is the currently displayed view
+	const weeklyUrl = dayPath('weekly')
+	const monthlyUrl = dayPath('monthly')
+	const previousUrl = prevPath(view)
+	const nextUrl = nextPath(view)
+	const todayUrl = todayPath(view)
+
+	// link titles depend on whether the view is monthly or weekly
+	// this uses the 'view' to generate the apprpriate text
+	// e.g. monthly => 'Monthly' and 'Month'
 	const title = {
 		noun: viewToNoun(view),
 		adjective: capitalize(view)
 	}
-
-	// had the idea to remove all the ternaries below but need to consider how to deal with the urls also changing
-	// probably need to make another component and pase the title and url as props
-	// will do next commit
 
 	return (
 		<header className="site-header">
@@ -41,7 +57,7 @@ export const Header = (props) => {
 				<ul>
 					<h1 id="calendar-date">{getMonthName(day.month)} {day.year}</h1>
 					<li>
-						<Link title="Return to Today" to={todaysUrl}>Today</Link>
+						<Link title="Return to Today" to={todayUrl}>Today</Link>
 					</li>
 					<li>
 						<Link title={`Previous ${title.noun}`} to={previousUrl}>&lt;</Link>
@@ -53,12 +69,12 @@ export const Header = (props) => {
 						<button aria-haspopup="true">View</button>
 						<ul className="dropdown" aria-label="submenu">
 							<li>
-								<Link title="Weekly View" to={weeklyPath}>
+								<Link title="Weekly View" to={weeklyUrl}>
 									Weekly
 								</Link>
 							</li>
 							<li>
-								<Link title="Monthly View" to={monthlyPath}>
+								<Link title="Monthly View" to={monthlyUrl}>
 									Monthly
 								</Link>
 							</li>
