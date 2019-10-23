@@ -1,11 +1,11 @@
 import { zeroPad, padIfLenOne, formatTime } from '../formatTime'
 
-describe('formatTime and its utils', () => {
+describe('formatTime and its helpers', () => {
 	describe('formatTime', () => {
 		it('left pads hour and minute as necessary', () => {
 			expect(formatTime('2:2')).toEqual('02:02')
 			expect(formatTime('14:5')).toEqual('14:05')
-			expect(formatTime('8:34')).toEqual('8:34')
+			expect(formatTime('8:34')).toEqual('08:34')
 			expect(formatTime('15:20')).toEqual('15:20')
 		})
 	})
