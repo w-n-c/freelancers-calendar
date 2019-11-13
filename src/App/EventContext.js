@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import axios from 'axios'
 const events = require('./events.json')
 const uuid = require('nanoid')
 
@@ -11,6 +12,11 @@ const EventProvider = (props) => {
 		loading: false,
 		error: ''
 	})
+
+	axios.get('api/events')
+		.then(({data: events}) => {
+			updateState({events, loading: false, error: ''})
+		}).catch(console.log)
 
 	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
 
@@ -39,10 +45,16 @@ const EventProvider = (props) => {
 		return state.events.filter(eventIsToday)
 	}
 
-	const handleCreateEvent = (event) => {
+	const handleCreateEvent = async (event) => {
 		event.id = uuid()
-		// POST event to server
-		// on success:
+
+		try {
+			const result = (await axios.post('/api/events/new', event)).data
+			console.log(result)
+		} catch (error) {
+			console.log(error)
+		}
+
 		const events = [...state.events, event]
 		setState({ events })
 		return true
