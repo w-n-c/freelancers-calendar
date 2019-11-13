@@ -15,15 +15,15 @@ export const Calendar = ({handleUpdateToday}) => {
 	return [
 		<main key="1" onMouseMove={handleMouseMove} role="grid">
 			<Router>
-				<CalendarHeader path=":route/:year/:month/:date/*" />
+				<CalendarHeader path="calendar/:route/:year/:month/:date/*" />
 			</Router>
 			<Router className="calendar">
-				<Monthly path="monthly/:year/:month/:date/*" />
-				<Weekly path="weekly/:year/:month/:date/*" />
+				<Monthly path="calendar/monthly/:year/:month/:date/*" />
+				<Weekly path="calendar/weekly/:year/:month/:date/*" />
 			</Router>
 		</main>,
 		<Router key="2">
-			<Event path=":route/:year/:month/:date/events/:id" />
+			<Event path="calendar/:route/:year/:month/:date/events/:id" />
 		</Router>
 	]
 }

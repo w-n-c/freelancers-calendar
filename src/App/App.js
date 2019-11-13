@@ -20,10 +20,10 @@ export const App = () => {
 	return (
 		<EventProvider>
 			<Router>
-				<Redirect noThrow from="/" to={`monthly/${today}`} />
-				<Header path="/:view/:year/:month/:date/*" today={today} />
+				<Redirect noThrow from="/" to={`calendar/monthly/${today}`} />
+				<Header path="calendar/:view/:year/:month/:date/*" today={today} />
 			</Router>
-			<Calendar handleUpdateToday={handleUpdateToday} />
+			<Calendar path="calendar/*" handleUpdateToday={handleUpdateToday} />
 		</EventProvider>
 	)
 }

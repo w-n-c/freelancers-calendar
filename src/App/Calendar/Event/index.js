@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { navigate } from '@reach/router'
 import queryString from 'query-string'
 import { pick } from 'lodash/fp'
 import EventContext from '../../EventContext'
@@ -15,11 +16,11 @@ const newEvent = (day) => {
 	}
 }
 
-const navString = ({route, year, month, date}) => `/${route}/${year}/${month}/${date}`
+const navString = ({route, year, month, date}) => `/calendar/${route}/${year}/${month}/${date}`
 
 export default (props) => {
 	const { getEvent } = useContext(EventContext)
-	const { navigate, location, id } = props
+	const { location, id } = props
 
 	const eventDate = queryString.parse(location.search)
 	const event = (id === 'new') ? newEvent(eventDate) : getEvent(id)
