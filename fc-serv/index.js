@@ -12,7 +12,7 @@ const mongooseConfig = {
 mongoose.connect(keys.mLabURI, mongooseConfig)
 
 require('./models/User')
-require('./models/Calendar')
+require('./models/Event')
 require('./services/passport')
 
 const app = express()
@@ -29,6 +29,7 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 require('./routes/authRoutes')(app)
+require('./routes/eventRoutes')(app)
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT)

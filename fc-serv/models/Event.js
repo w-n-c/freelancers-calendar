@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const calendarSchema = new Schema({
+const eventSchema = new Schema({
+	id: String,
 	title: String,
 	description: String,
 	start: String,
@@ -9,4 +10,4 @@ const calendarSchema = new Schema({
 	_user: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
-mongoose.model('calendar', calendarSchema)
+mongoose.model('event', eventSchema)
