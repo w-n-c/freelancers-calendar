@@ -10,4 +10,11 @@ const eventSchema = new Schema({
 	_user: { type: Schema.Types.ObjectId, ref: 'User' }
 })
 
+eventSchema.method('transform', function() {
+	const obj = this.toObject()
+	obj.id = obj._id
+	delete obj._id
+	return obj
+})
+
 mongoose.model('event', eventSchema)

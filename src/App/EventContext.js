@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 const events = require('./events.json')
-const uuid = require('nanoid')
 
 const EventContext = React.createContext()
 const { Provider, Consumer } = EventContext
@@ -46,18 +45,15 @@ const EventProvider = (props) => {
 	}
 
 	const handleCreateEvent = async (event) => {
-		event.id = uuid()
-
 		try {
-			const result = (await axios.post('/api/events/new', event)).data
-			console.log(result)
+			const savedEvent = (await axios.post('/api/events/new', event)).data
+			const events = [...state.events, savedEvent]
+			setState({ events })
+			return true
 		} catch (error) {
 			console.log(error)
+			return false
 		}
-
-		const events = [...state.events, event]
-		setState({ events })
-		return true
 	}
 
 	const handleUpdateEvent = (update) => {
