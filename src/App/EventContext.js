@@ -58,7 +58,7 @@ const EventProvider = (props) => {
 
 	const handleUpdateEvent = async (update) => {
 		try {
-			const isUpdated = (await axios.post(`/api/events/${update.id}`, update))
+			const isUpdated = (await axios.post(`/api/events/${update.id}`, update)).data
 
 			const events = [...state.events]
 			const eventIndex = events.findIndex(event => event.id === update.id)
@@ -72,14 +72,20 @@ const EventProvider = (props) => {
 		}
 	}
 
-	const handleDeleteEvent = (deletionId) => {
-		const events = [...state.events]
-		const eventIndex = events.findIndex(
-			event => event.id === deletionId
-		)
-		events.splice(eventIndex, 1)
-		setState({ events })
-		return true
+	const handleDeleteEvent = async (deletionId) => {
+		try {
+			await axios.delete(`/api/events/${deletionId}`)
+			const events = [...state.events]
+			const eventIndex = events.findIndex(
+				event => event.id === deletionId
+			)
+			events.splice(eventIndex, 1)
+			setState({ events })
+			return true
+		} catch( error) {
+			console.log(error)
+			return false
+		}
 	}
 
 	return (

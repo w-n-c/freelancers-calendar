@@ -37,4 +37,15 @@ module.exports = app => {
 			res.status(422).send(err)
 		}
 	})
+
+	app.delete('/api/events/:id', requireLogin, async (req, res) => {
+		try {
+			await Event.findByIdAndRemove(req.params.id, (err, event) => {
+				if (err) return res.status(500).send(err)
+				return res.status(200).send({ message: "Event successfully deleted"})
+			})
+		} catch (err) {
+			res.status(422).send(err)
+		}
+	})
 }
