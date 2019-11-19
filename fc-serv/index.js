@@ -6,8 +6,8 @@ const keys = require('./config/keys')
 
 const mongooseConfig = {
 	useNewUrlParser: true,
-	useUnifiedTopology: true
-
+	useUnifiedTopology: true,
+	useFindAndModify: false
 }
 mongoose.connect(keys.mLabURI, mongooseConfig)
 

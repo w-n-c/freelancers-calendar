@@ -56,14 +56,20 @@ const EventProvider = (props) => {
 		}
 	}
 
-	const handleUpdateEvent = (update) => {
-		const events = [...state.events]
-		const eventIndex = events.findIndex(
-			event => event.id === update.id
-		)
-		events[eventIndex] = update
-		setState({ events })
-		return true
+	const handleUpdateEvent = async (update) => {
+		try {
+			const isUpdated = (await axios.post(`/api/events/${update.id}`, update))
+
+			const events = [...state.events]
+			const eventIndex = events.findIndex(event => event.id === update.id)
+			events[eventIndex] = update
+			setState({ events })
+
+			return isUpdated
+		} catch (error) {
+			console.log(error)
+			return false
+		}
 	}
 
 	const handleDeleteEvent = (deletionId) => {
