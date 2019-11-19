@@ -31,14 +31,21 @@ describe('<Header />', () => {
 		expect(wrapper.html()).toBeDefined()
 	})
 
-	it(`sets today link based on props `, () => {
+	it('sets today link based on props', () => {
 		const monthly = shallow(<Header {...monthlyProps} />)
 		const mToday = monthly.find({title: 'Return to Today'})
-		expect(mToday.props()).toHaveProperty('to', '/monthly/2018/1/14/')
+		expect(mToday.props()).toHaveProperty('to', '/calendar/monthly/2018/1/14/')
 
 		const weekly = shallow(<Header {...weeklyProps} />)
 		const wToday = weekly.find({title: 'Return to Today'})
-		expect(wToday.props()).toHaveProperty('to', '/weekly/2020/11/6/')
+		expect(wToday.props()).toHaveProperty('to', '/calendar/weekly/2020/11/6/')
+	})
+
+	it('displays a login link', () => {
+		const monthly = shallow(<Header {...monthlyProps} />)
+		expect(monthly.contains(<li><a href={`/auth/google`}>Login</a></li>)).toBe(true)
+		const weekly = shallow(<Header {...weeklyProps} />)
+		expect(weekly.contains(<li><a href={`/auth/google`}>Login</a></li>)).toBe(true)
 	})
 
 })
