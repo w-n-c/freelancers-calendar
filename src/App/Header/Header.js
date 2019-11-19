@@ -80,6 +80,9 @@ export const Header = (props) => {
 							</li>
 						</ul>
 					</li>
+					<li>
+						<a href={`/auth/google`}>Login</a>
+					</li>
 				</ul>
 			</nav>
 		</header>
