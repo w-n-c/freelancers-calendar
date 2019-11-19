@@ -30,7 +30,12 @@ passport.use(new GoogleStrategy(
 			return done(null, existingUser)
 		}
 
-		const user = await new User({ googleId: profile.id}).save()
+		const userData = {
+			googleId: profile.id,
+			name: profile.displayName
+		}
+
+		const user = await new User(userData).save()
 		done(null, user)
 	}
 ))
