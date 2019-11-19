@@ -6,22 +6,16 @@ const Event = mongoose.model('event')
 module.exports = app => {
 	app.get('/api/events', requireLogin, async (req, res) => {
 		const events = await Event.find({_user: req.user.id })
-		res.json(events)
+		res.json(events.map(event => event.transform()))
 	})
 
-	app.post('/api/events/new', requireLogin, async (req, res) => {
-		const { id, title, start, end, description } = req.body
+	app.post('/api/events/new', requireLogin, async ({body: eventData, user: {id: _user }}, res) => {
 		const event = new Event({
-			id,
-			title,
-			start,
-			end,
-			description,
-			_user: req.user.id
+			...eventData,
+			_user
 		})
 		try {
-			await event.save()
-			res.json(req.body)
+			await event.save((err, savedEvent) => res.json(savedEvent.transform()))
 		} catch (err) {
 			res.status(422).send(err)
 		}
