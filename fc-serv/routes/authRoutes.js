@@ -7,16 +7,16 @@ module.exports = (app) => {
 		'/auth/google/callback',
 		passport.authenticate('google'),
 		(req, res) => {
-			res.redirect('/')
+			res.redirect('/check_user')
 		}
 	)
 
 	app.get('/api/logout', (req, res) => {
 		req.logout()
-		res.redirect('/')
+		res.redirect('/check_user')
 	})
 
 	app.get('/api/current_user', (req, res) => {
-		res.json(req.user)
+		res.json(req.user || { name: '' })
 	})
 }

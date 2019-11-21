@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from '@reach/router'
-import { pick} from 'lodash/fp'
+import { pick } from 'lodash/fp'
+import UserContext from '../UserContext'
 import { url, incRoute, decRoute, getMonthName } from './utils'
 
 
@@ -10,7 +11,10 @@ export const dayToString = ({year, month, date}) => `${year}/${month}/${date}`
 
 // Header creates all the paths for navigation and displays their links along
 // with the month and year of the current calendar view
+
 export const Header = (props) => {
+	//	const { getUser, loginLink, logoutLink } = useContext(UserContext)
+	const {userLink} = useContext(UserContext)
 	// today is the current day
 	// day is the time the calendar is currently showing
 	// when in weekly/monthly view, day determines what
@@ -81,7 +85,7 @@ export const Header = (props) => {
 						</ul>
 					</li>
 					<li>
-						<a href={`/auth/google`}>Login</a>
+						{userLink()}
 					</li>
 				</ul>
 			</nav>
