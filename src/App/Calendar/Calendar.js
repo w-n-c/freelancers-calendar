@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import { Router } from '@reach/router'
+import UserContext from '../UserContext'
 import Event from './Event'
 import Monthly from './Monthly'
 import Weekly from './Weekly'
@@ -11,6 +12,12 @@ export const Calendar = ({handleUpdateToday}) => {
 		e.preventDefault()
 		handleUpdateToday()
 	}
+
+	const { getUser } = useContext(UserContext)
+	useEffect(() => {
+		getUser()
+		return () => getUser()
+	})
 
 	return [
 		<main key="1" onMouseMove={handleMouseMove} role="grid">

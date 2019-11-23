@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
 
 const UserContext = React.createContext()
@@ -14,8 +14,6 @@ const UserProvider = (props) => {
 		try {
 			const { name } = (await axios.get('/api/current_user')).data
 			const loggedIn = name !== ''
-			console.log(loggedIn)
-			console.log(name)
 			if (name !== state.name) updateState({name, loggedIn})
 			return state
 		} catch (error) {
@@ -24,11 +22,11 @@ const UserProvider = (props) => {
 		}
 	}
 
-	useEffect(() => { getUser() })
-
 	const loginLink = <a href="/auth/google">Login</a>
 	const logoutLink = <a href="/api/logout">Logout</a>
-	const userLink = () => state.loggedIn ? logoutLink : loginLink
+		const userLink = () => {
+			return state.loggedIn ? logoutLink : loginLink
+		}
 
 	return (
 		<Provider value={{
