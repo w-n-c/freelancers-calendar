@@ -12,11 +12,10 @@ import { toDateString } from './utils'
 export const App = () => {
 	const [today, setToday] = useState(toDateString(new Date()))
 
-	const options = {leading: true, trailing: true}
 	const handleUpdateToday = throttle(
 		() => setToday(toDateString(new Date())),
 		1000,
-		options
+		{ leading: true, trailing: true }
 	)
 	
 	return (

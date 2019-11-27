@@ -1,21 +1,15 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-const events = require('./events.json')
 
 const EventContext = React.createContext()
 const { Provider, Consumer } = EventContext
 
 const EventProvider = (props) => {
 	const [state, updateState] = useState({
-		events,
+		events: [],
 		loading: false,
 		error: ''
 	})
-
-	axios.get('api/events')
-		.then(({data: events}) => {
-			updateState({events, loading: false, error: ''})
-		}).catch(console.log)
 
 	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
 
@@ -42,6 +36,17 @@ const EventProvider = (props) => {
 		const eventIsToday = event => isToday(event.start) || isToday(event.end) || todayInEvent(event)
 
 		return state.events.filter(eventIsToday)
+	}
+
+	const checkEvents = async () => {
+		try {
+			const events = (await axios.get('/api/events/')).data
+			console.log(events)
+			setState({ events })
+		} catch (error) {
+			console.log(error)
+			return false
+		}
 	}
 
 	const handleCreateEvent = async (event) => {
@@ -91,6 +96,7 @@ const EventProvider = (props) => {
 	return (
 		<Provider value={{
 			getEvent,
+			checkEvents,
 			filterTodaysEvents,
 			handleCreateEvent,
 			handleUpdateEvent,
