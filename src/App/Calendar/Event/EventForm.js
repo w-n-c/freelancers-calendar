@@ -65,40 +65,48 @@ const EventForm = (props) => {
 						/>
 					</div>
 					<div className="event-start">
-						<label htmlFor="start-date">Start Date</label>
-						<input
-							name="startDate"
-							type="text"
-							id="start-date"
-							onChange={handleChange}
-							value={state.startDate}
-						/>
-						<label htmlFor="start-time">Start Time</label>
-						<input
-							name="startTime"
-							type="text"
-							id="start-time"
-							onChange={handleChange}
-							value={state.startTime}
-						/>
+						<div className="event-date">
+							<label htmlFor="start-date">Start Date</label>
+							<input
+								name="startDate"
+								type="text"
+								id="start-date"
+								onChange={handleChange}
+								value={state.startDate}
+							/>
+						</div>
+						<div className="event-time">
+							<label htmlFor="start-time">Start Time</label>
+							<input
+								name="startTime"
+								type="text"
+								id="start-time"
+								onChange={handleChange}
+								value={state.startTime}
+							/>
+						</div>
 					</div>
 					<div className="event-end">
-						<label htmlFor="end-date">End Date</label>
-						<input
-							name="endDate"
-							type="text"
-							id="end-date"
-							onChange={handleChange}
-							value={state.endDate}
-						/>
-						<label htmlFor="end-time">End Time</label>
-						<input
-							name="endTime"
-							type="text"
-							id="end-time"
-							onChange={handleChange}
-							value={state.endTime}
-						/>
+						<div className="event-date">
+							<label htmlFor="end-date">End Date</label>
+							<input
+								name="endDate"
+								type="text"
+								id="end-date"
+								onChange={handleChange}
+								value={state.endDate}
+							/>
+						</div>
+						<div className="event-time">
+							<label htmlFor="end-time">End Time</label>
+							<input
+								name="endTime"
+								type="text"
+								id="end-time"
+								onChange={handleChange}
+								value={state.endTime}
+							/>
+						</div>
 					</div>
 					<div className="event-description">
 						<label htmlFor="description">Description</label>
@@ -107,8 +115,6 @@ const EventForm = (props) => {
 							id="description"
 							onChange={handleChange}
 							value={state.description}
-							rows="3"
-							cols="90"
 							spellCheck="true"
 						></textarea>
 					</div>

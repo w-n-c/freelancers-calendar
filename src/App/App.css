@@ -238,17 +238,44 @@ ul li ul li {
 	bottom: 0px;
 	right: 5px;
 	background: white;
+	display: flex;
+	flex-direction: row;
+}
+.event-menu form {
+	width: 100%;
 }
 
 .event-menu form > * {
 	margin: 10px 5px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
 }
+.event-menu form > div {
+	width: 100%;
+}
+
 .event-menu form div > * {
+	margin-top: 10px;
 	margin-right: 10px;
+}
+.event-time, .event-date {
+	display: flex;
+	align-items: center;
+}
+
+#start-date, #end-date {
+	width: 80px;
+}
+
+#start-time, #end-time {
+	width: 40px;
 }
 
 .event-menu textarea {
+	width: 100%;
 	resize: none;
+	height: 80px;
 }
 
 .event-menu button {
