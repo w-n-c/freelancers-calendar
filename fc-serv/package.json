@@ -1,20 +1,23 @@
 {
-  "name": "fc-serv",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "scripts": {
-    "start": "node index.js",
-		"dev": "nodemon index.js"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "express-session": "^1.17.0",
-    "mongoose": "^5.7.7",
-    "passport": "^0.4.0",
-    "passport-google-oauth20": "2"
-  },
-  "devDependencies": {
-    "nodemon": "^1.19.4"
-  }
+	"name": "fc-serv",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "node index.js",
+		"dev": "nodemon index.js",
+		"prod": "pm2 start --name freelancers-calendar ecosystem.config.js"
+	},
+	"dependencies": {
+		"connect-mongo": "^3.2.0",
+		"env-cmd": "^10.0.1",
+		"express": "^4.17.1",
+		"express-session": "^1.17.0",
+		"mongoose": "^5.7.7",
+		"passport": "^0.4.0",
+		"passport-google-oauth20": "2"
+	},
+	"devDependencies": {
+		"nodemon": "^1.19.4"
+	}
 }
