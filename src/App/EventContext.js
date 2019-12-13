@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { isEqual } from 'lodash'
 import axios from 'axios'
 
 const EventContext = React.createContext()
@@ -33,7 +34,8 @@ const EventProvider = (props) => {
 		const isToday = isInDay(today)
 		const todayInEvent = isInEvent(today)
 
-		const eventIsToday = event => isToday(event.start) || isToday(event.end) || todayInEvent(event)
+		const eventIsToday = event =>
+            isToday(event.start) || isToday(event.end) || todayInEvent(event)
 
 		return state.events.filter(eventIsToday)
 	}
@@ -41,8 +43,9 @@ const EventProvider = (props) => {
 	const checkEvents = async () => {
 		try {
 			const events = (await axios.get('/api/events/')).data
-			console.log(events)
-			setState({ events })
+            if (!isEqual(events, state.events)) {
+                setState({ events })
+            }
 		} catch (error) {
 			console.log(error)
 			return false

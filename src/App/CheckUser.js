@@ -4,10 +4,8 @@ import EventContext from './EventContext'
 
 export default ({navigate}) => {
 	const {getUser} = useContext(UserContext)
-	const {checkEvents} = useContext(EventContext)
 	useEffect(() => {
 		getUser()
-		checkEvents()
 		navigate('/')
 	})
 
