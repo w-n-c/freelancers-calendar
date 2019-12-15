@@ -18,6 +18,7 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
+		"analyze":"source-map-explorer build/static/js/*.js",
 		"server": "cd fc-serv && yarn run dev",
 		"dev": "concurrently \"yarn run server\" \"yarn run start\""
 	},
@@ -31,7 +32,8 @@
 		"concurrently": "^5.0.0",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.15.1",
-		"enzyme-to-json": "^3.4.2"
+		"enzyme-to-json": "^3.4.2",
+		"source-map-explorer": "^2.1.2"
 	},
 	"proxy": "http://localhost:5000",
 	"eslintConfig": {
