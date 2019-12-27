@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import FormInput from './FormInput'
 
 const EventForm = (props) => {
 	const [state, updateState] = useState({
@@ -52,61 +53,40 @@ const EventForm = (props) => {
 		return (
 			<section className="event-menu">
 				<form onSubmit={handleSubmit}>
-					<legend>Input Event Information</legend>
-					<div className="event-title">
-						<label htmlFor="event-title">Event Title</label>
-						<input
-							autoFocus={true}
-							name="eventTitle"
-							type="text"
-							id="event-title"
-							onChange={handleChange}
-							value={state.eventTitle}
+					<legend>Event Information</legend>
+					<FormInput
+						autoFocus={true}
+						label="Event Title"
+						value={state.eventTitle}
+						handler={handleChange}
+					/>
+					<div className="event-start">
+						<FormInput
+							label="Start Date"
+							wrapper="event-date"
+							value={state.startDate}
+							handler={handleChange}
+						/>
+						<FormInput
+							label="Start Time"
+							wrapperClass="event-time"
+							value={state.startTime}
+							handler={handleChange}
 						/>
 					</div>
-					<div className="event-start">
-						<div className="event-date">
-							<label htmlFor="start-date">Start Date</label>
-							<input
-								name="startDate"
-								type="text"
-								id="start-date"
-								onChange={handleChange}
-								value={state.startDate}
-							/>
-						</div>
-						<div className="event-time">
-							<label htmlFor="start-time">Start Time</label>
-							<input
-								name="startTime"
-								type="text"
-								id="start-time"
-								onChange={handleChange}
-								value={state.startTime}
-							/>
-						</div>
-					</div>
 					<div className="event-end">
-						<div className="event-date">
-							<label htmlFor="end-date">End Date</label>
-							<input
-								name="endDate"
-								type="text"
-								id="end-date"
-								onChange={handleChange}
-								value={state.endDate}
-							/>
-						</div>
-						<div className="event-time">
-							<label htmlFor="end-time">End Time</label>
-							<input
-								name="endTime"
-								type="text"
-								id="end-time"
-								onChange={handleChange}
-								value={state.endTime}
-							/>
-						</div>
+						<FormInput
+							label="End Date"
+							wrapper="event-date"
+							value={state.endDate}
+							handler={handleChange}
+						/>
+						<FormInput
+							label="End Time"
+							wrapperClass="event-time"
+							value={state.endTime}
+							handler={handleChange}
+						/>
 					</div>
 					<div className="event-description">
 						<label htmlFor="description">Description</label>
