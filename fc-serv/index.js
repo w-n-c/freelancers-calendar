@@ -1,6 +1,9 @@
+const http = require('http')
+const path = require('path')
 const mongoose = require('mongoose')
 const express = require('express')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
 const passport = require('passport')
 const keys = require('./config/keys')
 
@@ -22,7 +25,8 @@ app.use(
 		secret: [keys.cookieSecret],
 		maxAge: 14 * 24 * 60 * 60 * 1000,
 		resave: false,
-		saveUninitialized: false
+		saveUninitialized: false,
+        store: new MongoStore({ mongooseConnection: mongoose.connection })
 	})
 )
 
@@ -32,4 +36,12 @@ require('./routes/authRoutes')(app)
 require('./routes/eventRoutes')(app)
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT)
+
+app.use(express.static('../build'))
+app.get('*', (req, res) => {
+	res.sendFile(path.resolve(
+		__dirname, '..', 'build', 'index.html'
+	))
+})
+
+http.createServer(app).listen(3000)
