@@ -7,4 +7,10 @@ describe('nextHour', () => {
 		result.setHours(result.getHours() + 1)
 		expect(nextHour(test)).toEqual(result)
 	})
+	it('does not modify the original date', () => {
+		const seed = new Date()
+		const test = new Date(seed)
+		nextHour(test)
+		expect(test).toEqual(seed)
+	})
 })
