@@ -1,8 +1,10 @@
+import * as ReactAll from 'react'
 import React from 'react'
 import { Header } from '../Header'
 import { toDateString } from '../../utils'
 
 describe('<Header />', () => {
+	// location.search and '*' are provided by routing library
 	const monthlyProps = {
 		view: 'monthly',
 		today: toDateString(new Date('2018/1/14')),
@@ -25,8 +27,14 @@ describe('<Header />', () => {
 		month: '10',
 		date: '16'
 	}
+
+
+	// Shallow render does not work with useContext so mock the functionality
+	jest.spyOn(ReactAll, 'useContext').mockImplementation(() => ({
+		userLink: jest.fn(() => <a href="/auth/google">Login</a>)
+	}))
+
 	it('renders when given the correct props', () => {
-		// location.search and '*' are provided by routing library
 		const wrapper = shallow(<Header {...monthlyProps} />)
 		expect(wrapper.html()).toBeDefined()
 	})
