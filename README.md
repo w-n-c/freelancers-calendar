@@ -8,10 +8,10 @@ Necessary software for development:
  - [Node.js](https://github.com/nodejs/node)
  - [Yarn](https://github.com/yarnpkg/yarn) (optional but highly recommended)
 
-Then use yarn to install packages in root folder and in fc-serv/
+Then use yarn to install packages in root folder and in serv/
 
 ```console
-yarn install && cd fc-serv && yarn install && cd ..
+yarn install && cd serv && yarn install && cd ..
 ```
 
 Currently login and event CRUD operations require the following:
@@ -21,7 +21,7 @@ Launch a local server or use a free online server at https://www.mongodb.com/clo
 
 See [DEPLOYMENT.md](DEPLOYMENT.mf) for details on account setup.
 
-Add the keys to fc-serv/config/dev.js ([example](fc-serv/config/dev.example.js))
+Add the keys to serv/config/dev.js ([example](serv/config/dev.example.js))
 
 ## Available Scripts
 
@@ -55,6 +55,6 @@ See [source-map-explorer](https://github.com/danvk/source-map-explorer) for more
 ### `yarn deploy`
 
 Builds the app for production to the `build` folder and launches the back end server with [PM2](https://github.com/Unitech/pm2).<br>
-See [DEPLOYMENT.md](DEPLOYMENT.md) and fc-serv/package.json for required installs
+See [DEPLOYMENT.md](DEPLOYMENT.md) and serv/package.json for required installs
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
