@@ -3,7 +3,8 @@ import { Link } from '@reach/router'
 import { pick } from 'lodash/fp'
 import UserContext from '../UserContext'
 import { url, incRoute, decRoute, getMonthName } from './utils'
-
+import leftChevron from '../../assets/images/left-chevron.svg'
+import rightChevron from '../../assets/images/right-chevron.svg'
 
 export const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 export const viewToNoun = (s) => s.charAt(0).toUpperCase() + s.slice(1,-2);
@@ -64,10 +65,14 @@ export const Header = (props) => {
 						<Link title="Return to Today" to={todayUrl}>Today</Link>
 					</li>
 					<li>
-						<Link title={`Previous ${title.noun}`} to={previousUrl}>&lt;</Link>
+						<Link title={`Previous ${title.noun}`} to={previousUrl}>
+							<img height="15px" alt="" src={leftChevron} />
+						</Link>
 					</li>
 					<li>
-						<Link title={`Next ${title.noun}`} to={nextUrl}>&gt;</Link>
+						<Link title={`Next ${title.noun}`} to={nextUrl}>
+							<img height="15px" alt="" src={rightChevron} />
+						</Link>
 					</li>
 					<li>
 						<button aria-haspopup="true">View</button>

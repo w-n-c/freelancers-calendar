@@ -5,6 +5,10 @@ h1, h2, h3, h4, p {
 	margin: 5px;
 }
 
+object {
+	color: black;
+}
+
 h1 {
 	font-size: 1.3rem;
 }
@@ -159,21 +163,34 @@ section article:first-child {
 
 /*** Display Settings: Header ***/
 
-nav li {
-	padding: 8px;
+.site-header button, .site-header a {
+	text-decoration: none;
+	outline: none;
 }
 
-/* should look the same as the header links */
-.site-header button {
-	color: blue;
+.site-header li, .site-header button{
+	font-weight: 500;
+	font-size: 1.15rem;
+}
+
+.site-header button,
+.site-header a:visited,
+.site-header a:link {
 	font-size: inherit;
+	color: inherit;
 }
 
-li:hover {
+.site-header li:hover,
+.site-header li:focus-within {
+	transition: all 0.1s ease;
+	background-color: lightgray;
+	color: inherit;
+}
+
+li:hover,
+.site-header li:focus-within {
 	cursor: pointer;
 }
-
-/*** Layout: Header ***/
 
 .site-header {
 	display: flex;
@@ -186,44 +203,41 @@ nav > ul {
 	align-items: baseline;
 }
 
-/* centers Month/Year between the change week/month links */
+/* centers Month/Year string between the change week/month links */
 nav li:nth-child(-n+3) {
 	order: -1;
 }
 
 .site-header li {
 	display: block;
+	box-sizing: border-box;
+	transition-duration: 0.2s;
+	background: #fff;
 	float: left;
+	padding: 1rem;
 	position: relative;
-	text-decoration: none;
-	transition-duration: 0.5s;
 }
 
-.dropdown {
+.site-header ul li ul {
 	visibility: hidden;
-	z-index: 4;
-}
-
-ul li ul {
-	min-width: 5rem;
-	position: absolute;
 	opacity: 0;
-	transition: all 0.5s ease;
+	position: absolute;
+	transition: all 0.2s ease;
+	margin-top: 1rem;
 	left: 0;
 	display: none;
 }
 
-ul li:hover > ul,
-ul li:focus-within > ul {
+.site-header ul li:hover > ul,
+.site-header ul li:focus-within > ul,
+.site-header ul li ul:hover {
 	visibility: visible;
 	opacity: 1;
 	display: block;
+	border: 0.5px solid lightgray;
 }
 
-ul li ul li {
-	background: white;
-	outline: 1px solid lightgrey;
-	box-sizing: border-box;
+.site-header ul li ul li {
 	clear: both;
 	width: 100%;
 }
@@ -270,6 +284,11 @@ ul li ul li {
 
 #start-time, #end-time {
 	width: 40px;
+}
+
+legend {
+	font-size: 1.15em;
+	font-weight: bold;
 }
 
 .event-menu textarea {
