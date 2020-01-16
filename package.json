@@ -38,6 +38,11 @@
 		"source-map-explorer": "^2.1.2"
 	},
 	"proxy": "http://localhost:5000",
+	"jest": {
+		"collectCoverageFrom": [
+			"src/App/**/*.{js,jsx,tx,tsx}"
+		]
+	},
 	"eslintConfig": {
 		"extends": [
 			"react-app"
