@@ -19,7 +19,7 @@ Currently login and event CRUD operations require the following:
 - MongoDB URI <br>
 Launch a local server or use a free online server at https://www.mongodb.com/cloud/atlas
 
-See [DEPLOYMENT.md](DEPLOYMENT.mf) for details on account setup.
+See [DEPLOYMENT.md](DEPLOYMENT.md) for details on account setup.
 
 Add the keys to serv/config/dev.js ([example](serv/config/dev.example.js))
 
