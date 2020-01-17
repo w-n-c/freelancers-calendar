@@ -16,10 +16,11 @@ export const Calendar = ({handleUpdateToday}) => {
 
 	const { getUser } = useContext(UserContext)
 	const { checkEvents } = useContext(EventContext)
-    useEffect(() => {
-        getUser()
-        checkEvents()
-    })
+
+	useEffect(() => {
+			getUser()
+			checkEvents()
+	})
 
 	return [
 		<main key="1" onMouseMove={handleMouseMove} role="grid">

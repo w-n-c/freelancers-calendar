@@ -1,7 +1,7 @@
 import * as ReactAll from 'react'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {Calendar} from '../Calendar'
+import { Calendar } from '../Calendar'
 
 describe('<Calendar />', () => {
 	// Shallow render does not work with useContext so mock the functionality

@@ -1,5 +1,6 @@
 import { nextHour } from '../../utils'
 
+// Return the day of the month for each of the 7 days in the week of the given date
 export const getWeek = ({year, month, date}) => {
 	// set date to the Sunday (first day) of given week
 	const day = new Date(`${year}/${month}/${date}`)
