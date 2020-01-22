@@ -12,13 +12,13 @@ const sharedStyle = {
 	zIndex: 1,
 }
 
-const getTop = (start) =>
+export const getTop = (start) =>
 	`calc(${1 - offset(new Date(start))} * 100% - 2px)`
 
-const getBottom = (end) =>
+export const getBottom = (end) =>
 	`calc(${offset(new Date(end))} * 100% + 2px)`
 
-const offset = (start) =>
+export const offset = (start) =>
 	(60 - start.getMinutes()) / 60
 
 export default ({events, now, navLink}) =>
