@@ -40,7 +40,8 @@
 	"proxy": "http://localhost:5000",
 	"jest": {
 		"collectCoverageFrom": [
-			"src/App/**/*.{js,jsx,tx,tsx}"
+			"src/App/**/*.{js,jsx,tx,tsx}",
+			"!src/App/**/*Context.{js,jsx,tx,tsx}"
 		]
 	},
 	"eslintConfig": {
