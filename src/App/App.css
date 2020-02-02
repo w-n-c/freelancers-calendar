@@ -216,6 +216,7 @@ nav li:nth-child(-n+3) {
 	float: left;
 	padding: 1rem;
 	position: relative;
+	z-index: 10;
 }
 
 .site-header ul li ul {
@@ -234,11 +235,10 @@ nav li:nth-child(-n+3) {
 	visibility: visible;
 	opacity: 1;
 	display: block;
-	border: 0.5px solid lightgray;
-	z-index: 10;
 }
 
 .site-header ul li ul li {
+	outline: 1px solid lightgray;
 	clear: both;
 	width: 100%;
 }
