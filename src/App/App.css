@@ -246,7 +246,8 @@ nav li:nth-child(-n+3) {
 /*** Layout: Event Form ***/
 
 .event-menu {
-	z-index: 3;
+	max-height: 100vh;
+	z-index: 20;
 	border: 1px solid lightgrey;
 	box-shadow: 1px 1px 3px 3px lightgrey;
 	position: fixed;
@@ -255,6 +256,8 @@ nav li:nth-child(-n+3) {
 	background: white;
 	display: flex;
 	flex-direction: row;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 .event-menu form {
 	width: 100%;
@@ -315,4 +318,22 @@ legend {
 
 .event-description label {
 	display: block;
+}
+
+.error-text {
+	color: hsl(360, 100%, 43%);
+}
+
+.error {
+	width: 100%;
+}
+
+.error > * {
+	display: block;
+	width: 100%;
+}
+
+.error input {
+	border: 2px solid hsl(360, 100%, 43%);
+	border-radius: 5px;
 }
