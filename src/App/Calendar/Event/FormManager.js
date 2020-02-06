@@ -1,7 +1,29 @@
 import React, { useContext, useState, useEffect } from 'react'
 import EventForm from './EventForm'
 import EventContext from '../../EventContext'
-import { isoDateToCalStrings } from '../utils'
+import { isoDateToCalStrings, padIfLenOne } from '../utils'
+
+const toHyphenated = (date) => date.split('/').map(padIfLenOne).join('-')
+const toSlash = (date) => date.split('-').map(padIfLenOne).join('/')
+
+const parseDateInput = (inputDate, inputTime) => {
+	const date = new Date(inputDate)
+	const time = inputTime.split(':')
+	date.setHours(time[0])
+	date.setMinutes(time[1])
+	return date.toISOString()
+}
+
+const eventFromFormState = (state) => {
+	const { id, title, description, startDate, startTime, endDate, endTime } = state
+	return {
+		id,
+		title,
+		description,
+		start: parseDateInput(toSlash(startDate), startTime),
+		end: parseDateInput(toSlash(endDate), endTime),
+	}
+}
 
 export default ({event, onClose}) => {
 	const { handleCreateEvent, handleUpdateEvent, handleDeleteEvent } = useContext(EventContext)
@@ -9,7 +31,8 @@ export default ({event, onClose}) => {
 
 	useEffect(() => () => {if (shouldDelete) handleDeleteEvent(event.id)})
 
-	const handleSubmit = (event) => {
+	const handleSubmit = (formState) => {
+		const event = eventFromFormState(formState)
 		const success = event.id ? handleUpdateEvent(event) : handleCreateEvent(event)
 		// Need to create an error handling system
 		// placeholders as reminder
@@ -30,10 +53,10 @@ export default ({event, onClose}) => {
 
 	const formState = {
 		eventId: event.id,
-		eventTitle: event.title,
-		startDate,
+		title: event.title,
+		startDate: toHyphenated(startDate),
 		startTime,
-		endDate,
+		endDate: toHyphenated(endDate),
 		endTime,
 		description: event.description,
 		handleSubmit,
