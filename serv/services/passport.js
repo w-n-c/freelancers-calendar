@@ -19,7 +19,7 @@ passport.use(new GoogleStrategy(
 	{
 		clientID: keys.googleClientId,
 		clientSecret: keys.googleClientSecret,
-		callbackURL: 'https://w-n-c.dev/auth/google/callback',
+		callbackURL: 'http://localhost:3000/auth/google/callback',
 		scope: 'profile',
 		proxy: true
 	},
