@@ -19,9 +19,10 @@ const EventForm = (props) => {
 		return (
 			<section className="event-menu">
 				<form onSubmit={handleSubmit(onSubmit)}>
-					<legend>Event Information</legend>
-					<label>Event Title
+					<legend className="aria-only">Event Information</legend>
+					<label><span className="aria-only">Event Title</span>
 						<input
+							placeholder="Event Title"
 							defaultValue={props.title}
 							name="title"
 							type="text"
@@ -29,8 +30,9 @@ const EventForm = (props) => {
 							autoFocus={true}
 						/>
 					</label>
-					<div className="event-start">
-						<label className="event-date">Start Date
+					<fieldset className="event-start">
+						<legend>Start</legend>
+						<label className="event-date"><span className="aria-only">Start Date</span>
 							<input
 								defaultValue={props.startDate}
 								type="date"
@@ -38,7 +40,7 @@ const EventForm = (props) => {
 								ref={register({ required: true })}
 							/>
 						</label>
-						<label className="event-time">Start Time
+						<label className="event-time"><span className="aria-only">Start Time</span>
 							<input
 								defaultValue={props.startTime}
 								type="time"
@@ -46,9 +48,10 @@ const EventForm = (props) => {
 								ref={register({ required: true })}
 							/>
 						</label>
-					</div>
-					<div className="event-end">
-						<label className="end-date">End Date
+					</fieldset>
+					<fieldset className="event-end">
+						<legend>End</legend>
+						<label className="end-date"><span className="aria-only">End Date</span>
 							<input
 								defaultValue={props.endDate}
 								type="date"
@@ -56,7 +59,7 @@ const EventForm = (props) => {
 								ref={register({ required: true })}
 							/>
 						</label>
-						<label className="end-time">End Time
+						<label className="end-time"><span className="aria-only">End Time</span>
 							<input
 								defaultValue={props.endTime}
 								type="time"
@@ -64,10 +67,11 @@ const EventForm = (props) => {
 								ref={register({ required: true })}
 							/>
 						</label>
-					</div>
+					</fieldset>
 					<div className="event-description">
-						<label>Description
+						<label><span className="aria-only">Description</span>
 							<textarea
+								placeholder="Description..."
 								defaultValue={props.description}
 								name="description"
 								spellCheck="true"

@@ -17,15 +17,16 @@ h2 {
 	font-size: 1.1rem;
 }
 
-h3, h4, p {
-	font-size: .9rem;
+h3, h4, p, input, label {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 1em;
 }
 
 h3 {
 	text-align: center;
 }
 
-button {
+button, input[type="submit"] {
 	box-sizing: border-box;
 	border: 0px;
 	background: inherit;
@@ -47,7 +48,7 @@ li {
 }
 
 
-.aria-only {
+.aria-only, footer {
 	clip: rect(1px,1px,1px,1px);
 	height: 1px;
 	width: 1px;
@@ -245,54 +246,36 @@ nav li:nth-child(-n+3) {
 
 /*** Layout: Event Form ***/
 
+.event-menu::-webkit-scrollbar { width: 0 !important; }
 .event-menu {
 	max-height: 100vh;
+	max-width: 100vw;
 	z-index: 20;
+	padding: 1%;
 	border: 1px solid lightgrey;
+	border-radius: 4px;
 	box-shadow: 1px 1px 3px 3px lightgrey;
 	position: fixed;
-	bottom: 0px;
-	right: 5px;
+	bottom: 0;
+	right: 1.1vw;
 	background: white;
 	display: flex;
 	flex-direction: row;
 	overflow-y: scroll;
 	overflow-x: hidden;
-}
-.event-menu form {
-	width: 100%;
+	scrollbar-width: none;
 }
 
 .event-menu form > * {
-	margin: 10px 5px;
+	margin: .75em .25em;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
 }
-.event-menu form > div {
-	width: 100%;
-}
 
-.event-menu form div > * {
-	margin-top: 10px;
-	margin-right: 10px;
-}
 .event-time, .event-date {
 	display: flex;
 	align-items: center;
-}
-
-#start-date, #end-date {
-	width: 80px;
-}
-
-#start-time, #end-time {
-	width: 40px;
-}
-
-legend {
-	font-size: 1.15em;
-	font-weight: bold;
 }
 
 .event-menu textarea {
@@ -301,39 +284,23 @@ legend {
 	height: 80px;
 }
 
-.event-menu button {
+.event-menu input[type="submit"] {
 	font-size: 1.5rem;
 	font-weight: bold;
-}
-
-.event-menu form button {
 	float: right;
+	margin: 0 .75em;
+	padding: 0;
 }
 
 .close {
-	display: inline-grid;
-	position: absolute;
-	right: 0px;
+	align-self: start;
+	padding: 0;
+	margin: 0;
+	font-size: 1.8em;
+	font-weight: 600;
+	position: relative;
 }
 
 .event-description label {
-	display: block;
-}
-
-.error-text {
-	color: hsl(360, 100%, 43%);
-}
-
-.error {
 	width: 100%;
-}
-
-.error > * {
-	display: block;
-	width: 100%;
-}
-
-.error input {
-	border: 2px solid hsl(360, 100%, 43%);
-	border-radius: 5px;
 }
