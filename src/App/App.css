@@ -304,3 +304,8 @@ nav li:nth-child(-n+3) {
 .event-description label {
 	width: 100%;
 }
+
+.error {
+	flex: 0 0 100%;
+	color: red;
+}

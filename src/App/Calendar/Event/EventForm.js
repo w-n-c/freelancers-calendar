@@ -10,8 +10,8 @@ const EventSchema = yup.object({
 	title: yup.string().required('title is required').max(200, 'Title cannot exceed ${max} characters in length'),
 	startDate: yup.date().required(),
 	endDate: yup.date().required(),
-	startTime: yup.string().matches(timeRegex),
-	endTime: yup.string().matches(timeRegex),
+	startTime: yup.string().matches(timeRegex, 'must be a valid time'),
+	endTime: yup.string().matches(timeRegex, 'must be a valid time'),
 	description: yup.string().notRequired().max(1000, 'Description cannot exceed ${max} characters in length'),
 }).test(
 	'eventHasLength',
@@ -26,7 +26,7 @@ const EventSchema = yup.object({
 )
 
 const EventForm = (props) => {
-	const { register, handleSubmit, getValues } = useForm({ validationSchema: EventSchema })
+	const { register, handleSubmit, getValues, errors } = useForm({ validationSchema: EventSchema })
 
 	const handleDelete = (e) => {
 		e.preventDefault()
@@ -52,6 +52,7 @@ const EventForm = (props) => {
 						ref={register()}
 						autoFocus={true}
 					/>
+				{errors.title && <span className="error">{errors.title.message}</span>}
 				</label>
 				<fieldset className="event-start">
 					<legend>Start</legend>
@@ -71,6 +72,8 @@ const EventForm = (props) => {
 							ref={register()}
 						/>
 					</label>
+					{errors.startDate && <span className="error">must have a valid date</span>}
+					{errors.startTime && <span className="error">{errors.startTime.message}</span>}
 				</fieldset>
 				<fieldset className="event-end">
 					<legend>End</legend>
@@ -90,7 +93,12 @@ const EventForm = (props) => {
 							ref={register()}
 						/>
 					</label>
+					{errors.endDate && <span className="error">must have a valid date</span>}
+					{errors.endTime && <span className="error">{errors.endTime.message}</span>}
 				</fieldset>
+				<div className="error">
+					{errors.undefined && <span>{errors.undefined.message}</span>}
+				</div>
 				<div className="event-description">
 					<label><span className="aria-only">Description</span>
 						<textarea
@@ -100,6 +108,7 @@ const EventForm = (props) => {
 							spellCheck="true"
 							ref={register()}
 						></textarea>
+						{errors.description && <span className="error">{errors.description.message}</span>}
 					</label>
 				</div>
 				<input type="submit" value="Save" />
