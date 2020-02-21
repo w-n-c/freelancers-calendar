@@ -26,7 +26,7 @@ export const App = () => {
 					<Redirect noThrow from="/" to={`calendar/monthly/${today}`} />
 					<Header path="calendar/:view/:year/:month/:date/*" today={today} />
 				</Router>
-				<Calendar path="calendar/*" handleUpdateToday={handleUpdateToday} />
+				<Calendar path="calendar/*" handleUpdateToday={handleUpdateToday} today={today} />
 			</EventProvider>
 		</UserProvider>
 	)

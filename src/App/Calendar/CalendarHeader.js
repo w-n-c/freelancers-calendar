@@ -2,6 +2,7 @@ import React from 'react'
 import { pick } from 'lodash/fp'
 import SectionHeader from './SectionHeader'
 import { getWeek } from './Weekly/utils'
+import { isToday } from './utils'
 
 // TODO: toggle between weekday abbreviations and full name base on window width
 export const weekdayAbbr = ['Su','Mo','Tu','We','Th','Fr','Sa']
@@ -15,10 +16,16 @@ const CalendarHeader = (props) => {
 			{week ? <span key="rowheader padding"></span> : null }
 			<header role="row">
 				{weekdayNames.map((name, i) =>
-					<SectionHeader role="columnheader" ariaHeader={name} key={i}>
-						{weekdayAbbr[i]}
-						<br />
-						{week ? week[i].date : '' }
+					<SectionHeader
+						role="columnheader"
+						ariaHeader={name}
+						key={i}
+					>
+						<div id={week ? isToday(week[i], props.today).today : undefined}>
+							{weekdayAbbr[i]}
+							<br />
+							{week ? week[i].date : '' }
+						</div>
 					</SectionHeader>
 				)}
 			</header>

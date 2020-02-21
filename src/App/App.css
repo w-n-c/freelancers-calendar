@@ -2,6 +2,24 @@
 /* index.css contains actual font family, will move here when I
  * change from default */
 
+#today {
+	background: rgba(0, 160, 0, .7);
+	color: white;
+	border-radius: 50%;
+}
+
+header #today {
+	display: inline-block;
+	height: 2.6rem;
+	width: 2.6rem;
+}
+
+.monthly #today {
+	height: 1.6rem;
+	width: 1.6rem;
+	flex-shrink: 0;
+}
+
 h1, h2, h3, h4, p {
 	margin: 5px;
 	text-align: center;
@@ -70,6 +88,10 @@ html, body, #root, main, .monthly, .weekly {
 	height: 100%;
 }
 
+body {
+	overflow: hidden;
+}
+
 #root, main, .monthly {
 	display: flex;
 	flex-flow: column;
@@ -81,7 +103,7 @@ main, .calendar, .monthly, .monthly section {
 }
 
 .weekly {
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 section {
@@ -107,12 +129,13 @@ main header {
 .header-group span:first-child {
 	/* defined by row header width in calendar
 	 * need to make dynamic eventually */
-	width: 46px;
+	width: 42px;
+	margin: 5px
 }
 
 .header-group span:last-child {
 	/* defined by width of browser scrollbar */
-	width: 17px;
+	width: 13px;
 }
 
 .header-group > header {
@@ -121,9 +144,7 @@ main header {
 
 .header-group header h2 {
 	margin: 0;
-	flex-grow: 1;
-	text-align: center;
-	flex-basis: 0;
+	width: calc(100% / 7);
 }
 
 /*** Main Content: Monthly View ***/
@@ -132,6 +153,7 @@ main header {
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 .monthly article ul::-webkit-scrollbar { width: 0 !important; }
@@ -139,6 +161,7 @@ main header {
 	height: 100%;
 	overflow: scroll;
 	scrollbar-width: none;
+	width: 95%;
 }
 
 .weekly article {
@@ -293,11 +316,11 @@ nav li:nth-child(-n+3) {
 .event-menu > * {
 	background: white;
 	position: relative;
+	border-radius: 1rem;
 }
 
 .event-menu form {
 	padding: 20px;
-	border-radius: 4px;
 	display: flex;
 	flex-direction: column;
 	max-width: 350px;

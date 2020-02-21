@@ -7,7 +7,7 @@ import Monthly from './Monthly'
 import Weekly from './Weekly'
 import CalendarHeader from './CalendarHeader'
 
-export const Calendar = ({handleUpdateToday}) => {
+export const Calendar = ({ today, handleUpdateToday }) => {
 
 	const handleMouseMove = (e) => {
 		e.preventDefault()
@@ -25,11 +25,11 @@ export const Calendar = ({handleUpdateToday}) => {
 	return [
 		<main key="1" onMouseMove={handleMouseMove} role="grid">
 			<Router>
-				<CalendarHeader path="calendar/:route/:year/:month/:date/*" />
+				<CalendarHeader path="calendar/:route/:year/:month/:date/*" today={today} />
 			</Router>
 			<Router className="calendar">
-				<Monthly path="calendar/monthly/:year/:month/:date/*" />
-				<Weekly path="calendar/weekly/:year/:month/:date/*" />
+				<Monthly path="calendar/monthly/:year/:month/:date/*" today={today} />
+				<Weekly path="calendar/weekly/:year/:month/:date/*" today={today} />
 			</Router>
 		</main>,
 		<Router key="2">

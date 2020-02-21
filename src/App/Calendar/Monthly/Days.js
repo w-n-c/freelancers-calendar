@@ -9,10 +9,11 @@ const handleClick = (navLink, day) => {
 	return eventQuery(navLink)(day)
 }
 
-export default ({days, navLink}) =>
-	days.map((day, i) =>
+export default ({days, navLink}) => {
+	return days.map((day, i) =>
 		<article role="gridcell" key={i} onClick={(e) => handleClick.call(undefined, navLink, day)}>
-			<h4>{day.date}</h4>
+			<h4 id={day.today}>{day.date}</h4>
 			<EventList handleClick={navLink} events={day.events} />
 		</article>
 	)
+}
