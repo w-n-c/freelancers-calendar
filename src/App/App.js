@@ -17,7 +17,7 @@ export const App = () => {
 		1000,
 		{ leading: true, trailing: true }
 	)
-	
+
 	return (
 		<UserProvider>
 			<EventProvider>

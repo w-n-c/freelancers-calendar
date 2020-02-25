@@ -35,7 +35,7 @@ const EventProvider = (props) => {
 		const todayInEvent = isInEvent(today)
 
 		const eventIsToday = event =>
-            isToday(event.start) || isToday(event.end) || todayInEvent(event)
+			isToday(event.start) || isToday(event.end) || todayInEvent(event)
 
 		return state.events.filter(eventIsToday)
 	}
@@ -43,9 +43,9 @@ const EventProvider = (props) => {
 	const checkEvents = async () => {
 		try {
 			const events = (await axios.get('/api/events/')).data
-            if (!isEqual(events, state.events)) {
-                setState({ events })
-            }
+			if (!isEqual(events, state.events)) {
+				setState({ events })
+			}
 		} catch (error) {
 			console.log(error)
 			return false

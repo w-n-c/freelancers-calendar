@@ -49,14 +49,14 @@ const EventForm = (props) => {
 						version="1.1" xmlns="http://www.w3.org/2000/svg"
 					>
 						<line x1="1" y1="11" 
-									x2="11" y2="1" 
-									stroke="black" 
-									strokeWidth="2"/>
+							x2="11" y2="1" 
+							stroke="black" 
+							strokeWidth="2"/>
 						<line x1="1" y1="1" 
-									x2="11" y2="11" 
-									stroke="black" 
-									strokeWidth="2"/>
-						</svg></button>
+							x2="11" y2="11" 
+							stroke="black" 
+							strokeWidth="2"/>
+				</svg></button>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<legend className="aria-only">Event Information</legend>
 					<label className="event-title"><span className="aria-only">Event Title</span>
@@ -68,7 +68,7 @@ const EventForm = (props) => {
 							ref={register()}
 							autoFocus={true}
 						/>
-					{errors.title && <span className="error">{errors.title.message}</span>}
+						{errors.title && <span className="error">{errors.title.message}</span>}
 					</label>
 					<fieldset className="event-start">
 						<legend>Start</legend>

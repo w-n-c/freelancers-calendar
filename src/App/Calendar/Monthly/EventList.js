@@ -12,5 +12,5 @@ export default ({ events, handleClick }) =>
 			>
 				{event.title}
 			</li>
-		: '')}
-	</ul>
+			: '')}
+		</ul>

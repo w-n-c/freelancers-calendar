@@ -23,10 +23,10 @@ const UserProvider = (props) => {
 	}
 
 	const loginLink = <a href="/auth/google">Login</a>
-	const logoutLink = <a href="/api/logout">Logout</a>
-	const userLink = () => {
-		return state.loggedIn ? logoutLink : loginLink
-	}
+		const logoutLink = <a href="/api/logout">Logout</a>
+		const userLink = () => {
+			return state.loggedIn ? logoutLink : loginLink
+		}
 
 	return (
 		<Provider value={{

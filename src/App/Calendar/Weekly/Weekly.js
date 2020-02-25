@@ -23,7 +23,7 @@ export const Weekly = (props) => {
 						key={i}
 						events={events}
 						navLink={handleClick(props.navigate)}
-						/>
+					/>
 				})}
 			</section>
 		)}

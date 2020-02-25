@@ -18,8 +18,8 @@ export const Calendar = ({ today, handleUpdateToday }) => {
 	const { checkEvents } = useContext(EventContext)
 
 	useEffect(() => {
-			getUser()
-			checkEvents()
+		getUser()
+		checkEvents()
 	})
 
 	return [
