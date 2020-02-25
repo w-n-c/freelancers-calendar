@@ -4,7 +4,6 @@ import EventContext from '../../EventContext'
 import { isoDateToCalStrings, padIfLenOne } from '../utils'
 
 const toHyphenated = (date) => date.split('/').map(padIfLenOne).join('-')
-const toSlash = (date) => date.split('-').map(padIfLenOne).join('/')
 
 const parseDateInput = (inputDate, inputTime) => {
 	const date = new Date(inputDate)
@@ -20,8 +19,8 @@ const eventFromFormState = (state) => {
 		id,
 		title,
 		description,
-		start: parseDateInput(toSlash(startDate), startTime),
-		end: parseDateInput(toSlash(endDate), endTime),
+		start: parseDateInput(startDate, startTime),
+		end: parseDateInput(endDate, endTime),
 	}
 }
 
