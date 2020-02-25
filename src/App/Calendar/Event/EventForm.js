@@ -17,7 +17,7 @@ const EventSchema = yup.object({
 	description: yup.string().notRequired().max(1000, 'Description cannot exceed ${max} characters in length'),
 }).test(
 	'eventHasLength',
-	'event start should occur before event end',
+	'event must start before it ends, check your dates and times',
 	({startDate, startTime, endDate, endTime}) => {
 		const [sHour, sMin] = startTime.split(':')
 		const [eHour, eMin] = endTime.split(':')
