@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
-import { isEqual } from 'lodash'
+import React, { useState, useContext } from 'react'
 import axios from 'axios'
+import { omit } from 'lodash'
+import UserContext from './UserContext'
+import db from './db'
+import { isEqual } from 'lodash'
 
 const EventContext = React.createContext()
 const { Provider, Consumer } = EventContext
 
 const EventProvider = (props) => {
+	const { isLoggedIn } = useContext(UserContext)
 	const [state, updateState] = useState({
 		events: [],
 		loading: false,
@@ -14,7 +18,7 @@ const EventProvider = (props) => {
 
 	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
 
-	const getEvent = (id) => state.events.find(event => event.id === id)
+	const getEvent = (id) => state.events.find(event => event.id.toString() === id)
 
 	const filterTodaysEvents = ({year, month, date}) => {
 
@@ -41,8 +45,13 @@ const EventProvider = (props) => {
 	}
 
 	const checkEvents = async () => {
+		let events = []
 		try {
-			const events = (await axios.get('/api/events/')).data
+			if (isLoggedIn) {
+				events = (await axios.get('/api/events/')).data
+			} else {
+				await db.events.toArray(array => events = array)
+			}
 			if (!isEqual(events, state.events)) {
 				setState({ events })
 			}
@@ -52,60 +61,74 @@ const EventProvider = (props) => {
 		}
 	}
 
-	const handleCreateEvent = async (event) => {
-		try {
-			const savedEvent = (await axios.post('/api/events/new', event)).data
-			const events = [...state.events, savedEvent]
-			setState({ events })
-			return true
-		} catch (error) {
-			console.log(error)
-			return false
+const handleCreateEvent = async (event) => {
+	try {
+		if (isLoggedIn) {
+			event = (await axios.post('/api/events/new', event)).data
+		} else {
+			event.id = await db.events.add(omit(event, 'id'))
 		}
+		const events = [...state.events, event]
+		setState({ events })
+		return true
+	} catch (error) {
+		console.log(error)
+		return false
 	}
+}
 
-	const handleUpdateEvent = async (update) => {
-		try {
-			const isUpdated = (await axios.post(`/api/events/${update.id}`, update)).data
-
-			const events = [...state.events]
-			const eventIndex = events.findIndex(event => event.id === update.id)
-			events[eventIndex] = update
-			setState({ events })
-
-			return isUpdated
-		} catch (error) {
-			console.log(error)
-			return false
+const handleUpdateEvent = async (update) => {
+	let isUpdated = false
+	try {
+		if (isLoggedIn) {
+			isUpdated = (await axios.post(`/api/events/${update.id}`, update)).data
+		} else {
+			isUpdated = await db.events.update(update.id, omit(update, 'id'))
 		}
-	}
 
-	const handleDeleteEvent = async (deletionId) => {
-		try {
+		const events = [...state.events]
+		const eventIndex = events.findIndex(event => event.id === update.id)
+		events[eventIndex] = update
+		setState({ events })
+
+		return isUpdated
+	} catch (error) {
+		console.log(error)
+		return false
+	}
+}
+
+const handleDeleteEvent = async (deletionId) => {
+	try {
+		if (isLoggedIn) {
 			await axios.delete(`/api/events/${deletionId}`)
-			const events = [...state.events]
-			const eventIndex = events.findIndex(
-				event => event.id === deletionId
-			)
-			events.splice(eventIndex, 1)
-			setState({ events })
-			return true
-		} catch( error) {
-			console.log(error)
-			return false
+		} else {
+			await db.events.delete(deletionId)
 		}
-	}
 
-	return (
-		<Provider value={{
-			getEvent,
-			checkEvents,
-			filterTodaysEvents,
-			handleCreateEvent,
-			handleUpdateEvent,
-			handleDeleteEvent,
-		}}>{props.children}</Provider>
-	)
+		const events = [...state.events]
+		const eventIndex = events.findIndex(
+			event => event.id === deletionId
+		)
+		events.splice(eventIndex, 1)
+		setState({ events })
+		return true
+	} catch( error) {
+		console.log(error)
+		return false
+	}
+}
+
+return (
+	<Provider value={{
+		getEvent,
+		checkEvents,
+		filterTodaysEvents,
+		handleCreateEvent,
+		handleUpdateEvent,
+		handleDeleteEvent,
+	}}>{props.children}</Provider>
+)
 }
 
 

@@ -31,6 +31,7 @@ const UserProvider = (props) => {
 	return (
 		<Provider value={{
 			userLink,
+			isLoggedIn: state.loggedIn, 
 			getUser
 		}}>{props.children}</Provider>
 	)
