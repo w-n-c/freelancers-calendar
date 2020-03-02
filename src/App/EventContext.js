@@ -65,25 +65,31 @@ const EventProvider = (props) => {
 			}
 		} catch (error) {
 			console.log('Failed to sync events:\n', error.message || error)
-			console.log(error)
 			return false
 		}
 	}
 
-const handleCreateEvent = async (event) => {
+const handleCreateEvent = async (eventRequest) => {
+	let event, id = false
 	try {
+		id = await db.events.add(omit(eventRequest, 'id'))
 		if (isLoggedIn) {
-			event = (await axios.post('/api/events/new', event)).data
-			await db.events.add(event)
-		} else {
-			await db.events.add(omit(event, 'id'))
+			event = (await axios.post('/api/events/new', eventRequest)).data
+			await db.transaction('rw', db.events, async () => {
+				await db.events.delete(id)
+				await db.events.add(event)
+			})
 		}
-		const events = [...state.events, event]
-		setState({ events })
 		return true
 	} catch (error) {
 		console.log('Failed to create event:\n', error)
 		return false
+	} finally {
+		if (!event && id) {
+			event = Object.assign({}, eventRequest, { id })
+		}
+		const events = [...state.events, event]
+		setState({ events })
 	}
 }
 
