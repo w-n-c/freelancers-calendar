@@ -48,14 +48,23 @@ const EventProvider = (props) => {
 		let events = []
 		try {
 			if (isLoggedIn) {
+				const localEventsCtx = await db.events.filter((event) => typeof event.id === 'number')
+				const localEvents = await localEventsCtx.toArray()
+				if (localEvents.length) {
+					events = (await axios.post('/api/events/', localEvents)).data
+					await localEventsCtx.delete()
+				}
 				events = (await axios.get('/api/events/')).data
+				await db.events.bulkAdd(events)
 			} else {
-				await db.events.toArray(array => events = array)
+				await db.events.filter((event) => typeof event.id !== 'number').delete()
+				events = await db.events.toArray()
 			}
 			if (!isEqual(events, state.events)) {
 				setState({ events })
 			}
 		} catch (error) {
+			console.log('Failed to sync events:\n', error.message || error)
 			console.log(error)
 			return false
 		}
@@ -65,14 +74,15 @@ const handleCreateEvent = async (event) => {
 	try {
 		if (isLoggedIn) {
 			event = (await axios.post('/api/events/new', event)).data
+			await db.events.add(event)
 		} else {
-			event.id = await db.events.add(omit(event, 'id'))
+			await db.events.add(omit(event, 'id'))
 		}
 		const events = [...state.events, event]
 		setState({ events })
 		return true
 	} catch (error) {
-		console.log(error)
+		console.log('Failed to create event:\n', error)
 		return false
 	}
 }
@@ -82,9 +92,8 @@ const handleUpdateEvent = async (update) => {
 	try {
 		if (isLoggedIn) {
 			isUpdated = (await axios.post(`/api/events/${update.id}`, update)).data
-		} else {
-			isUpdated = await db.events.update(update.id, omit(update, 'id'))
 		}
+		await db.events.update(update.id, omit(update, 'id'))
 
 		const events = [...state.events]
 		const eventIndex = events.findIndex(event => event.id === update.id)
@@ -93,18 +102,18 @@ const handleUpdateEvent = async (update) => {
 
 		return isUpdated
 	} catch (error) {
-		console.log(error)
+		console.log('Failed to update event:\n', error)
 		return false
 	}
 }
 
 const handleDeleteEvent = async (deletionId) => {
+	if (!deletionId) return false
 	try {
 		if (isLoggedIn) {
 			await axios.delete(`/api/events/${deletionId}`)
-		} else {
-			await db.events.delete(deletionId)
 		}
+		await db.events.delete(deletionId)
 
 		const events = [...state.events]
 		const eventIndex = events.findIndex(
@@ -114,7 +123,7 @@ const handleDeleteEvent = async (deletionId) => {
 		setState({ events })
 		return true
 	} catch( error) {
-		console.log(error)
+		console.log('Failed to delete event:\n', error)
 		return false
 	}
 }
