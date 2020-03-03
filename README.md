@@ -1,9 +1,9 @@
 # Freelancer's Calendar
 ![all tests passing](https://img.shields.io/badge/tests-passing-brightgreen)
-![statement coverage: 87%](https://img.shields.io/badge/coverage%3A_statements-87-green)
-![branch coverage: 87%](https://img.shields.io/badge/coverage%3A_branches-81-green)
-![function coverage: 87%](https://img.shields.io/badge/coverage%3A_functions-83-green)
-![line coverage: 87%](https://img.shields.io/badge/coverage%3A_lines-87-green)
+![statement coverage: 90%](https://img.shields.io/badge/coverage%3A_statements-90-brightgreen)
+![branch coverage: 74%](https://img.shields.io/badge/coverage%3A_branches-74-yellowgreen)
+![function coverage: 86%](https://img.shields.io/badge/coverage%3A_functions-84-green)
+![line coverage: 90%](https://img.shields.io/badge/coverage%3A_lines-90-brightgreen)
 
 A calendar designed to be as flexible as your schedule.<br>
 See https://w-n-c.dev/ for a live deployment.

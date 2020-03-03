@@ -39,6 +39,7 @@
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.15.1",
 		"enzyme-to-json": "^3.4.2",
+		"mutationobserver-shim": "^0.3.3",
 		"source-map-explorer": "^2.1.2"
 	},
 	"proxy": "http://localhost:5000",
