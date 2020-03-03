@@ -1,38 +1,52 @@
-import React, { useState } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import axios from 'axios'
 
 const UserContext = React.createContext()
 const { Provider, Consumer } = UserContext
 
-const UserProvider = (props) => {
-	const [state, updateState] = useState({
-		loggedIn: false,
-		name: ''
-	})
+const getUser = async () => (await axios.get('/api/current_user')).data
 
-	const getUser = async () => {
-		try {
-			const { name } = (await axios.get('/api/current_user')).data
-			const loggedIn = name !== ''
-			if (name !== state.name) updateState({name, loggedIn})
+const reducer = (state, action) => {
+	switch (action.type) {
+		case 'login':
+			return {
+				loggedIn: true,
+				name: action.payload
+			}
+		default:
 			return state
-		} catch (error) {
-			console.log(error)
-			return state
-		}
 	}
+}
+
+const UserProvider = (props) => {
+	const [state, dispatch] = useReducer(reducer, {loggedIn: false, name: ''})
+	useEffect(() => {
+		(async function() {
+			try {
+				const { name } = await getUser()
+				if (name && name !== state.name) {
+					dispatch({ type: 'login', payload: name})
+				} else {
+					dispatch('')
+				}
+			} catch (err) {
+				console.log('cannot reach server')
+			}
+		})()
+	}, [state.name])
 
 	const loginLink = <a href="/auth/google">Login</a>
-		const logoutLink = <a href="/api/logout">Logout</a>
-		const userLink = () => {
-			return state.loggedIn ? logoutLink : loginLink
-		}
+	const logoutLink = (
+		<div onClick={() => dispatch('')}>
+			<a href="/api/logout">Logout</a>
+		</div>
+	)
+	const userLink = () => { return state.loggedIn ? logoutLink : loginLink }
 
 	return (
 		<Provider value={{
 			userLink,
 			isLoggedIn: state.loggedIn, 
-			getUser
 		}}>{props.children}</Provider>
 	)
 }

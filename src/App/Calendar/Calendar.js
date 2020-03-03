@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import { Router } from '@reach/router'
-import UserContext from '../UserContext'
 import EventContext from '../EventContext'
 import Event from './Event'
 import Monthly from './Monthly'
@@ -14,11 +13,9 @@ export const Calendar = ({ today, handleUpdateToday }) => {
 		handleUpdateToday()
 	}
 
-	const { getUser } = useContext(UserContext)
 	const { checkEvents } = useContext(EventContext)
 
 	useEffect(() => {
-		getUser()
 		checkEvents()
 	})
 
