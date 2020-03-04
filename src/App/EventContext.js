@@ -1,48 +1,21 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
+import useApi from './useApi'
+import eventApiFactory from './eventApiFactory'
 import axios from 'axios'
 import { omit } from 'lodash'
 import UserContext from './UserContext'
 import db from './db'
-import { isEqual } from 'lodash'
 
 const EventContext = React.createContext()
 const { Provider, Consumer } = EventContext
 
 const EventProvider = (props) => {
 	const { isLoggedIn } = useContext(UserContext)
-	const [state, updateState] = useState({
+	const eventState = useApi(eventApiFactory, {
 		events: [],
 		loading: false,
 		error: ''
 	})
-
-	const setState = (state) => updateState(oldState => ({...oldState, ...state}))
-
-	const getEvent = (id) => state.events.find(event => event.id.toString() === id)
-
-	const filterTodaysEvents = ({year, month, date}) => {
-
-		const isInDay = day => date => {
-			const dayStart = new Date(day)
-			const dayEnd = new Date(dayStart)
-			dayEnd.setHours(24)
-			const time = new Date(date)
-
-			return time >= dayStart && time < dayEnd
-		}
-
-		const isInEvent = day => event =>
-			(new Date(event.start) < day && day < new Date(event.end))
-
-		const today = new Date(`${year}/${month}/${date}`)
-		const isToday = isInDay(today)
-		const todayInEvent = isInEvent(today)
-
-		const eventIsToday = event =>
-			isToday(event.start) || isToday(event.end) || todayInEvent(event)
-
-		return state.events.filter(eventIsToday)
-	}
 
 	const checkEvents = async () => {
 		let events = []
@@ -60,9 +33,7 @@ const EventProvider = (props) => {
 				await db.events.filter((event) => typeof event.id !== 'number').delete()
 				events = await db.events.toArray()
 			}
-			if (!isEqual(events, state.events)) {
-				setState({ events })
-			}
+			eventState.setMany(events)
 		} catch (error) {
 			console.log('Failed to sync events:\n', error.message || error)
 			return false
@@ -88,8 +59,7 @@ const handleCreateEvent = async (eventRequest) => {
 		if (!event && id) {
 			event = Object.assign({}, eventRequest, { id })
 		}
-		const events = [...state.events, event]
-		setState({ events })
+		eventState.create(event)
 	}
 }
 
@@ -100,12 +70,7 @@ const handleUpdateEvent = async (update) => {
 			isUpdated = (await axios.post(`/api/events/${update.id}`, update)).data
 		}
 		await db.events.update(update.id, omit(update, 'id'))
-
-		const events = [...state.events]
-		const eventIndex = events.findIndex(event => event.id === update.id)
-		events[eventIndex] = update
-		setState({ events })
-
+		eventState.update(isUpdated)
 		return isUpdated
 	} catch (error) {
 		console.log('Failed to update event:\n', error)
@@ -120,13 +85,7 @@ const handleDeleteEvent = async (deletionId) => {
 			await axios.delete(`/api/events/${deletionId}`)
 		}
 		await db.events.delete(deletionId)
-
-		const events = [...state.events]
-		const eventIndex = events.findIndex(
-			event => event.id === deletionId
-		)
-		events.splice(eventIndex, 1)
-		setState({ events })
+		eventState.delete(deletionId)
 		return true
 	} catch( error) {
 		console.log('Failed to delete event:\n', error)
@@ -136,16 +95,15 @@ const handleDeleteEvent = async (deletionId) => {
 
 return (
 	<Provider value={{
-		getEvent,
+		getEvent: eventState.findById,
 		checkEvents,
-		filterTodaysEvents,
+		filterTodaysEvents: eventState.findInDay,
 		handleCreateEvent,
 		handleUpdateEvent,
 		handleDeleteEvent,
 	}}>{props.children}</Provider>
 )
 }
-
 
 export { EventProvider, Consumer as EventConsumer }
 export default EventContext
