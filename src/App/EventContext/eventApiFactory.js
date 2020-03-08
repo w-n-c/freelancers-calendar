@@ -57,7 +57,7 @@ export const eventApiFactory = ({ state, setState }) => {
 		setMany,
 		create,
 		update,
-		remove,
+		delete: remove,
 		findById,
 		findInDay
 	}
